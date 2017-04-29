@@ -1,5 +1,10 @@
 <?php
-echo "<link rel='stylesheet' href='css/teal.css'>
+echo "
+<title>APU/APIIT Schedule</title>
+<link rel='icon' href='images/favicon.png'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+<link rel='stylesheet' href='css/teal.css'>
 <link rel='stylesheet' href='css/styles.css'>
 <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <meta name='theme-color' content='#009688'>
@@ -23,7 +28,7 @@ echo "
 			</div>
 		  </header>
 	<div class='margintopmobile2 margintop2'>
-		<form action='02.php' method='post'>
+		<form action='test.php' method='post'>
 		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
 		  <input type='radio' id='option-1' class='mdl-radio__button' name='date' value='MON'>
 		  <span class='mdl-radio__label'>MONDAY</span>
@@ -66,10 +71,11 @@ $classroom=$_POST["classroom"];
 $date=$_POST["date"];
 $needles = array($date);
 $needles02 = array($classroom);
+$needles03 = array($time);
 $results = array();
 $columns = array();
 
-echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
+echo "<div><table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
 echo "<thead><tr><th>Week</th><th>Intake</th><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
 
 if(($handle = fopen('data/data.csv', 'r')) !== false) {
@@ -106,15 +112,16 @@ if(($handle = fopen('data/data.csv', 'r')) !== false) {
 					}
 				}
             }			
-            }   
+            } 
         }
     }
     fclose($handle);
 }
 
-echo "</tbody></table>";
+echo "</tbody></table></div>";
 
-array_unshift($results, $columns);
 
-echo '</div></body>';
+array_unshift($results, $columns );
+
+echo "</div></body>";
 ?>

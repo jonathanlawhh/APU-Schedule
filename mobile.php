@@ -17,19 +17,17 @@ echo "
 <body class='mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base'>
 	<div class='mdl-layout mdl-js-layout mdl-layout--fixed-header'>
 		<header class='mdl-layout__header mdl-layout__header--scroll mdl-color--primary'>
-			<div class='mdl-layout--large-screen-only mdl-layout__header-row margintop1'>
-			  <h3>APU/APIIT Classroom Schedule</h3>
-			</div>
 			<div class='margintopmobile2'>
-			  <h3>Syntax usage</h3>
+			  <h3>APU/APIIT Schedule</h3>
+			  <h4>Syntax Usage : </h4>
 			  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
 			  <span style='display:inline-block; width: 80px;'>Labs</span>: S-xx-xx</p>
-			  <p>If searching for all classes on that day	: -</p>
+			  <span style='display:inline-block; width: 80px;'>All classes</span>: - </p>
 			</div>
 		  </header>
-	<p id='weekof'></p>
+	<div class='mobiletable'>
 	<div class='margintopmobile2 margintop2'>
-		<form action='test.php' method='post'>
+		<form action='mobile.php' method='post'>
 		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
 		  <input type='radio' id='option-1' class='mdl-radio__button' name='date' value='MON'>
 		  <span class='mdl-radio__label'>MONDAY</span>
@@ -75,8 +73,8 @@ $needles02 = array($classroom);
 $needles03 = array($time);
 $results = array();
 $columns = array();
-echo "<div><table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
-echo "<thead><tr><th>Week</th><th>Intake</th><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
+echo "<thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th></tr></thead>";
 
 if(($handle = fopen('data/data.csv', 'r')) !== false) {
 	echo "<tbody>";
@@ -102,14 +100,10 @@ $test=array_search($columns[0], $data);
 					if(stripos($data[$classroom], $needle02) !== false) {
 						$results[] = $data;
 						echo "<tr>";
-						echo "<td>".$data[$weekof]."</td>";
-						echo "<td>".$data[$intake]."</td>";
 						echo "<td>".$data[$date]."</td>";
 						echo "<td>".$data[$time]."</td>";
 						echo "<td>".$data[$location]."</td>";
 						echo "<td>".$data[$classroom]."</td>";
-						echo "<td>".$data[$module]."</td>";
-						echo "<td>".$data[$lecterur]."</td>";
 						echo "</tr>";
 					}
 				}
@@ -119,9 +113,19 @@ $test=array_search($columns[0], $data);
     }
     fclose($handle);
 }
-echo "</tbody></table></div>";
+echo "</tbody></table><div class='topmargin'></div>";
 
 array_unshift($results, $columns );
 
-echo "</div></body>";
+echo "
+<footer class='mdl-mini-footer footertweaks'>
+  <div class='mdl-mini-footer__left-section'>
+    <div class='mdl-logo'>Quick Links :-</div>
+    <ul class='mdl-mini-footer__link-list'>
+      <li><a href='#'>Help</a></li>
+      <li><a href='http://apu-schedule.azurewebsites.net/test.php'>Desktop site</a></li>
+    </ul>
+  </div>
+</footer>
+</div>";
 ?>

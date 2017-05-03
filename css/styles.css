@@ -18,8 +18,14 @@
    .margintopmobile2{ 
    margin-top: 8%; 
    display: inline-block;
-   float: left
+   float: left;
    }
+   .topmargin{
+	margin-top: 700px;
+	}
+	.footertweaks{
+	width: 480px;
+	}
 }
 
 .demo-card-wide.mdl-card {
@@ -40,4 +46,14 @@
 .hoverable:hover{
 	transition:box-shadow .25s;
 	box-shadow:0 8px 17px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19)
+}
+
+.mobiletable{
+	overflow-x: auto;
+}
+
+@media only screen and (min-width: 481px) {
+   .topmargin{
+	margin-top: 50px;
+	}
 }

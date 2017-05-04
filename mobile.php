@@ -18,11 +18,32 @@ echo "
 	<div class='mdl-layout mdl-js-layout mdl-layout--fixed-header'>
 		<header class='mdl-layout__header mdl-layout__header--scroll mdl-color--primary'>
 			<div class='margintopmobile2'>
-			  <h3>APU/APIIT Schedule</h3>
-			  <h4>Syntax Usage : </h4>
-			  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
-			  <span style='display:inline-block; width: 80px;'>Labs</span>: S-xx-xx</p>
-			  <span style='display:inline-block; width: 80px;'>All classes</span>: - </p>
+			  <h4>APU/APIIT Schedule</h4>
+				<u><p id='show-dialog'>Syntax Usage [ Click Me ] </p></u>
+					<dialog class='mdl-dialog'>
+						<h4 class='mdl-dialog__title'>Syntax Usage</h4>
+						<div class='mdl-dialog__content'>
+						  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
+						  <span style='display:inline-block; width: 80px;'>Labs</span>: S-xx-xx</p>
+						  <span style='display:inline-block; width: 80px;'>All classes</span>: - </p>
+						</div>
+						<div class='mdl-dialog__actions'>
+						  <button type='button' class='mdl-button close'>Ok</button>
+						</div>
+					  </dialog>
+					  <script>
+						var dialog = document.querySelector('dialog');
+						var showDialogButton = document.querySelector('#show-dialog');
+						if (! dialog.showModal) {
+						  dialogPolyfill.registerDialog(dialog);
+						}
+						showDialogButton.addEventListener('click', function() {
+						  dialog.showModal();
+						});
+						dialog.querySelector('.close').addEventListener('click', function() {
+						  dialog.close();
+						});
+					  </script>
 			</div>
 		  </header>
 	<div class='mobiletable'>
@@ -54,7 +75,7 @@ echo "
 			<input class='mdl-textfield__input' type='text' name='classroom' id='classroom'>
 			<label class='mdl-textfield__label' for='classroom'>eg. S-04-01</label>
 		  </div>
-		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>
+		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'>
 		  <i class='material-icons'>lightbulb_outline</i>
 		  Search
 		  </button>
@@ -113,7 +134,7 @@ $test=array_search($columns[0], $data);
     }
     fclose($handle);
 }
-echo "</tbody></table><div class='topmargin'></div>";
+echo "</tbody></table>";
 
 array_unshift($results, $columns );
 

@@ -11,20 +11,20 @@
 }
 
 @media only screen and (max-width: 720px) {
-   .margintop4{ margin-top: 8%; }
-}
-
-@media only screen and (max-width: 480px) {
+   .margintop4{ 
+   margin-top: 8%;
+   }
+   
    .margintopmobile2{ 
-   margin-top: 8%; 
+   margin-top: 6%; 
    display: inline-block;
    float: left;
    }
-   .topmargin{
-	margin-top: 700px;
-	}
+   
 	.footertweaks{
-	width: 480px;
+	display: inline-block;
+	margin-top:50px;
+	width: 720px;
 	}
 }
 
@@ -52,7 +52,7 @@
 	overflow-x: auto;
 }
 
-@media only screen and (min-width: 481px) {
+@media only screen and (min-width: 721px) {
    .topmargin{
 	margin-top: 50px;
 	}

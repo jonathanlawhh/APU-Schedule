@@ -17,7 +17,7 @@ echo "
 <body class='mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base'>
 	<div class='mdl-layout mdl-js-layout mdl-layout--fixed-header'>
 		<header class='mdl-layout__header mdl-layout__header--scroll mdl-color--primary'>
-			<div class='margintopmobile2'>
+			<div class='margintopmobile1'>
 			  <h4>APU/APIIT Schedule</h4>
 				<u><p id='show-dialog'>Syntax Usage [ Click Me ] </p></u>
 					<dialog class='mdl-dialog'>
@@ -95,7 +95,7 @@ $needles03 = array($time);
 $results = array();
 $columns = array();
 echo "<table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
-echo "<thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th></tr></thead>";
+echo "<thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><th>Intake</th><th>Module</th><th>Lecterur</th></tr></thead>";
 
 if(($handle = fopen('data/data.csv', 'r')) !== false) {
 	echo "<tbody>";
@@ -125,6 +125,9 @@ $test=array_search($columns[0], $data);
 						echo "<td>".$data[$time]."</td>";
 						echo "<td>".$data[$location]."</td>";
 						echo "<td>".$data[$classroom]."</td>";
+						echo "<td>".$data[$intake]."</td>";
+						echo "<td>".$data[$module]."</td>";
+						echo "<td>".$data[$lecterur]."</td>";
 						echo "</tr>";
 					}
 				}

@@ -15,6 +15,10 @@
    margin-top: 8%;
    }
    
+   .margintopmobile1{ 
+   margin-left: 5%;
+   }
+   
    .margintopmobile2{ 
    margin-top: 6%; 
    display: inline-block;
@@ -24,7 +28,7 @@
 	.footertweaks{
 	display: inline-block;
 	margin-top:50px;
-	width: 720px;
+	width: 1080px;
 	}
 }
 

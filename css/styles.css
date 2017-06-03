@@ -61,3 +61,8 @@
 	margin-top: 50px;
 	}
 }
+
+.info ul{
+	float: left;
+	margin: 0 20 0 0;
+}

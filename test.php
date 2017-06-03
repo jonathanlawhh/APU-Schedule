@@ -22,9 +22,17 @@ echo "
 			</div>
 			<div class='margintopmobile2'>
 			  <h3>Syntax usage</h3>
+			  <div class='info'>
+			  <ul>
 			  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
-			  <span style='display:inline-block; width: 80px;'>Labs</span>: S-xx-xx</p>
-			  <p>If searching for all classes on that day	: -</p>
+			  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01<br>
+			  <span style='display:inline-block; width: 80px;'>All Classes</span>: -</p>
+			  </ul>
+			  <ul>
+			  <span style='display:inline-block; width: 80px;'>APU LABS</span>: COMM, PLC, ROBOTIC, 03-DESIGN, A&I  <br>
+			  <span style='display:inline-block; width: 80px;'>APIIT Labs</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO</p>
+			  </ul>
+			  </div>
 			</div>
 		  </header>
 	<p id='weekof'></p>

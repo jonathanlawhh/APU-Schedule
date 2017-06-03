@@ -24,7 +24,9 @@ echo "
 						<h4 class='mdl-dialog__title'>Syntax Usage</h4>
 						<div class='mdl-dialog__content'>
 						  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
-						  <span style='display:inline-block; width: 80px;'>Labs</span>: S-xx-xx</p>
+						  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01<br>
+						  <span style='display:inline-block; width: 80px;'>APU LABS</span>: COMM, PLC, ROBOTIC, 03-DESIGN, A&I  <br><br>
+						  <span style='display:inline-block; width: 80px;'>APIIT Labs</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO<br><br>
 						  <span style='display:inline-block; width: 80px;'>All classes</span>: - </p>
 						</div>
 						<div class='mdl-dialog__actions'>

@@ -73,7 +73,7 @@ echo "
 		  <datalist id='classlist'>";
 		  $myfile = fopen("data/classlist.txt", "r") or die("Classes list not found");
 			while(!feof($myfile)) {
-			  echo "<option value='" . fgets($myfile) . "'>";
+			  echo "<option value='" . trim(fgets($myfile)) . "'/>";
 			}
 			fclose($myfile);
 			echo "

@@ -12,6 +12,7 @@ echo "
 
 $row = 1;
 $array = array();
+$today = date('D');
 
 echo "
 <body class='mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base'>
@@ -38,7 +39,12 @@ echo "
 	<p id='weekof'></p>
 	<div class='margintopmobile2 margintop2'>
 		<form action='test.php' method='post'>
-		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
+		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-0'>
+		  <input type='radio' id='option-0' class='mdl-radio__button' name='date' value='$today' checked>
+		  <span id='today' class='mdl-radio__label'>TODAY</span>
+		  <div class='mdl-tooltip mdl-tooltip--top mdl-tooltip--large' data-mdl-for='today'>$today</div>
+		</label>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
 		  <input type='radio' id='option-1' class='mdl-radio__button' name='date' value='MON'>
 		  <span class='mdl-radio__label'>MONDAY</span>
 		</label>
@@ -61,9 +67,17 @@ echo "
 	<br>
 		<div class='margintop1'>
 		  <div class='mdl-textfield mdl-js-textfield'>
-			<input class='mdl-textfield__input' type='text' name='classroom' id='classroom'>
-			<label class='mdl-textfield__label' for='classroom'>eg. S-04-01</label>
+			<input list='classlist' class='mdl-textfield__input' type='text' name='classroom' id='classroom'>
+			<label class='mdl-textfield__label' for='classroom'>eg. LAB 4-01</label>
 		  </div>
+		  <datalist id='classlist'>";
+		  $myfile = fopen("data/classlist.txt", "r") or die("Classes list not found");
+			while(!feof($myfile)) {
+			  echo "<option value='" . fgets($myfile) . "'>";
+			}
+			fclose($myfile);
+			echo "
+		  </datalist>
 		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>
 		  <i class='material-icons'>lightbulb_outline</i>
 		  Search
@@ -127,7 +141,7 @@ $test=array_search($columns[0], $data);
     }
     fclose($handle);
 }
-echo "</tbody></table></div>";
+echo "</tbody></table><p><br></p></div>";
 
 array_unshift($results, $columns );
 

@@ -38,7 +38,7 @@ echo "
 		  </header>
 	<p id='weekof'></p>
 	<div class='margintopmobile2 margintop2'>
-		<form action='test.php' method='post'>
+		<form action='index.php' method='post'>
 		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-0'>
 		  <input type='radio' id='option-0' class='mdl-radio__button' name='date' value='$today' checked>
 		  <span id='today' class='mdl-radio__label'>TODAY</span>

@@ -13,7 +13,6 @@ echo "
 $row = 1;
 $array = array();
 $today = date('D');
-date_default_timezone_set('Asia/Kuala_Lumpur');
 
 echo "
 <body class='mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base'>

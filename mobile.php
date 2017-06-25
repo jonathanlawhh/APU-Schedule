@@ -7,6 +7,7 @@ echo "
 <link rel='stylesheet' href='css/teal.css'>
 <link rel='stylesheet' href='css/styles.css'>
 <meta name='theme-color' content='#009688'>
+<link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
 <script type='text/javascript' src='js/material.min.js'></script>";
 
 $row = 1;

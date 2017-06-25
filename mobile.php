@@ -6,7 +6,6 @@ echo "
 
 <link rel='stylesheet' href='css/teal.css'>
 <link rel='stylesheet' href='css/styles.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <meta name='theme-color' content='#009688'>
 <script type='text/javascript' src='js/material.min.js'></script>";
 
@@ -24,10 +23,11 @@ echo "
 					<dialog class='mdl-dialog'>
 						<h4 class='mdl-dialog__title'>Syntax Usage</h4>
 						<div class='mdl-dialog__content'>
-						  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
+						  <span style='display:inline-block; width: 80px;'>APU class</span>: B-xx-xx <br>
+						  <span style='display:inline-block; width: 80px;'>APIIT class</span>: L2 - 1<br>
 						  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01<br>
 						  <span style='display:inline-block; width: 80px;'>APU LABS</span>: COMM, PLC, ROBOTIC, 03-DESIGN, A&I  <br><br>
-						  <span style='display:inline-block; width: 80px;'>APIIT Labs</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO<br><br>
+						  <span style='display:inline-block; width: 80px;'>APIIT LABS</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO<br><br>
 						  <span style='display:inline-block; width: 80px;'>All classes</span>: - </p>
 						</div>
 						<div class='mdl-dialog__actions'>
@@ -52,27 +52,27 @@ echo "
 	<div class='mobiletable'>
 	<div class='margintopmobile2 margintop2'>
 		<form action='mobile.php' method='post'>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-0'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-0'>
 		  <input type='radio' id='option-0' class='mdl-radio__button' name='date' value='$today' checked>
 		  <span class='mdl-radio__label'>TODAY</span>
 		</label>
-		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
+		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-1'>
 		  <input type='radio' id='option-1' class='mdl-radio__button' name='date' value='MON'>
 		  <span class='mdl-radio__label'>MONDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-2'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-2'>
 		  <input type='radio' id='option-2' class='mdl-radio__button' name='date' value='TUE'>
 		  <span class='mdl-radio__label'>TUESDAY</span>
 		</label>  
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-3'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-3'>
 		  <input type='radio' id='option-3' class='mdl-radio__button' name='date' value='WED'>
 		  <span class='mdl-radio__label'>WEDNESDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-4'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-4'>
 		  <input type='radio' id='option-4' class='mdl-radio__button' name='date' value='THU'>
 		  <span class='mdl-radio__label'>THURSDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-5'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-5'>
 		  <input type='radio' id='option-5' class='mdl-radio__button' name='date' value='FRI'>
 		  <span class='mdl-radio__label'>FRIDAY</span>
 		</label>
@@ -161,8 +161,7 @@ echo "
   <div class='mdl-mini-footer__left-section'>
     <div class='mdl-logo'>Quick Links :-</div>
     <ul class='mdl-mini-footer__link-list'>
-      <li><a href='#'>Help</a></li>
-      <li><a href='http://apu-schedule.azurewebsites.net/test.php'>Desktop site</a></li>
+      <li><a href='http://apu-schedule.azurewebsites.net/index.php'>Desktop site</a></li>
     </ul>
   </div>
 </footer>

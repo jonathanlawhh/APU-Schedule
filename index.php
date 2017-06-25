@@ -6,7 +6,6 @@ echo "
 
 <link rel='stylesheet' href='css/teal.css'>
 <link rel='stylesheet' href='css/styles.css'>
-<link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 <meta name='theme-color' content='#009688'>
 <script type='text/javascript' src='js/material.min.js'></script>";
 
@@ -25,18 +24,18 @@ echo "
 			  <h3>Syntax usage</h3>
 			  <div class='info'>
 			  <ul>
-			  <span style='display:inline-block; width: 80px;'>Classroom</span>: B-xx-xx <br>
-			  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01<br>
-			  <span style='display:inline-block; width: 80px;'>All Classes</span>: -</p>
+			  <span style='display:inline-block; width: 80px;'>APU class</span>: B-xx-xx <br>
+			  <span style='display:inline-block; width: 80px;'>APIIT class</span>: L2 - 1<br>
+			  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01</p>
 			  </ul>
 			  <ul>
 			  <span style='display:inline-block; width: 80px;'>APU LABS</span>: COMM, PLC, ROBOTIC, 03-DESIGN, A&I  <br>
-			  <span style='display:inline-block; width: 80px;'>APIIT Labs</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO</p>
+			  <span style='display:inline-block; width: 80px;'>APIIT LABS</span>: ID, DRAWING, VFX, CGI, MEC, DESIGN, STUDIO  <br>
+			  <span style='display:inline-block; width: 80px;'>All Classes</span>: -</p>
 			  </ul>
 			  </div>
 			</div>
 		  </header>
-	<p id='weekof'></p>
 	<div class='margintopmobile2 margintop2'>
 		<form action='index.php' method='post'>
 		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-0'>
@@ -44,23 +43,23 @@ echo "
 		  <span id='today' class='mdl-radio__label'>TODAY</span>
 		  <div class='mdl-tooltip mdl-tooltip--top mdl-tooltip--large' data-mdl-for='today'>$today</div>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-1'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-1'>
 		  <input type='radio' id='option-1' class='mdl-radio__button' name='date' value='MON'>
 		  <span class='mdl-radio__label'>MONDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-2'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-2'>
 		  <input type='radio' id='option-2' class='mdl-radio__button' name='date' value='TUE'>
 		  <span class='mdl-radio__label'>TUESDAY</span>
 		</label>  
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-3'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-3'>
 		  <input type='radio' id='option-3' class='mdl-radio__button' name='date' value='WED'>
 		  <span class='mdl-radio__label'>WEDNESDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-4'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-4'>
 		  <input type='radio' id='option-4' class='mdl-radio__button' name='date' value='THU'>
 		  <span class='mdl-radio__label'>THURSDAY</span>
 		</label>
-		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-5'>
+		<label class='mdl-radio mdl-js-radio mdl-js-ripple-effect marginleft8' for='option-5'>
 		  <input type='radio' id='option-5' class='mdl-radio__button' name='date' value='FRI'>
 		  <span class='mdl-radio__label'>FRIDAY</span>
 		</label>
@@ -78,7 +77,7 @@ echo "
 			fclose($myfile);
 			echo "
 		  </datalist>
-		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored'>
+		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'>
 		  <i class='material-icons'>lightbulb_outline</i>
 		  Search
 		  </button>

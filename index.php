@@ -78,7 +78,7 @@ echo "
 			fclose($myfile);
 			echo "
 		  </datalist>
-		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect'>
+		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect marginleft8'>
 		  <i class='material-icons'>lightbulb_outline</i>
 		  Search
 		  </button>

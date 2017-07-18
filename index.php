@@ -10,13 +10,6 @@ echo "
 <meta name='theme-color' content='#009688'>
 <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
 <script type='text/javascript' src='js/material.min.js'></script>
-<script async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
-<script>
-  (adsbygoogle = window.adsbygoogle || []).push({
-    google_ad_client: 'ca-pub-9361535451559650',
-    enable_page_level_ads: true
-  });
-</script>
 </head>";
 
 $row = 1;

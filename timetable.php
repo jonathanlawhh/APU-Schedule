@@ -28,25 +28,23 @@ echo "
 	<div class='mdl-layout mdl-js-layout mdl-layout--fixed-header'>
 		<header class='mdl-layout__header mdl-layout__header--scroll mdl-color--primary'>
 			<div class='mdl-layout--large-screen-only mdl-layout__header-row margintop1'>
-			  <h3>APU/APIIT Classroom Schedule</h3>
+			  <h3>APU/APIIT Timetable</h3>
 			</div>
 			<div class='margintopmobile2'>
 			  <h3>Syntax usage</h3>
 			  <div class='info'>
 			  <ul>
-			  <span style='display:inline-block; width: 80px;'>APU class</span>: B-xx-xx <br>
-			  <span style='display:inline-block; width: 80px;'>APIIT class</span>: L2 - 1<br>
-			  <span style='display:inline-block; width: 80px;'>Labs</span>: Lab 4-01</p>
+			  <span style='display:inline-block; width: 80px;'>Intake code</span>: UCDFxxxxICT(SE) <br>
+			  
 			  </ul>
 			  <ul>
-			  <span style='display:inline-block; width: 150px;'>All Classes</span>: -<br>
-			  <span style='display:inline-block; width: 150px;'>Timetable search</span>: <a href='timetable.php'>here</a></p>
+			  <span style='display:inline-block; width: 150px;'>Classroom search</span>: <a href='index.php'>here</a></p>
 			  </ul>
 			  </div>
 			</div>
 		  </header>
 	<div class='margintopmobile2 margintop2'>
-		<form action='index.php' method='post'>
+		<form action='timetable.php' method='post'>
 		 <label class='mdl-radio mdl-js-radio mdl-js-ripple-effect' for='option-0'>
 		  <input type='radio' id='option-0' class='mdl-radio__button' name='date' value='$today' checked>
 		  <span id='today' class='mdl-radio__label'>TODAY</span>
@@ -75,17 +73,9 @@ echo "
 	<br>
 		<div class='margintop1'>
 		  <div class='mdl-textfield mdl-js-textfield'>
-			<input list='classlist' class='mdl-textfield__input' type='text' name='classroom' id='classroom'>
-			<label class='mdl-textfield__label' for='classroom'>eg. LAB 4-01</label>
+			<input list='classlist' class='mdl-textfield__input' type='text' name='intake' id='intake'>
+			<label class='mdl-textfield__label' for='intake'>eg. LAB 4-01</label>
 		  </div>
-		  <datalist id='classlist'>";
-		  $myfile = fopen("data/classlist.txt", "r") or die("Classes list not found");
-			while(!feof($myfile)) {
-			  echo "<option value='" . trim(fgets($myfile)) . "'/>";
-			}
-			fclose($myfile);
-			echo "
-		  </datalist>
 		  <button type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect marginleft8'>
 		  <i class='material-icons'>lightbulb_outline</i>
 		  Search
@@ -96,13 +86,12 @@ echo "
 
 $i = 0;
 $date = null;
-$classroom = null;
+$intake = null;
 
-$classroom=$_POST["classroom"];
+$intake=$_POST["intake"];
 $date=$_POST["date"];
 $needles = array($date);
-$needles02 = array($classroom);
-$needles03 = array($time);
+$needles02 = array($intake);
 $results = array();
 $columns = array();
 echo "<div><table class='mdl-data-table mdl-js-data-table mdl-shadow--2dp margintopmobile2'>";
@@ -129,7 +118,7 @@ $test=array_search($columns[0], $data);
             foreach($needles as $needle) {
             if(stripos($data[$date], $needle) !== false) {
 				foreach($needles02 as $needle02) {
-					if(stripos($data[$classroom], $needle02) !== false) {
+					if(stripos($data[$intake], $needle02) !== false) {
 						$results[] = $data;
 						echo "<tr>";
 						echo "<td>".$data[$weekof]."</td>";

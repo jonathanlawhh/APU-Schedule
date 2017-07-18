@@ -1,5 +1,6 @@
 <?php
 echo "
+<head>
 <title>APU/APIIT Schedule</title>
 <link rel='icon' href='images/favicon.png'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -8,7 +9,15 @@ echo "
 <link rel='stylesheet' href='css/styles.css'>
 <meta name='theme-color' content='#009688'>
 <link href='https://fonts.googleapis.com/icon?family=Material+Icons' rel='stylesheet'>
-<script type='text/javascript' src='js/material.min.js'></script>";
+<script type='text/javascript' src='js/material.min.js'></script>
+<script async src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: 'ca-pub-9361535451559650',
+    enable_page_level_ads: true
+  });
+</script>
+</head>";
 
 $row = 1;
 $array = array();
@@ -162,7 +171,8 @@ echo "
   <div class='mdl-mini-footer__left-section'>
     <div class='mdl-logo'>Quick Links :-</div>
     <ul class='mdl-mini-footer__link-list'>
-      <li><a href='http://apu-schedule.azurewebsites.net/index.php'>Desktop site</a></li>
+      <li><a href='http://apu-schedule.azurewebsites.net/timetable.php'>Timetable</a></li>
+	  <li><a href='http://apu-schedule.azurewebsites.net/index.php'>Desktop site</a></li>
     </ul>
   </div>
 </footer>

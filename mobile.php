@@ -103,7 +103,7 @@
 		  </button>
 		  <button type="submit" name="intakebtn" value="Intake" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-js-ripple-effect">
 		  <i class="material-icons">lightbulb_outline</i>
-		  Intake
+		  T.table
 		  </button>
 		 </div>
 		</form>
@@ -211,8 +211,8 @@ echo "<thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><t
 		fclose($handle);
 	}
 } else {
-	echo "<p style='text-align: center;'> o_o <br> Choose Intake to search for timetable <br>
-		  Choose Class to search for class schedule </p>";
+	echo "<p style='text-align: center;'> o_o <br> Choose Class to search for class schedule <br>
+		  Choose T.table to search for timetable</p>";
 }
 echo "</tbody></table>";
 
@@ -223,7 +223,7 @@ array_unshift($results, $columns );
   <div class="mdl-mini-footer__left-section">
     <div class="mdl-logo">Quick Links :-</div>
     <ul class="mdl-mini-footer__link-list">
-      <li><a href="http://apu-schedule.azurewebsites.net/timetable.php">Timetable</a></li>
+      <li><a href="http://apu-schedule.azurewebsites.net/timetable.php">Timetable [ Deprecated ]</a></li>
 	  <li><a href="http://apu-schedule.azurewebsites.net/index.php">Desktop site</a></li>
     </ul>
   </div>

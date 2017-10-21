@@ -211,7 +211,9 @@ echo "<thead><tr><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><t
 		fclose($handle);
 	}
 } else {
-	echo "<p style='text-align: center;'> o_o <br> Choose Class to search for class schedule <br>
+	echo "<p style='text-align: center;'> o_o <br> 
+		  A new website in trial <a href='http://apu-schedule.azurewebsites.net/new.php'>here</a><br>
+		  Choose Class to search for class schedule <br>
 		  Choose T.table to search for timetable</p>";
 }
 echo "</tbody></table>";
@@ -223,7 +225,7 @@ array_unshift($results, $columns );
   <div class="mdl-mini-footer__left-section">
     <div class="mdl-logo">Quick Links :-</div>
     <ul class="mdl-mini-footer__link-list">
-      <li><a href="http://apu-schedule.azurewebsites.net/timetable.php">Timetable [ Deprecated ]</a></li>
+      <li><a href="http://apu-schedule.azurewebsites.net/new.php">New version</a></li>
 	  <li><a href="http://apu-schedule.azurewebsites.net/index.php">Desktop site</a></li>
     </ul>
   </div>

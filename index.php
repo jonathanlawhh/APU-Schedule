@@ -199,7 +199,9 @@ echo "<thead><tr><th>Week</th><th>Intake</th><th>Date</th><th>Time</th><th>Locat
 		fclose($handle);
 	}
 } else {
-	echo "<div class='margintopmobile2'><h4>o_o</h4><p>Choose Class to search for class schedule <br>
+	echo "<div class='margintopmobile2'><h4>o_o</h4>
+	<p>A new website in trial <a href='http://apu-schedule.azurewebsites.net/new.php'>here</a><br>
+	Choose Class to search for class schedule <br>
 		  Choose T.table to search for timetable</p></div>";
 }
 echo "</tbody></table><p><br></p></div>";

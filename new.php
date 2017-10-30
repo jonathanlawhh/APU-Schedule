@@ -16,6 +16,13 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style>
+	.mtable{
+	   overflow-y:scroll;
+	   height:100px;
+	   display:block;
+	}
+	</style>
   <script>
     function changepurple(){
     document.getElementById("headercolor").className = "nav-extended deep-purple darken-3";
@@ -27,6 +34,16 @@
     var metaThemeColor = document.querySelector("meta[name=theme-color]");
     metaThemeColor.setAttribute("content", "#004d40");
     }
+	function hidethead() {
+    var x = document.getElementById("removethead");
+    if (x.style.display === "none") {
+        x.style.display = "block";
+		document.getElementById("hidemsg").innerHTML = "Hide table header";
+    } else {
+        x.style.display = "none";
+		document.getElementById("hidemsg").innerHTML = "Show table header";
+    }
+}
   </script>
   <style>
   body {
@@ -46,7 +63,7 @@
   <nav id="headercolor" class="nav-extended teal darken-3" style="margin-bottom:10px;">
     <div class="container">
       <span class="nav-title hide-on-small-only">APU/APIIT Schedule</span>
-      <b><p class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">APU/APIIT Schedule</p></b>
+      <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">APU/APIIT Schedule</span></b>
       <div class="nav-content">
         <ul class="tabs tabs-transparent">
           <li class="tab" onclick="changeteal()"><a class="active" href="#schedule">Schedule</a></li>
@@ -113,8 +130,8 @@
     	$intake=$_POST["classroom"];
     	$needles = array($date);
     	$needles02 = array($intake);
-    echo "<table class='responsive-table highlight container left striped'>";
-    echo "<thead><tr><th class='hide-on-small-only'>Time</th><th class='hide-on-small-only'>Date</th><th>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+    echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='responsive-table highlight container left bordered'>";
+    echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
     	if(($handle = fopen('data/data.csv', 'r')) !== false) {
     		echo "<tbody>";
     			while(($data = fgetcsv($handle, 4096, ',')) !== false) {
@@ -158,8 +175,8 @@
     	$classroom=$_POST["classroom"];
     	$needles = array($date);
     	$needles02 = array($classroom);
-    echo "<table class='container responsive-table highlight left bordered'>";
-    echo "<thead><tr><th width='15%' >Time</th><th>Date</th><th>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+    echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
+    echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Intake</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
     	if(($handle = fopen('data/data.csv', 'r')) !== false) {
     		echo "<tbody>";
     			while(($data = fgetcsv($handle, 4096, ',')) !== false) {

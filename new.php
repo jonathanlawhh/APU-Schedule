@@ -16,13 +16,6 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 	<script type="text/javascript" src="js/materialize.min.js"></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<style>
-	.mtable{
-	   overflow-y:scroll;
-	   height:100px;
-	   display:block;
-	}
-	</style>
   <script>
     function changepurple(){
     document.getElementById("headercolor").className = "nav-extended deep-purple darken-3";
@@ -43,7 +36,7 @@
         x.style.display = "none";
 		document.getElementById("hidemsg").innerHTML = "Show table header";
     }
-}
+	}
   </script>
   <style>
   body {
@@ -130,6 +123,7 @@
     	$intake=$_POST["classroom"];
     	$needles = array($date);
     	$needles02 = array($intake);
+    echo "<p>Timetable for intake $intake on $date</p>";
     echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='responsive-table highlight container left bordered'>";
     echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
     	if(($handle = fopen('data/data.csv', 'r')) !== false) {
@@ -175,6 +169,7 @@
     	$classroom=$_POST["classroom"];
     	$needles = array($date);
     	$needles02 = array($classroom);
+	echo "<p>Classroom schedule for $classroom on $date</p>";
     echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
     echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Intake</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
     	if(($handle = fopen('data/data.csv', 'r')) !== false) {
@@ -245,6 +240,14 @@
             <div class="section">
               <b>Auditoriums</b><br>
               AUD-03 will search for Auditorium 3. Auditoriums used for events are not shown here.
+            </div>
+          </span>
+        </div>
+		<div class="card-panel">
+          <span>
+            <div class="section">
+              <b>Notes</b><br>
+              APIIT classroom L2-1 to L2-13 may not show in the schedule
             </div>
           </span>
         </div>

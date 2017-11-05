@@ -1,6 +1,7 @@
-AUD S-03-01
-AUD S-03-02
-AUD S-07-A
+Auditorium 2
+Auditorium 3
+Auditorium 4
+Auditorium 5
 AUD-1
 AUD-2
 AUD-3
@@ -142,18 +143,6 @@ LAB 6-12
 LAB 6-13
 LAB 6-14
 LAB 6-15
-L2  -  1
-L2  -  2
-L2  -  3
-L2  -  4
-L2  -  5
-L2  -  6
-L2  -  7
-L2 - 10
-L2 - 11
-L2 - 12
-L2 - 13
-L2 - 14
 L2-STUDIO 3
 L2 - DRAWING STUDIO
 L2 - DESIGN SUITE
@@ -161,12 +150,12 @@ L3  -  2
 L3  -  3
 L3  -  4
 Lab L3-01 Studio 1
-LAB L3-03-VFX SUITE
-LAB L3-05-CGI SUITE
+Lab L3-02 Studio 4
+VFX
+CGI
+ID
 LAB L3 - 06
 LAB L3 - 07
-LAB L3-01-STUDIO 1
-LAB L3-11-ID SUITE
 L3-STUDIO 2 (L3 - 9)
 S-04-A&I-LAB
 MEC

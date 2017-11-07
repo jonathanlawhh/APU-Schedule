@@ -25,7 +25,7 @@ if ($_POST['intakebtn']=="Intake") {
 
 echo "<p>Timetable for intake $intake on $date</p>";
 hidemsg();
-echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
@@ -52,7 +52,7 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
             echo "<td class='hide-on-small-only'>".$data[$intake]."</td>";
             echo "<td class='hide-on-small-only'>".$data[$date]."</td>";
             echo "<td>".$data[$time]."</td>";
-            echo "<td>".$data[$location]."</td>";
+            echo "<td class='hide-on-small-only'>".$data[$location]."</td>";
             echo "<td>".$data[$classroom]."</td>";
             echo "<td>".$data[$module]."</td>";
             echo "<td>".$data[$lecterur]."</td>";
@@ -82,7 +82,7 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
   $needles02 = array($classroom);
 echo "<p>Classroom schedule for $classroom on $date</p>";
 hidemsg();
-echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Intake</th><th>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Intake</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
@@ -110,7 +110,7 @@ echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Inta
               echo "<td>".$data[$time]."</td>";
               echo "<td>".$data[$intake]."</td>";
               echo "<td>".$data[$date]."</td>";
-              echo "<td>".$data[$location]."</td>";
+              echo "<td class='hide-on-small-only'>".$data[$location]."</td>";
               echo "<td>".$data[$classroom]."</td>";
               echo "<td>".$data[$module]."</td>";
               echo "<td>".$data[$lecterur]."</td>";

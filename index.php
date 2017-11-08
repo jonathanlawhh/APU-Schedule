@@ -82,19 +82,19 @@
 	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === "" ){?>checked<?php } ?>/>
 	    <label for="option-0">TODAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="MON" <?php if($date === "MON"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php if($date === "Mon"){?>checked<?php } ?>/>
 	    <label for="option-1">MONDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="TUE" <?php if($date === "TUE"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php if($date === "Tue"){?>checked<?php } ?>/>
 	    <label for="option-2">TUESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="WED" <?php if($date === "WED"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php if($date === "Wed"){?>checked<?php } ?>/>
 	    <label for="option-3">WEDNESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="THU" <?php if($date ==="THU"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php if($date ==="Thu"){?>checked<?php } ?>/>
 	    <label for="option-4">THURSDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="FRI" <?php if($date === "FRI"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php if($date === "Fri"){?>checked<?php } ?>/>
 	    <label for="option-5">FRIDAY</label>
   	</p>
 	<br>

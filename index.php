@@ -25,6 +25,11 @@
     var metaThemeColor = document.querySelector("meta[name=theme-color]");
     metaThemeColor.setAttribute("content", "<?php echo $theme_meta ?>");
     }
+    function changemytimetable(){
+    document.getElementById("headercolor").className = "nav-extended brown darken-4";
+    var metaThemeColor = document.querySelector("meta[name=theme-color]");
+    metaThemeColor.setAttribute("content", "#3e2723");
+    }
 		function changesyntax(){
     document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
     var metaThemeColor = document.querySelector("meta[name=theme-color]");
@@ -69,7 +74,8 @@
       <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">APU/APIIT Schedule</span></b>
       <div class="nav-content">
         <ul class="tabs tabs-transparent">
-          <li class="tab" onclick="changedefault()"><a class="active" href="#schedule">Schedule</a></li>
+          <li class="tab" onclick="changedefault()"><a href="#schedule">Schedule</a></li>
+          <li class="tab" onclick="changemytimetable()"><a href="#mytimetable">My Timetable</a></li>
           <li class="tab" onclick="changesyntax()"><a href="#syntax">Syntax</a></li>
         </ul>
       </div>
@@ -127,6 +133,18 @@
     echo "</tbody></table><div class='row'></div>";
     array_unshift($results, $columns );
 
+		?>
+  </div>
+
+	<div id="mytimetable" class="container">
+    <script>changemytimetable(); </script>
+    <?php
+		//Process in control/logic.php
+    include("control/mytimetable.php");
+		//Cleanup and close table
+    echo "</tbody></table><div class='row'></div>";
+    array_unshift($results, $columns );
+
 		//Functions
 		function hidemsg(){
 			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
@@ -173,6 +191,8 @@
           <span>
             <div class="section">
               <b>Experimental</b><br>
+              - myTimetable <br>
+              - Settings conf <br>
               - Dark theme after 6PM <br>
 							- Selected days will remain checked <br>
             </div>

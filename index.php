@@ -137,7 +137,6 @@
   </div>
 
 	<div id="mytimetable" class="container">
-    <script>changemytimetable(); </script>
     <?php
 		//Process in control/logic.php
     include("control/mytimetable.php");

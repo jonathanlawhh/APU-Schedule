@@ -148,6 +148,9 @@
 		function hidemsg(){
 			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
 		}
+		function showmsg(){
+			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Show table header</a><table class='container responsive-table highlight left bordered'>";
+		}
 		function tutorial(){
 			echo "<div style='margin-left: 4%;'><h4>o_o</h4><p>Choose Class to search for class schedule <br>Choose T.table to search for timetable</p></div>";
 		}

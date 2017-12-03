@@ -2,7 +2,6 @@
 // This will process all query and logic
 // Goal is to clean main index.php
 
-$i = 0;
 $classroom = null;
 
 $results = array();
@@ -37,7 +36,6 @@ echo "<thead id='removethead' style='display:none;'><tr><th class='hide-on-small
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
-      if($i == 0)  {
         $columns = $data;
         $i++;
         $weekof = array_search($columns[0], $data);
@@ -48,8 +46,6 @@ echo "<thead id='removethead' style='display:none;'><tr><th class='hide-on-small
         $classroom = array_search($columns[5], $data);
         $module = array_search($columns[6], $data);
         $lecterur = array_search($columns[7], $data);
-
-      } else {
 
         foreach($needles as $needle) {
         if(stripos($data[$date], $needle) !== false) {
@@ -66,7 +62,6 @@ echo "<thead id='removethead' style='display:none;'><tr><th class='hide-on-small
             echo "</tr>";
             }
           }
-        }
         }
       }
     }

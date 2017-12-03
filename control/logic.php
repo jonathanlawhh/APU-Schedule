@@ -2,7 +2,6 @@
 // This will process all query and logic
 // Goal is to clean main index.php
 
-$i = 0;
 $classroom = null;
 
 $results = array();
@@ -15,8 +14,7 @@ if ($_POST['intakebtn']=="Intake") {
     goto end;
   }
   // XSS detection
-  if (preg_match('/[\'"^$%*}{@#~?><>,|]/', $intake))
-  {
+  if (preg_match('/[\'"^$%*}{@#~?><>,|;]/', $intake)){
      xss_warning();
      goto end;
   }
@@ -29,10 +27,8 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
-      if($i == 0)  {
         $columns = $data;
         $i++;
-        $weekof = array_search($columns[0], $data);
         $intake = array_search($columns[1], $data);
         $date = array_search($columns[2], $data);
         $time = array_search($columns[3], $data);
@@ -40,8 +36,6 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
         $classroom = array_search($columns[5], $data);
         $module = array_search($columns[6], $data);
         $lecterur = array_search($columns[7], $data);
-
-      } else {
 
         foreach($needles as $needle) {
         if(stripos($data[$date], $needle) !== false) {
@@ -60,7 +54,6 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
             }
           }
         }
-        }
       }
     }
     fclose($handle);
@@ -72,8 +65,7 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
     goto end;
   }
   // XSS detection
-  if (preg_match('/[\'"^$%*}{@#~?><>,|]/', $classroom))
-  {
+  if (preg_match('/[\'"^$%*}{@#~?><>,|;]/', $classroom)){
      xss_warning();
      goto end;
   }
@@ -86,10 +78,8 @@ echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Inta
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
-      if($i == 0)  {
         $columns = $data;
         $i++;
-        $weekof = array_search($columns[0], $data);
         $intake = array_search($columns[1], $data);
         $date = array_search($columns[2], $data);
         $time = array_search($columns[3], $data);
@@ -98,9 +88,6 @@ echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Inta
         $module = array_search($columns[6], $data);
         $lecterur = array_search($columns[7], $data);
 
-      } else {
-
-  $test=array_search($columns[0], $data);
         foreach($needles as $needle) {
         if(stripos($data[$date], $needle) !== false) {
           foreach($needles02 as $needle02) {
@@ -117,7 +104,6 @@ echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Inta
               echo "</tr>";
             }
           }
-        }
         }
       }
     }

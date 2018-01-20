@@ -4,8 +4,7 @@
 
 $classroom = null;
 
-$results = array();
-$columns = array();
+$results = $columns = array();
 $intake = $_COOKIE['myIntakeCode-APU'];
   if (!isset($intake)){
     echo "
@@ -31,8 +30,8 @@ $needles = array($date);
 $needles02 = array($intake);
 
 echo "<p>Timetable for intake $intake on $date<br><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>";
-showmsg();
-echo "<thead id='removethead' style='display:none;'><tr><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+hidemsg();
+echo "<table><thead id='removethead' style='display:none;'><tr><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
@@ -67,6 +66,8 @@ echo "<thead id='removethead' style='display:none;'><tr><th class='hide-on-small
     }
     fclose($handle);
   }
+  //Cleanup and close table
+  echo "</tbody></table><div class='row'></div>";
 
 end:
 ?>

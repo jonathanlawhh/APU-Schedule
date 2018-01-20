@@ -2,14 +2,14 @@
 
 <?php
 	$row = 1;
-	$date = $_POST["date"];
+	$date = $_POST['date'];
 	function checkLastDate($dateInput){
-		if($_POST["date"] === $dateInput){
-			echo "checked";
+		if($_POST['date'] === $dateInput){
+			echo 'checked';
 		}
 	}
 	//Load theme
-	include("control/theme.php");
+	include('control/theme.php');
 ?>
 
 <head>
@@ -72,7 +72,7 @@
 		margin-left: 4%;
 	}
   </style>
-	<?php if($theme_name == "night"){ ?>
+	<?php if($theme_name === 'night'){ ?>
 		<style>
 		.input-field input[type=text].valid {
        border-bottom: 1px solid #616161;
@@ -101,7 +101,7 @@
   <div id="schedule" class="container">
     <form class="col s12" action="index.php" method="post">
 		<p>
-	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === "" ){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' ){?>checked<?php } ?>/>
 	    <label for="option-0">TODAY</label>
 
 	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
@@ -121,7 +121,7 @@
   	</p>
 	<br>
 		<div class="row">
-      <div class="input-field col s12 m6 l2 " style="margin-top:0; padding:0;">
+      <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
           <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" id="classroom" type="text" class="validate">
       </div>
 		  <datalist id="classlist">
@@ -139,24 +139,19 @@
 		 </div>
 		</form>
 
-    <?php
-		//Process in control/logic.php
-    include("control/logic.php");
-		//Cleanup and close table
-    echo "</tbody></table><div class='row'></div>";
-    array_unshift($results, $columns );
-
-		?>
+    <?php //Process in control/logic.php
+    include("control/logic.php"); ?>
   </div>
 
 	<div id="mytimetable" class="container">
     <?php
 		//Process in control/logic.php
-    include("control/mytimetable.php");
-
+    include('control/mytimetable.php');
 		//Functions
 		function tutorial(){
-			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>You can also search for your intake timetable here</p></div>";
+			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
+			You can also search for your intake timetable here<br>
+			Check the syntax tab for more</p></div>";
 		}
 		?>
   </div>
@@ -164,7 +159,7 @@
   <div id="syntax" class="container">
     <div class="row">
       <div class="col s12 m12 l5">
-        <div class="card-panel">
+        <div class="card-panel hoverable">
           <span>
             <div class="section">
               <b>To search for labs</b><br>
@@ -180,22 +175,19 @@
               <b>Auditoriums</b><br>
               Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
             </div>
-          </span>
-        </div>
-				<div class="card-panel">
-          <span>
+            <div class="divider"></div>
             <div class="section">
-              <b>Notes</b><br>
-              APIIT classroom L2-1 to L2-13 will not show in the schedule
+              <b>APIIT classrooms</b><br>
+              L2 classrooms will not show here.
             </div>
           </span>
         </div>
-				<div class="card-panel">
+				<div class="card-panel hoverable">
           <span>
             <div class="section">
               <b>Experimental</b><br>
-              - New search method
-							- Browser caching ( Max 2 days cache )
+              - New search method <br>
+							- Browser caching ( Max 6 days cache )
             </div>
           </span>
         </div>

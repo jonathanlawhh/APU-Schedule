@@ -4,31 +4,33 @@
 $classroom = null;
 $results = $columns = array();
 
+$headMsg = "Hide table header";
+if(isset($_COOKIE['apuschedule-tablehead'])){
+  $tablehead = "style='display:none'";
+  $headMsg = "Show table header";
+}
+
 //Check whether to hide table header
 function hidemsg(){
-  $headMsg = "Hide table header";
-  if(isset($_COOKIE['apuschedule-tablehead'])){
-    $tablehead = "style='display:none'";
-    $headMsg = "Show table header";
-  }
+  global $headMsg;
   echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>$headMsg</a>";
 }
 
 //XSS Detection
 if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){
-    echo "<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>";
+   echo "<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>";
    exit;
 }
 
 //Start Query
 if (isset($_POST['search'])) {
-  $queryFor = "intake";
+  $queryFor = 'intake';
   $queryValue = $_POST['classroom'];
   $hideItems = "class='hide-on-small-only'";
 
   if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) {
-    $queryFor = "classroom";
-    $hideItems = "";
+    $queryFor = 'classroom';
+    $hideItems = '';
   } elseif (empty($queryValue)){
     tutorial();
     goto end;
@@ -45,7 +47,7 @@ if (isset($_POST['search'])) {
         </tr></thead>";
 
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
-    echo "<tbody>";
+    echo '<tbody>';
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
         $columns = $data;
         $intake = array_search($columns[1], $data);
@@ -56,7 +58,7 @@ if (isset($_POST['search'])) {
         $module = array_search($columns[6], $data);
         $lecterur = array_search($columns[7], $data);
 
-        if($queryFor == "intake"){
+        if($queryFor === 'intake'){
           $searchThis = $intake;
         } else {
           $searchThis = $classroom;
@@ -67,7 +69,7 @@ if (isset($_POST['search'])) {
           foreach($needles02 as $needle02) {
             if(stripos($data[$searchThis], $needle02) !== false) {
               $results[] = $data;
-              echo "<tr>";
+              echo '<tr>';
               echo "<td $hideItems>".$data[$intake]."</td>";
               echo "<td class='hide-on-small-only'>".$data[$date]."</td>";
               echo "<td>".$data[$time]."</td>";
@@ -75,7 +77,7 @@ if (isset($_POST['search'])) {
               echo "<td>".$data[$classroom]."</td>";
               echo "<td>".$data[$module]."</td>";
               echo "<td>".$data[$lecterur]."</td>";
-              echo "</tr>";
+              echo '</tr>';
             }
           }
         }

@@ -16,7 +16,7 @@ function hidemsg(){
 
 //XSS Detection
 if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){
-    echo "<script>warning();</script><div style='margin-left: 4%;'><h4>!!!</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>";
+    echo "<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>";
    exit;
 }
 
@@ -26,7 +26,7 @@ if (isset($_POST['search'])) {
   $queryValue = $_POST['classroom'];
   $hideItems = "class='hide-on-small-only'";
 
-  if(preg_match("/\b(LAB|AUD|B-|D-|E-|STUDIO)\b/i", $queryValue)) {
+  if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) {
     $queryFor = "classroom";
     $hideItems = "";
   } elseif (empty($queryValue)){

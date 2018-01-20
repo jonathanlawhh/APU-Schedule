@@ -2,9 +2,12 @@
 
 <?php
 	$row = 1;
-	$array = array();
-	$date=$_POST["date"];
-
+	$date = $_POST["date"];
+	function checkLastDate($dateInput){
+		if($_POST["date"] === $dateInput){
+			echo "checked";
+		}
+	}
 	//Load theme
 	include("control/theme.php");
 ?>
@@ -16,10 +19,10 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" async></script>
+	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script>
+  <script async>
     function changedefault(){
     document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
     var metaThemeColor = document.querySelector("meta[name=theme-color]");
@@ -64,7 +67,19 @@
   main {
     flex: 1 0 auto;
   }
+
+	.marginleft4 {
+		margin-left: 4%;
+	}
   </style>
+	<?php if($theme_name == "night"){ ?>
+		<style>
+		.input-field input[type=text].valid {
+       border-bottom: 1px solid #616161;
+       box-shadow: 0 1px 0 0 #616161;
+     }
+	  </style>
+	<?php } ?>
 </head>
 
 <body>
@@ -89,25 +104,25 @@
 	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === "" ){?>checked<?php } ?>/>
 	    <label for="option-0">TODAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php if($date === "Mon"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
 	    <label for="option-1">MONDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php if($date === "Tue"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php checkLastDate("Tue"); ?>/>
 	    <label for="option-2">TUESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php if($date === "Wed"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php checkLastDate("Wed"); ?>/>
 	    <label for="option-3">WEDNESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php if($date ==="Thu"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php checkLastDate("Thu"); ?>/>
 	    <label for="option-4">THURSDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php if($date === "Fri"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php checkLastDate("Fri"); ?>/>
 	    <label for="option-5">FRIDAY</label>
   	</p>
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l2 " style="margin-top:0; padding:0;">
-          <input list="classlist" placeholder="eg. LAB 4-01" name="classroom" id="classroom" type="text" class="validate">
+          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" id="classroom" type="text" class="validate">
       </div>
 		  <datalist id="classlist">
   		  <?php
@@ -141,7 +156,7 @@
 
 		//Functions
 		function tutorial(){
-			echo "<div style='margin-left: 4%;'><h4>o_o</h4><p>Choose Class to search for class schedule <br>Choose T.table to search for timetable</p></div>";
+			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>You can also search for your intake timetable here</p></div>";
 		}
 		?>
   </div>
@@ -171,7 +186,7 @@
           <span>
             <div class="section">
               <b>Notes</b><br>
-              APIIT classroom L2-1 to L2-13 may not show in the schedule
+              APIIT classroom L2-1 to L2-13 will not show in the schedule
             </div>
           </span>
         </div>
@@ -179,10 +194,8 @@
           <span>
             <div class="section">
               <b>Experimental</b><br>
-              - myTimetable <br>
-              - Settings conf <br>
-              - Dark theme after 6PM <br>
-							- Selected days will remain checked <br>
+              - New search method
+							- Browser caching ( Max 2 days cache )
             </div>
           </span>
         </div>

@@ -1,34 +1,53 @@
 <?php
 // This will process all query and logic
 // Goal is to clean main index.php
-
 $classroom = null;
+$results = $columns = array();
 
-$results = array();
-$columns = array();
+//Check whether to hide table header
+function hidemsg(){
+  $headMsg = "Hide table header";
+  if(isset($_COOKIE['apuschedule-tablehead'])){
+    $tablehead = "style='display:none'";
+    $headMsg = "Show table header";
+  }
+  echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>$headMsg</a>";
+}
 
-if ($_POST['intakebtn']=="Intake") {
-  $intake=$_POST["classroom"];
-  if($intake == ""){
+//XSS Detection
+if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){
+    echo "<script>warning();</script><div style='margin-left: 4%;'><h4>!!!</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>";
+   exit;
+}
+
+//Start Query
+if (isset($_POST['search'])) {
+  $queryFor = "intake";
+  $queryValue = $_POST['classroom'];
+  $hideItems = "class='hide-on-small-only'";
+
+  if(preg_match("/\b(LAB|AUD|B-|D-|E-|STUDIO)\b/i", $queryValue)) {
+    $queryFor = "classroom";
+    $hideItems = "";
+  } elseif (empty($queryValue)){
     tutorial();
     goto end;
   }
-  // XSS detection
-  if (preg_match('/[\'"^$%*}{@#~?><>,|;]/', $intake)){
-     xss_warning();
-     goto end;
-  }
-  $needles = array($date);
-  $needles02 = array($intake);
 
-echo "<p>Timetable for intake $intake on $date</p>";
-hidemsg();
-echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+  $needles = array($date);
+  $needles02 = array($queryValue);
+
+  echo "<p>Timetable for $queryFor $queryValue on $date</p>";
+  hidemsg();
+  echo "
+        <table class='container responsive-table highlight left bordered'><thead id='removethead' $tablehead><tr>
+            <th $hideItems>Intake</th><th class='hide-on-small-only'>Date</th><th>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th>
+        </tr></thead>";
+
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
         $columns = $data;
-        $i++;
         $intake = array_search($columns[1], $data);
         $date = array_search($columns[2], $data);
         $time = array_search($columns[3], $data);
@@ -37,66 +56,21 @@ echo "<thead id='removethead'><tr><th class='hide-on-small-only'>Intake</th><th 
         $module = array_search($columns[6], $data);
         $lecterur = array_search($columns[7], $data);
 
-        foreach($needles as $needle) {
-        if(stripos($data[$date], $needle) !== false) {
-          foreach($needles02 as $needle02) {
-            if(stripos($data[$intake], $needle02) !== false) {
-              $results[] = $data;
-            echo "<tr>";
-            echo "<td class='hide-on-small-only'>".$data[$intake]."</td>";
-            echo "<td class='hide-on-small-only'>".$data[$date]."</td>";
-            echo "<td>".$data[$time]."</td>";
-            echo "<td class='hide-on-small-only'>".$data[$location]."</td>";
-            echo "<td>".$data[$classroom]."</td>";
-            echo "<td>".$data[$module]."</td>";
-            echo "<td>".$data[$lecterur]."</td>";
-            echo "</tr>";
-            }
-          }
+        if($queryFor == "intake"){
+          $searchThis = $intake;
+        } else {
+          $searchThis = $classroom;
         }
-      }
-    }
-    fclose($handle);
-  }
-} elseif ($_POST['intakebtn']=="Class") {
-  $classroom=$_POST["classroom"];
-  if($classroom == ""){
-    tutorial();
-    goto end;
-  }
-  // XSS detection
-  if (preg_match('/[\'"^$%*}{@#~?><>,|;]/', $classroom)){
-     xss_warning();
-     goto end;
-  }
-
-  $needles = array($date);
-  $needles02 = array($classroom);
-echo "<p>Classroom schedule for $classroom on $date</p>";
-hidemsg();
-echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Intake</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
-  if(($handle = fopen('data/data.csv', 'r')) !== false) {
-    echo "<tbody>";
-      while(($data = fgetcsv($handle, 4096, ',')) !== false) {
-        $columns = $data;
-        $i++;
-        $intake = array_search($columns[1], $data);
-        $date = array_search($columns[2], $data);
-        $time = array_search($columns[3], $data);
-        $location = array_search($columns[4], $data);
-        $classroom = array_search($columns[5], $data);
-        $module = array_search($columns[6], $data);
-        $lecterur = array_search($columns[7], $data);
 
         foreach($needles as $needle) {
         if(stripos($data[$date], $needle) !== false) {
           foreach($needles02 as $needle02) {
-            if(stripos($data[$classroom], $needle02) !== false) {
+            if(stripos($data[$searchThis], $needle02) !== false) {
               $results[] = $data;
               echo "<tr>";
+              echo "<td $hideItems>".$data[$intake]."</td>";
+              echo "<td class='hide-on-small-only'>".$data[$date]."</td>";
               echo "<td>".$data[$time]."</td>";
-              echo "<td>".$data[$intake]."</td>";
-              echo "<td>".$data[$date]."</td>";
               echo "<td class='hide-on-small-only'>".$data[$location]."</td>";
               echo "<td>".$data[$classroom]."</td>";
               echo "<td>".$data[$module]."</td>";
@@ -107,7 +81,9 @@ echo "<thead id='removethead'><tr><th width='15%'>Time</th><th>Date</th><th>Inta
         }
       }
     }
+    //Cleanup and close table
     fclose($handle);
+    echo "</tbody></table><div class='row'></div>";
   }
 } else {
   tutorial();

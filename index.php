@@ -37,8 +37,7 @@
     }
     function warning(){
     document.getElementById("headercolor").className = "nav-extended red darken-3";
-    document.getElementById("btn_class").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-    document.getElementById("btn_ttable").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
+    document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
     var metaThemeColor = document.querySelector("meta[name=theme-color]");
     metaThemeColor.setAttribute("content", "#b71c1c");
     }
@@ -46,10 +45,12 @@
 	    var x = document.getElementById("removethead");
 	    if (x.style.display === "none") {
 	        x.style.display = "block";
-					document.getElementById("hidemsg").innerHTML = "Hide table header";
+					document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
+					document.getElementById("hidemsg").innerHTML = "Hide table header;";
 	    } else {
 	        x.style.display = "none";
 					document.getElementById("hidemsg").innerHTML = "Show table header";
+					document.cookie = "apuschedule-tablehead=hidden;";
 	    }
 		}
   </script>
@@ -117,12 +118,9 @@
   			fclose($myfile);
   		  ?>
 		  </datalist>
-		  <button type="submit" id="btn_class" name="intakebtn" value="Class" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:10px; margin-right:10px">
-  		  <i class="material-icons left">schedule</i>Class
-		  </button>
-		  <button type="submit" id="btn_ttable" name="intakebtn" value="Intake" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>">
-  		  <i class="material-icons left">lightbulb_outline</i> T.table
-		  </button>
+		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+				<i class="material-icons left">lightbulb_outline</i>Search
+			</button>
 		 </div>
 		</form>
 
@@ -140,22 +138,10 @@
     <?php
 		//Process in control/logic.php
     include("control/mytimetable.php");
-		//Cleanup and close table
-    echo "</tbody></table><div class='row'></div>";
-    array_unshift($results, $columns );
 
 		//Functions
-		function hidemsg(){
-			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
-		}
-		function showmsg(){
-			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Show table header</a><table class='container responsive-table highlight left bordered'>";
-		}
 		function tutorial(){
 			echo "<div style='margin-left: 4%;'><h4>o_o</h4><p>Choose Class to search for class schedule <br>Choose T.table to search for timetable</p></div>";
-		}
-		function xss_warning(){
-			echo "<script>warning();</script><div style='margin-left: 4%;'><h4>!!!</h4><p><b>I smell cross site scripting attempts</b><br>But why though :(</p></div>";
 		}
 		?>
   </div>

@@ -19,43 +19,32 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" async></script>
+	<script type="text/javascript" src="js/jquery.min.js" async></script>
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async>
-    function changedefault(){
-    document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "<?php echo $theme_meta ?>");
-    }
-    function changemytimetable(){
-    document.getElementById("headercolor").className = "nav-extended brown darken-4";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "#3e2723");
-    }
-		function changesyntax(){
-    document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "<?php echo $theme_metasyntax ?>");
-    }
-    function warning(){
-    document.getElementById("headercolor").className = "nav-extended red darken-3";
-    document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "#b71c1c");
-    }
-		function hidethead() {
-	    var x = document.getElementById("removethead");
-	    if (x.style.display === "none") {
-	        x.style.display = "block";
-					document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;";
-					document.getElementById("hidemsg").innerHTML = "Hide table header;";
-	    } else {
-	        x.style.display = "none";
-					document.getElementById("hidemsg").innerHTML = "Show table header";
-					document.cookie = "apuschedule-tablehead=hidden;";
-	    }
+		function changedefault() {
+			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
 		}
+		function changemytimetable() {
+			document.getElementById("headercolor").className = "nav-extended brown darken-4";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+		}
+		function changesyntax() {
+			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
+		}
+		function warning() {
+			document.getElementById("headercolor").className = "nav-extended red darken-3";
+			document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
+		}
+		function hidethead() {
+		var a = document.getElementById("removethead");
+		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
+		}
+		;
   </script>
   <style>
   body {
@@ -101,7 +90,7 @@
   <div id="schedule" class="container">
     <form class="col s12" action="index.php" method="post">
 		<p>
-	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' ){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
 	    <label for="option-0">TODAY</label>
 
 	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
@@ -187,7 +176,8 @@
             <div class="section">
               <b>Experimental</b><br>
               - New search method <br>
-							- Browser caching ( Max 6 days cache )
+							- Browser caching ( Max 6 days cache ) <br>
+							- Brotli compression <br>
             </div>
           </span>
         </div>

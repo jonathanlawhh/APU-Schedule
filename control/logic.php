@@ -70,13 +70,13 @@ if (isset($_POST['search'])) {
             if(stripos($data[$searchThis], $needle02) !== false) {
               $results[] = $data;
               echo '<tr>';
-              echo "<td $hideItems>".$data[$intake]."</td>";
-              echo "<td class='hide-on-small-only'>".$data[$date]."</td>";
-              echo "<td>".$data[$time]."</td>";
-              echo "<td class='hide-on-small-only'>".$data[$location]."</td>";
-              echo "<td>".$data[$classroom]."</td>";
-              echo "<td>".$data[$module]."</td>";
-              echo "<td>".$data[$lecterur]."</td>";
+              echo '<td ' . $hideItems . '>' . $data[$intake] . '</td>';
+              echo '<td class=' . 'hide-on-small-only' . '>' . $data[$date] . '</td>';
+              echo '<td>' . $data[$time] . '</td>';
+              echo '<td class=' . 'hide-on-small-only' . '>' . $data[$location] . '</td>';
+              echo '<td>' . $data[$classroom] . '</td>';
+              echo '<td>' . $data[$module] . '</td>';
+              echo '<td>' . $data[$lecterur] . '</td>';
               echo '</tr>';
             }
           }

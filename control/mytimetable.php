@@ -31,7 +31,7 @@ $needles02 = array($intake);
 
 echo "<p>Timetable for intake $intake on $date<br><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>";
 hidemsg();
-echo "<table><thead id='removethead' style='display:none;'><tr><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
+echo "<table class='container responsive-table highlight left bordered'><thead id='removethead' style='display:none;'><tr><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";
   if(($handle = fopen('data/data.csv', 'r')) !== false) {
     echo "<tbody>";
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {

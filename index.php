@@ -2,11 +2,14 @@
 
 <?php
 	$row = 1;
-	$array = array();
-	$date=$_POST["date"];
-
+	$date = $_POST['date'];
+	function checkLastDate($dateInput){
+		if($_POST['date'] === $dateInput){
+			echo 'checked';
+		}
+	}
 	//Load theme
-	include("control/theme.php");
+	include('control/theme.php');
 ?>
 
 <head>
@@ -17,37 +20,32 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<script type="text/javascript" src="js/materialize.min.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js" async></script>
+	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <script>
-    function changedefault(){
-    document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "<?php echo $theme_meta ?>");
-    }
-		function changesyntax(){
-    document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "<?php echo $theme_metasyntax ?>");
-    }
-    function warning(){
-    document.getElementById("headercolor").className = "nav-extended red darken-3";
-    document.getElementById("btn_class").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-    document.getElementById("btn_ttable").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-    var metaThemeColor = document.querySelector("meta[name=theme-color]");
-    metaThemeColor.setAttribute("content", "#b71c1c");
-    }
-		function hidethead() {
-	    var x = document.getElementById("removethead");
-	    if (x.style.display === "none") {
-	        x.style.display = "block";
-					document.getElementById("hidemsg").innerHTML = "Hide table header";
-	    } else {
-	        x.style.display = "none";
-					document.getElementById("hidemsg").innerHTML = "Show table header";
-	    }
+  <script async>
+		function changedefault() {
+			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
 		}
+		function changemytimetable() {
+			document.getElementById("headercolor").className = "nav-extended brown darken-4";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+		}
+		function changesyntax() {
+			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
+		}
+		function warning() {
+			document.getElementById("headercolor").className = "nav-extended red darken-3";
+			document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
+			document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
+		}
+		function hidethead() {
+		var a = document.getElementById("removethead");
+		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
+		}
+		;
   </script>
   <style>
   body {
@@ -59,7 +57,19 @@
   main {
     flex: 1 0 auto;
   }
+
+	.marginleft4 {
+		margin-left: 4%;
+	}
   </style>
+	<?php if($theme_name === 'night'){ ?>
+		<style>
+		.input-field input[type=text].valid {
+       border-bottom: 1px solid #616161;
+       box-shadow: 0 1px 0 0 #616161;
+     }
+	  </style>
+	<?php } ?>
 </head>
 
 <body>
@@ -70,7 +80,8 @@
       <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">APU/APIIT Schedule</span></b>
       <div class="nav-content">
         <ul class="tabs tabs-transparent">
-          <li class="tab" onclick="changedefault()"><a class="active" href="#schedule">Schedule</a></li>
+          <li class="tab" onclick="changedefault()"><a href="#schedule">Schedule</a></li>
+          <li class="tab" onclick="changemytimetable()"><a href="#mytimetable">My Timetable</a></li>
           <li class="tab" onclick="changesyntax()"><a href="#syntax">Syntax</a></li>
         </ul>
       </div>
@@ -80,28 +91,28 @@
   <div id="schedule" class="container">
     <form class="col s12" action="index.php" method="post">
 		<p>
-	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === "" ){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
 	    <label for="option-0">TODAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php if($date === "Mon"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
 	    <label for="option-1">MONDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php if($date === "Tue"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php checkLastDate("Tue"); ?>/>
 	    <label for="option-2">TUESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php if($date === "Wed"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php checkLastDate("Wed"); ?>/>
 	    <label for="option-3">WEDNESDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php if($date ==="Thu"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php checkLastDate("Thu"); ?>/>
 	    <label for="option-4">THURSDAY</label>
 
-	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php if($date === "Fri"){?>checked<?php } ?>/>
+	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php checkLastDate("Fri"); ?>/>
 	    <label for="option-5">FRIDAY</label>
   	</p>
 	<br>
 		<div class="row">
-      <div class="input-field col s12 m6 l2 " style="margin-top:0; padding:0;">
-          <input list="classlist" placeholder="eg. LAB 4-01" name="classroom" id="classroom" type="text" class="validate">
+      <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
+          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" id="classroom" type="text" class="validate">
       </div>
 		  <datalist id="classlist">
   		  <?php
@@ -112,31 +123,25 @@
   			fclose($myfile);
   		  ?>
 		  </datalist>
-		  <button type="submit" id="btn_class" name="intakebtn" value="Class" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:10px; margin-right:10px">
-  		  <i class="material-icons left">schedule</i>Class
-		  </button>
-		  <button type="submit" id="btn_ttable" name="intakebtn" value="Intake" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>">
-  		  <i class="material-icons left">lightbulb_outline</i> T.table
-		  </button>
+		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+				<i class="material-icons left">lightbulb_outline</i>Search
+			</button>
 		 </div>
 		</form>
 
+    <?php //Process in control/logic.php
+    include("control/logic.php"); ?>
+  </div>
+
+	<div id="mytimetable" class="container">
     <?php
 		//Process in control/logic.php
-    include("control/logic.php");
-		//Cleanup and close table
-    echo "</tbody></table><div class='row'></div>";
-    array_unshift($results, $columns );
-
+    include('control/mytimetable.php');
 		//Functions
-		function hidemsg(){
-			echo "<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Hide table header</a><table class='container responsive-table highlight left bordered'>";
-		}
 		function tutorial(){
-			echo "<div style='margin-left: 4%;'><h4>o_o</h4><p>Choose Class to search for class schedule <br>Choose T.table to search for timetable</p></div>";
-		}
-		function xss_warning(){
-			echo "<script>warning();</script><div style='margin-left: 4%;'><h4>!!!</h4><p><b>I smell cross site scripting attempts</b><br>But why though :(</p></div>";
+			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
+			You can also search for your intake timetable here<br>
+			Check the syntax tab for more</p></div>";
 		}
 		?>
   </div>
@@ -144,7 +149,7 @@
   <div id="syntax" class="container">
     <div class="row">
       <div class="col s12 m12 l5">
-        <div class="card-panel">
+        <div class="card-panel hoverable">
           <span>
             <div class="section">
               <b>To search for labs</b><br>
@@ -160,22 +165,20 @@
               <b>Auditoriums</b><br>
               Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
             </div>
-          </span>
-        </div>
-				<div class="card-panel">
-          <span>
+            <div class="divider"></div>
             <div class="section">
-              <b>Notes</b><br>
-              APIIT classroom L2-1 to L2-13 may not show in the schedule
+              <b>APIIT classrooms</b><br>
+              L2 classrooms will not show here.
             </div>
           </span>
         </div>
-				<div class="card-panel">
+				<div class="card-panel hoverable">
           <span>
             <div class="section">
               <b>Experimental</b><br>
-              - Dark theme after 6PM <br>
-							- Selected days will remain checked <br>
+              - New search method <br>
+							- Browser caching ( Max 6 days cache ) <br>
+							- Brotli compression <br>
             </div>
           </span>
         </div>

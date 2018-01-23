@@ -84,6 +84,7 @@ D-07-08
 D-07-09
 D-07-10
 D-07-11
+D-07-14
 D-08-01
 D-08-02
 D-08-03
@@ -133,7 +134,6 @@ LAB 6-01
 LAB 6-02
 LAB 6-03
 LAB 6-04
-LAB 6-05
 LAB 6-06
 LAB 6-07
 LAB 6-08
@@ -144,7 +144,6 @@ LAB 6-12
 LAB 6-13
 LAB 6-14
 LAB 6-15
-L2-STUDIO 3
 L2 - DRAWING STUDIO
 L2 - DESIGN SUITE
 L3  -  2
@@ -152,13 +151,16 @@ L3  -  3
 L3  -  4
 Lab L3-01 Studio 1
 Lab L3-02 Studio 4
-VFX
-CGI
-ID
-LAB L3 - 06
-LAB L3 - 07
-L3-STUDIO 2 (L3 - 9)
+Lab L3-03 VFX Suite
+Lab L3-04 Studio 5
+Lab L3-05 CGI Suite
+Lab L3-06 Drawing Studio
+Lab L3-09 Studio 2
+Lab L3-10 Design Suite
+Lab L3-11 ID Suite
+Lab L3-12 Studio 3
+Model Making Studio
 S-04-A&I-LAB
-MEC
-COMM
+S-04-COMM LAB
+S-04-MICRO.P LAB
 Meeting room-4th FL

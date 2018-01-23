@@ -14,7 +14,6 @@
 
 <head>
 	<title>APU/APIIT Schedule</title>
-	<meta http-equiv="Cache-control" content="public">
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 

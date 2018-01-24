@@ -14,7 +14,8 @@
 
 <head>
 	<title>APU/APIIT Schedule</title>
-	<meta http-equiv="Cache-control" content="public">
+	<link rel="preload" href="css/materialize.min.css" as="style"/>
+	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style"/>
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 

@@ -13,6 +13,7 @@
 ?>
 
 <head>
+	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
 	<link rel="preload" href="css/materialize.min.css" as="style"/>
 	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style"/>
@@ -46,22 +47,21 @@
 		var a = document.getElementById("removethead");
 		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
 		}
-		;
   </script>
   <style>
-  body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
+	  body {
+	    display: flex;
+	    min-height: 100vh;
+	    flex-direction: column;
+	  }
 
-  main {
-    flex: 1 0 auto;
-  }
+	  main {
+	    flex: 1 0 auto;
+	  }
 
-	.marginleft4 {
-		margin-left: 4%;
-	}
+		.marginleft4 {
+			margin-left: 4%;
+		}
   </style>
 	<?php if($theme_name === 'night'){ ?>
 		<style>
@@ -92,8 +92,8 @@
   <div id="schedule" class="container">
     <form class="col s12" action="index.php" method="post">
 		<p>
-	    <input class="with-gap" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
-	    <label for="option-0">TODAY</label>
+	    <input class="with-gap tooltipped" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
+	    <label class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>" for="option-0">TODAY</label>
 
 	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
 	    <label for="option-1">MONDAY</label>
@@ -113,7 +113,7 @@
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
-          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" id="classroom" type="text" class="validate">
+          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text" class="validate">
       </div>
 		  <datalist id="classlist">
   		  <?php
@@ -121,8 +121,7 @@
   			while(!feof($myfile)) {
   			  echo "<option value='" . trim(fgets($myfile)) . "'/>";
   			}
-  			fclose($myfile);
-  		  ?>
+  			fclose($myfile); ?>
 		  </datalist>
 		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
 				<i class="material-icons left">lightbulb_outline</i>Search

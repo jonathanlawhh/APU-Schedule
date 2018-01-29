@@ -22,7 +22,6 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async>
 		async function changedefault() {
@@ -193,6 +192,7 @@
   </div>
 </footer>
 
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script async> //Initialize UI
 	window.onload = function(){
 		M.Tabs.init(document.querySelectorAll('.tabs'), {});

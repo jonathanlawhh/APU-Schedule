@@ -84,4 +84,10 @@
   </div>
 </div>
 </footer>
+<script async> //Initialize UI
+	window.onload = function(){
+		var el=document.querySelectorAll('.tabs');
+		var instance = M.Tabs.init(el, {});
+	}
+</script>
 </body>

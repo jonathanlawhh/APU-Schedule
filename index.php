@@ -22,46 +22,35 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="js/jquery.min.js" async></script>
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async>
-		function changedefault() {
+		async function changedefault() {
 			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
 		}
-		function changemytimetable() {
+		async function changemytimetable() {
 			document.getElementById("headercolor").className = "nav-extended brown darken-4";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
 		}
-		function changesyntax() {
+		async function changesyntax() {
 			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
 		}
-		function warning() {
+		async function warning() {
 			document.getElementById("headercolor").className = "nav-extended red darken-3";
 			document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
 		}
-		function hidethead() {
+		async function hidethead() {
 		var a = document.getElementById("removethead");
 		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
 		}
   </script>
   <style>
-	  body {
-	    display: flex;
-	    min-height: 100vh;
-	    flex-direction: column;
-	  }
-
-	  main {
-	    flex: 1 0 auto;
-	  }
-
-		.marginleft4 {
-			margin-left: 4%;
-		}
+	  body { display: flex; min-height: 100vh; flex-direction: column; }
+	  main {  flex: 1 0 auto; }
+		.marginleft4 { margin-left: 4%; }
   </style>
 	<?php if($theme_name === 'night'){ ?>
 		<style>
@@ -92,24 +81,31 @@
   <div id="schedule" class="container">
     <form class="col s12" action="index.php" method="post">
 		<p>
-	    <input class="with-gap tooltipped" name="date" type="radio" id="option-0" name="date" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
-	    <label class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>" for="option-0">TODAY</label>
-
-	    <input class="with-gap" name="date" type="radio" id="option-1" name="date" value="Mon" <?php checkLastDate("Mon"); ?>/>
-	    <label for="option-1">MONDAY</label>
-
-	    <input class="with-gap" name="date" type="radio" id="option-2" name="date" value="Tue" <?php checkLastDate("Tue"); ?>/>
-	    <label for="option-2">TUESDAY</label>
-
-	    <input class="with-gap" name="date" type="radio" id="option-3" name="date" value="Wed" <?php checkLastDate("Wed"); ?>/>
-	    <label for="option-3">WEDNESDAY</label>
-
-	    <input class="with-gap" name="date" type="radio" id="option-4" name="date" value="Thu" <?php checkLastDate("Thu"); ?>/>
-	    <label for="option-4">THURSDAY</label>
-
-	    <input class="with-gap" name="date" type="radio" id="option-5" name="date" value="Fri" <?php checkLastDate("Fri"); ?>/>
-	    <label for="option-5">FRIDAY</label>
-  	</p>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
+	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
+	    </label>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
+	      <span>MONDAY</span>
+	    </label>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
+	      <span>TUESDAY</span>
+	    </label>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
+	      <span>WEDNESDAY</span>
+	    </label>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
+	      <span>THURSDAY</span>
+	    </label>
+	    <label>
+	      <input class="with-gap" name="date" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
+	      <span>FRIDAY</span>
+	    </label>
+	  </p>
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
@@ -179,6 +175,7 @@
               - New search method <br>
 							- Browser caching ( Max 6 days cache ) <br>
 							- Brotli compression <br>
+							- Updated framework <br>
             </div>
           </span>
         </div>
@@ -195,4 +192,11 @@
     </div>
   </div>
 </footer>
+
+<script async> //Initialize UI
+	window.onload = function(){
+		M.Tabs.init(document.querySelectorAll('.tabs'), {});
+  	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
+	}
+</script>
 </body>

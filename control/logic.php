@@ -42,7 +42,7 @@ if (isset($_POST['search'])) {
   echo "<p>Timetable for $queryFor $queryValue on $date</p>";
   hidemsg();
   echo "
-        <table class='container responsive-table highlight left bordered'><thead id='removethead' $tablehead><tr>
+        <table class='responsive-table highlight bordered'><thead id='removethead' $tablehead><tr>
             <th $hideItems>Intake</th><th class='hide-on-small-only'>Date</th><th>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th>
         </tr></thead>";
 

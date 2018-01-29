@@ -21,6 +21,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
+	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async>
@@ -191,12 +192,15 @@
     </div>
   </div>
 </footer>
-
-<script type="text/javascript" src="js/materialize.min.js"></script>
-<script async> //Initialize UI
-	window.onload = function(){
+<script type="text/javascript">
+	function initialize() {
 		M.Tabs.init(document.querySelectorAll('.tabs'), {});
-  	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
+		M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
 	}
+	if (window.addEventListener)
+	window.addEventListener("load", initialize, false);
+	else if (window.attachEvent)
+	window.attachEvent("onload", initialize);
+	else window.onload = initialize;
 </script>
 </body>

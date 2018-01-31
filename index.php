@@ -1,7 +1,5 @@
 <!-- APU Schedule by jonathan law -->
-
 <?php
-	$row = 1;
 	$date = $_POST['date'];
 	function checkLastDate($dateInput){
 		if($_POST['date'] === $dateInput){
@@ -15,34 +13,32 @@
 <head>
 	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
-	<link rel="preload" href="css/materialize.min.css" as="style"/>
-	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style"/>
+	<link rel="preload" href="css/materialize.min.css" as="style" onload="this.rel='stylesheet'"/>
+	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'"/>
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script async>
-		async function changedefault() {
+		function changedefault() {
 			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
 		}
-		async function changemytimetable() {
+		function changemytimetable() {
 			document.getElementById("headercolor").className = "nav-extended brown darken-4";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
 		}
-		async function changesyntax() {
+		function changesyntax() {
 			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
 		}
-		async function warning() {
+		function warning() {
 			document.getElementById("headercolor").className = "nav-extended red darken-3";
 			document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
 			document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
 		}
-		async function hidethead() {
+		function hidethead() {
 		var a = document.getElementById("removethead");
 		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
 		}
@@ -52,14 +48,6 @@
 	  main {  flex: 1 0 auto; }
 		.marginleft4 { margin-left: 4%; }
   </style>
-	<?php if($theme_name === 'night'){ ?>
-		<style>
-		.input-field input[type=text].valid {
-       border-bottom: 1px solid #616161;
-       box-shadow: 0 1px 0 0 #616161;
-     }
-	  </style>
-	<?php } ?>
 </head>
 
 <body>
@@ -109,16 +97,8 @@
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
-          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text" class="validate">
+          <input placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text" class="validate autocomplete" autocomplete="off">
       </div>
-		  <datalist id="classlist">
-  		  <?php
-  			$myfile = fopen("data/classlist.txt", "r") or die("Classes list not found");
-  			while(!feof($myfile)) {
-  			  echo "<option value='" . trim(fgets($myfile)) . "'/>";
-  			}
-  			fclose($myfile); ?>
-		  </datalist>
 		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
 				<i class="material-icons left">lightbulb_outline</i>Search
 			</button>
@@ -130,14 +110,15 @@
   </div>
 
 	<div id="mytimetable" class="container">
-    <?php
-		//Process in control/logic.php
+    <?php //Process in control/logic.php
     include('control/mytimetable.php');
 		//Functions
 		function tutorial(){
 			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
 			You can also search for your intake timetable here<br>
-			Check the syntax tab for more</p></div>";
+			Check the syntax tab for more</p>
+			Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a>
+			</div>";
 		}
 		?>
   </div>
@@ -148,23 +129,19 @@
         <div class="card-panel hoverable">
           <span>
             <div class="section">
-              <b>To search for labs</b><br>
-              LAB 4-01, or just typing LAB 4 will search all labs on level 4. LAB 4-01 will search for that lab only.
+              <b>To search for labs</b><br>LAB 4-01, or just typing LAB 4 will search all labs on level 4. LAB 4-01 will search for that lab only.
             </div>
             <div class="divider"></div>
             <div class="section">
-              <b>To search for classes</b><br>
-              B-04-02, or just typing B-04 will search all classes on block B level 4. Offices are not included in the search
+              <b>To search for classes</b><br>B-04-02, or just typing B-04 will search all classes on block B level 4. Offices are not included in the search
             </div>
             <div class="divider"></div>
             <div class="section">
-              <b>Auditoriums</b><br>
-              Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
+              <b>Auditoriums</b><br>Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
             </div>
             <div class="divider"></div>
             <div class="section">
-              <b>APIIT classrooms</b><br>
-              L2 classrooms will not show here.
+              <b>APIIT classrooms</b><br>L2 classrooms will not show here.
             </div>
           </span>
         </div>
@@ -196,11 +173,13 @@
 	function initialize() {
 		M.Tabs.init(document.querySelectorAll('.tabs'), {});
 		M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-	}
-	if (window.addEventListener)
-	window.addEventListener("load", initialize, false);
-	else if (window.attachEvent)
-	window.attachEvent("onload", initialize);
-	else window.onload = initialize;
+  	var ac = M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {data : {<?php
+		  $myfile = fopen("data/classlist.txt", "r");
+		  while(!feof($myfile)) { echo "'" . trim(fgets($myfile)) . "':null,"; }
+		  fclose($myfile); ?>}});
+		}
+		if (window.addEventListener) window.addEventListener("load", initialize, false);
+		else if (window.attachEvent) window.attachEvent("onload", initialize);
+		else window.onload = initialize;
 </script>
 </body>

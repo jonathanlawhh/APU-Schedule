@@ -1,22 +1,19 @@
 <?php
-	//Load theme
-	include("control/theme.php");
-  function intakeInput(){
-    if(isset($_COOKIE['myIntakeCode-APU'])){
-      echo $_COOKIE['myIntakeCode-APU'];
-    }
+function intakeInput(){
+  if(isset($_COOKIE['myIntakeCode-APU'])){
+    echo $_COOKIE['myIntakeCode-APU'];
   }
+}
 ?>
 <head>
 	<title>APU/APIIT Schedule</title>
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
+	<link rel="preload" href="css/materialize.min.css" as="style" onload="this.rel='stylesheet'"/>
+	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'"/>
 	<meta name="theme-color" content="#880e4f">
-	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-	<script type="text/javascript" src="js/jquery.min.js" async></script>
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <style>
   body {
     display: flex;
@@ -50,24 +47,30 @@
       <div class="card-panel hoverable">
         <span>
           <div class="section">
-            <a href="index.php#mytimetable"><i class="material-icons left">arrow_back</i> Go back to schedule</a>
+            <a href="index.php"><i class="material-icons left">arrow_back</i> Go back to schedule</a>
           </div>
         </span>
       </div>
       <div class="card-panel">
         <span>
           <div class="section">
+						<div class="row">
             <b>Intake :</b><br>
-            <form action="control/setconfig.php" method="POST">
-              <div class="row">
-                <div class="input-field col s12 m6 l9" style="margin-top:0; padding:0;">
-                    <input placeholder="eg. UCDF1604ICT(SE)" name="myIntake" id="myIntake" type="text" class="validate" value="<?php intakeInput(); ?>">
-                </div>
-          		  <button type="submit" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 m6 l4" style="margin-right:10px">
-            		  <i class="material-icons left">cloud_upload</i>Update
-          		  </button>
-          		 </div>
-             </form>
+	            <form action="control/setconfig.php" method="POST">
+	                <div class="input-field col s12 m6 l9" style="margin-top:0; padding:0;">
+	                    <input placeholder="eg. UCDF1604ICT(SE)" name="myIntake" id="myIntake" type="text" class="validate" value="<?php intakeInput(); ?>">
+	                </div>
+	          		  <button type="submit" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 m6 l4" style="margin-right:10px">
+	            		  <i class="material-icons left">cloud_upload</i>Update
+	          		  </button>
+	             </form>
+					 	 </div>
+						 <div class="row">
+							 <b>Refresh browser cache</b><br>Use this option if webpage is not loading correctly
+							 <button class="blue-grey darken-4 waves-effect waves-light btn col s6 m6 l4" style="margin-right:10px; margin-top:10px;" onclick="hardRefresh()">
+								 <i class="material-icons left">refresh</i>Refresh
+							 </button>
+						</div>
           </div>
         </span>
       </div>
@@ -84,10 +87,11 @@
   </div>
 </div>
 </footer>
-<script async> //Initialize UI
-	window.onload = function(){
-		var el=document.querySelectorAll('.tabs');
-		var instance = M.Tabs.init(el, {});
-	}
+<script> //Initialize UI
+function initialize() {M.Tabs.init(document.querySelectorAll('.tabs'), {});}
+	if (window.addEventListener) window.addEventListener("load", initialize, false);
+	else if (window.attachEvent) window.attachEvent("onload", initialize);
+	else window.onload = initialize;
+function hardRefresh(){ window.location.reload(true); }
 </script>
 </body>

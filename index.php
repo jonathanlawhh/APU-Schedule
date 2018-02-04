@@ -1,15 +1,8 @@
 <!-- APU Schedule by jonathan law -->
 <?php
-	$date = $_POST['date'];
-	function checkLastDate($dateInput){
-		if($_POST['date'] === $dateInput){
-			echo 'checked';
-		}
-	}
-	//Load theme
-	include('control/theme.php');
-?>
-
+$date = $_POST['date'];
+function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
+include('control/theme.php'); ?>
 <head>
 	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
@@ -20,35 +13,35 @@
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
-  <script async>
-		function changedefault() {
-			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
-			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
-		}
-		function changemytimetable() {
-			document.getElementById("headercolor").className = "nav-extended brown darken-4";
-			document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
-		}
-		function changesyntax() {
-			document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-			document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
-		}
-		function warning() {
-			document.getElementById("headercolor").className = "nav-extended red darken-3";
-			document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-			document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
-		}
-		function hidethead() {
-		var a = document.getElementById("removethead");
-		"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
-		}
-  </script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
 		.marginleft4 { margin-left: 4%; }
   </style>
 </head>
+<script async>
+function changedefault() {
+document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
+}
+function changemytimetable() {
+document.getElementById("headercolor").className = "nav-extended brown darken-4";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+}
+function changesyntax() {
+document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
+}
+function warning() {
+document.getElementById("headercolor").className = "nav-extended red darken-3";
+document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
+}
+function hidethead() {
+var a = document.getElementById("removethead");
+"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
+}
+</script>
 
 <body>
   <main>
@@ -105,22 +98,18 @@
 		 </div>
 		</form>
 
-    <?php //Process in control/logic.php
-    include("control/logic.php"); ?>
+    <?php include("control/logic.php"); //Process in control/logic.php?>
   </div>
 
 	<div id="mytimetable" class="container">
-    <?php //Process in control/logic.php
-    include('control/mytimetable.php');
+    <?php include('control/mytimetable.php'); //Process in control/logic.php
 		//Functions
 		function tutorial(){
 			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
 			You can also search for your intake timetable here<br>
 			Check the syntax tab for more</p>
 			Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a>
-			</div>";
-		}
-		?>
+			</div>"; } ?>
   </div>
 
   <div id="syntax" class="container">
@@ -170,16 +159,14 @@
   </div>
 </footer>
 <script type="text/javascript">
-	function initialize() {
-		M.Tabs.init(document.querySelectorAll('.tabs'), {});
-		M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-  	var ac = M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {data : {<?php
-		  $myfile = fopen("data/classlist.txt", "r");
-		  while(!feof($myfile)) { echo "'" . trim(fgets($myfile)) . "':null,"; }
-		  fclose($myfile); ?>}});
-		}
-		if (window.addEventListener) window.addEventListener("load", initialize, false);
-		else if (window.attachEvent) window.attachEvent("onload", initialize);
-		else window.onload = initialize;
+function initialize() {
+	M.Tabs.init(document.querySelectorAll('.tabs'), {});
+	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
+	var ac = M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {data : {<?php
+	  $myfile = fopen("data/classlist.txt", "r");
+	  while(!feof($myfile)) { echo "'" . trim(fgets($myfile)) . "':null,"; }
+	  fclose($myfile); ?>}});
+	}
+	window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 </script>
 </body>

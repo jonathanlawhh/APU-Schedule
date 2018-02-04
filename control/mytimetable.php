@@ -1,12 +1,10 @@
 <?php
 // This will process all query and logic
 // Goal is to clean main index.php
-
 $classroom = null;
 $results = $columns = array();
 $intake = $_COOKIE['myIntakeCode-APU'];
-  if (!isset($intake)){
-    echo "
+  if (!isset($intake)){ echo "
     <div class='row'>
       <div class='col s12 m12 l5'>
         <div class='card-panel hoverable'>
@@ -24,9 +22,7 @@ $intake = $_COOKIE['myIntakeCode-APU'];
     goto end;
   }
 
-$date = date('D');
-$needles = array($date);
-$needles02 = array($intake);
+$date = date('D'); $needles = array($date); $needles02 = array($intake);
 
 echo "<p>Timetable for intake $intake on $date<br><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>";
 echo "<table class='responsive-table highlight bordered'><thead id='removethead' style='display:none;'><tr><th class='hide-on-small-only'>Date</th><th width='15%'>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th>Module</th><th>Lecterur</th></tr></thead>";

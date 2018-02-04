@@ -3,25 +3,19 @@
 // Goal is to clean main index.php\
 $results = $columns = array();
 $headMsg = 'Hide table header';
-if(isset($_COOKIE['apuschedule-tablehead'])){
-  $tablehead = "style='display:none'";
-  $headMsg = 'Show table header';
-}
+if(isset($_COOKIE['apuschedule-tablehead'])){ $tablehead = "style='display:none'"; $headMsg = 'Show table header'; }
 
 //XSS Detection
 if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){ echo "<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>"; exit; }
 
 //Start Query
 if (isset($_POST['search'])) {
-  $queryFor = 'intake';
-  $queryValue = $_POST['classroom'];
-  $hideItems = "class='hide-on-small-only'";
+  $queryFor = 'intake'; $queryValue = $_POST['classroom']; $hideItems = "class='hide-on-small-only'";
 
   if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) { $queryFor = 'classroom'; $hideItems = ''; }
   elseif (empty($queryValue)){ tutorial(); goto end; }
 
-  $needles = array($date);
-  $needles02 = array($queryValue);
+  $needles = array($date); $needles02 = array($queryValue);
 
   echo "<p>Timetable for $queryFor $queryValue on $date</p>
         <a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>$headMsg</a>";

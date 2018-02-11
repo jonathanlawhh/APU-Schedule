@@ -49,8 +49,8 @@ if (isset($_POST['search'])) {
               echo '<td>' . $data[$module] . '</td>';
               echo '<td>' . $data[$lecterur] . '</td>';
               echo '</tr>';
-            }}
-        }}   //Cleanup and close table
+            } else { echo '<p>Either the classrooms do not exist or are empty</p>'; break 3;}}
+        } else { echo '<p>Are you sure there are classes today?</p>'; break 2;}}   //Cleanup and close table
     } fclose($handle); echo "</tbody></table><div class='row'></div>";
   }
 } else { tutorial(); }

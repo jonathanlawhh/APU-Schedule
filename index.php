@@ -1,6 +1,6 @@
 <!-- APU Schedule by jonathan law -->
 <?php
-$date = $_POST['date'];
+$date = $_POST['date'] ?? 'TODAY';
 function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
 include('control/theme.php'); ?>
 <head>
@@ -63,7 +63,7 @@ var a = document.getElementById("removethead");
     <form class="col s12" action="index.php" method="post">
 		<p>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if(!isset($date) || $date === '' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
+	      <input class="with-gap" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
 	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
 	    </label>
 	    <label>
@@ -90,25 +90,28 @@ var a = document.getElementById("removethead");
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
-          <input placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text" class="validate autocomplete" autocomplete="off">
+          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text">
       </div>
-		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s4 m2 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+			<datalist id="classlist">
+	   		  <?php $list = fopen("data/classlist.txt", "r");
+	   			while(!feof($list)) { echo "<option value='" . trim(fgets($list)) . "'/>"; } fclose($list); ?>
+		  </datalist>
+		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
 				<i class="material-icons left">lightbulb_outline</i>Search
 			</button>
 		 </div>
 		</form>
 
-    <?php include("control/logic.php"); //Process in control/logic.php?>
+    <?php include("control/logic.php"); ?>
   </div>
 
 	<div id="mytimetable" class="container">
-    <?php include('control/mytimetable.php'); //Process in control/logic.php
-		//Functions
+    <?php include('control/mytimetable.php');
 		function tutorial(){
 			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
 			You can also search for your intake timetable here<br>
 			Check the syntax tab for more</p>
-			Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a>
+			<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
 			</div>"; } ?>
   </div>
 
@@ -141,7 +144,6 @@ var a = document.getElementById("removethead");
               - New search method <br>
 							- Browser caching ( Max 6 days cache ) <br>
 							- Brotli compression <br>
-							- Updated framework <br>
             </div>
           </span>
         </div>
@@ -162,10 +164,6 @@ var a = document.getElementById("removethead");
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
 	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-	var ac = M.Autocomplete.init(document.querySelectorAll('.autocomplete'), {data : {<?php
-	  $myfile = fopen("data/classlist.txt", "r");
-	  while(!feof($myfile)) { echo "'" . trim(fgets($myfile)) . "':null,"; }
-	  fclose($myfile); ?>}});
 	}
 	window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 </script>

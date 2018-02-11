@@ -1,10 +1,7 @@
 <?php
 function intakeInput(){
-  if(isset($_COOKIE['myIntakeCode-APU'])){
-    echo $_COOKIE['myIntakeCode-APU'];
-  }
-}
-?>
+  if(isset($_COOKIE['myIntakeCode-APU'])){ echo $_COOKIE['myIntakeCode-APU']; }
+} ?>
 <head>
 	<title>APU/APIIT Schedule</title>
 	<link rel="icon" href="images/favicon.png">
@@ -15,15 +12,9 @@ function intakeInput(){
 	<meta name="theme-color" content="#880e4f">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
   <style>
-  body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
+	  body { display: flex; min-height: 100vh; flex-direction: column; }
+	  main {  flex: 1 0 auto; }
+		.marginleft4 { margin-left: 4%; }
   </style>
 </head>
 
@@ -47,7 +38,7 @@ function intakeInput(){
       <div class="card-panel hoverable">
         <span>
           <div class="section">
-            <a href="index.php"><i class="material-icons left">arrow_back</i> Go back to schedule</a>
+            <a role="button" onclick="history.go(-1);"><i class="material-icons left">arrow_back</i> Go back to schedule</a>
           </div>
         </span>
       </div>
@@ -60,14 +51,14 @@ function intakeInput(){
 	                <div class="input-field col s12 m6 l9" style="margin-top:0; padding:0;">
 	                    <input placeholder="eg. UCDF1604ICT(SE)" name="myIntake" id="myIntake" type="text" class="validate" value="<?php intakeInput(); ?>">
 	                </div>
-	          		  <button type="submit" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 m6 l4" style="margin-right:10px">
+	          		  <button type="submit" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 l4" style="margin-right:10px">
 	            		  <i class="material-icons left">cloud_upload</i>Update
 	          		  </button>
 	             </form>
 					 	 </div>
 						 <div class="row">
-							 <b>Refresh browser cache</b><br>Use this option if webpage is not loading correctly
-							 <button class="blue-grey darken-4 waves-effect waves-light btn col s6 m6 l4" style="margin-right:10px; margin-top:10px;" onclick="hardRefresh()">
+							 <p><b>Refresh browser cache</b><br>Use this option if webpage is not loading correctly</p>
+							 <button class="blue-grey darken-4 waves-effect waves-light btn col s6 l4" style="margin-right:10px; margin-top:10px;" onclick="location.reload(true);">
 								 <i class="material-icons left">refresh</i>Refresh
 							 </button>
 						</div>
@@ -92,6 +83,5 @@ function initialize() {M.Tabs.init(document.querySelectorAll('.tabs'), {});}
 	if (window.addEventListener) window.addEventListener("load", initialize, false);
 	else if (window.attachEvent) window.attachEvent("onload", initialize);
 	else window.onload = initialize;
-function hardRefresh(){ window.location.reload(true); }
 </script>
 </body>

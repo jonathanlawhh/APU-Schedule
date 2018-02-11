@@ -110,7 +110,8 @@ var a = document.getElementById("removethead");
 		function tutorial(){
 			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
 			You can also search for your intake timetable here<br>
-			Check the syntax tab for more</p>
+			Check the syntax tab for more<br>
+			Week of 20180212 schedule is not available...</p>
 			<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
 			</div>"; } ?>
   </div>

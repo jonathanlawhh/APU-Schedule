@@ -19,7 +19,7 @@ include('control/theme.php'); ?>
 		.marginleft4 { margin-left: 4%; }
   </style>
 </head>
-<script async>
+<script>
 function changedefault() {
 document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
 document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
@@ -107,13 +107,12 @@ var a = document.getElementById("removethead");
 
 	<div id="mytimetable" class="container">
     <?php include('control/mytimetable.php');
-		function tutorial(){
-			echo "<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
+		function tutorial(){ ?>
+			<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
 			You can also search for your intake timetable here<br>
 			Check the syntax tab for more<br>
-			Week of 20180212 schedule is not available...</p>
 			<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
-			</div>"; } ?>
+		</div> <?php } ?>
   </div>
 
   <div id="syntax" class="container">

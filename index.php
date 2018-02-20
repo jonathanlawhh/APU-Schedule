@@ -19,29 +19,6 @@ include('control/theme.php'); ?>
 		.marginleft4 { margin-left: 4%; }
   </style>
 </head>
-<script>
-function changedefault() {
-document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
-}
-function changemytimetable() {
-document.getElementById("headercolor").className = "nav-extended brown darken-4";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
-}
-function changesyntax() {
-document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
-}
-function warning() {
-document.getElementById("headercolor").className = "nav-extended red darken-3";
-document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
-}
-function hidethead() {
-var a = document.getElementById("removethead");
-"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
-}
-</script>
 
 <body>
   <main>
@@ -164,7 +141,29 @@ var a = document.getElementById("removethead");
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
 	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-	}
-	window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+  M.Collapsible.init(document.querySelectorAll('.collapsible'),{});
+}
+window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+function changedefault() {
+document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
+}
+function changemytimetable() {
+document.getElementById("headercolor").className = "nav-extended brown darken-4";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+}
+function changesyntax() {
+document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
+}
+function warning() {
+document.getElementById("headercolor").className = "nav-extended red darken-3";
+document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
+}
+function hidethead() {
+var a = document.getElementById("removethead");
+"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
+}
 </script>
 </body>

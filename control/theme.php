@@ -1,5 +1,4 @@
-<?php
-//Default Theme
+<?php //Default Theme
 $theme_name = "default";
 $theme_color = "teal darken-3";
 $theme_secondary = "";
@@ -15,6 +14,4 @@ if(date("G")>17){
   $theme_syntax = "blue-grey darken-4";
   $theme_meta = "#212121";
   $theme_metasyntax = "#263238";
-}
-
-?>
+} ?>

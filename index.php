@@ -13,7 +13,7 @@ include('control/theme.php'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" defer></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
@@ -33,7 +33,7 @@ include('control/theme.php'); ?>
         <ul class="tabs tabs-transparent">
           <li class="tab" onclick="changedefault()"><a href="#schedule">Schedule</a></li>
           <li class="tab" onclick="changemytimetable()"><a href="#mytimetable">My Timetable</a></li>
-          <li class="tab" onclick="changesyntax()"><a href="#syntax">Syntax</a></li>
+          <li class="tab" onclick="loadSyntax()"><a href="#syntax">Syntax</a></li>
         </ul>
       </div>
     </div>
@@ -75,12 +75,12 @@ include('control/theme.php'); ?>
 	   		  <?php $list = fopen("data/classlist.txt", "r");
 	   			while(!feof($list)) { echo "<option value='" . trim(fgets($list)) . "'/>"; } fclose($list); ?>
 		  </datalist>
-		  <button onclick="doSearch()" id="btn_all" name="search" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+		  <button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
 				<i class="material-icons left">lightbulb_outline</i>Search
 			</button>
 		 </div>
 
- 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
+ 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>
  				You can also search for your intake timetable here<br>
  				Check the syntax tab for more<br>
 				Just restructure codes to AJAX(no refresh on search), things will break!!<br>
@@ -96,42 +96,7 @@ include('control/theme.php'); ?>
     <?php include('control/mytimetable.php'); ?>
   </div>
 
-  <div id="syntax" class="container">
-    <div class="row">
-      <div class="col s12 m12 l5">
-        <div class="card-panel hoverable">
-          <span>
-            <div class="section">
-              <b>To search for labs</b><br>LAB 4-01, or just typing LAB 4 will search all labs on level 4. LAB 4-01 will search for that lab only.
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-              <b>To search for classes</b><br>B-04-02, or just typing B-04 will search all classes on block B level 4. Offices are not included in the search
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-              <b>Auditoriums</b><br>Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
-            </div>
-            <div class="divider"></div>
-            <div class="section">
-              <b>APIIT classrooms</b><br>L2 classrooms will not show here.
-            </div>
-          </span>
-        </div>
-				<div class="card-panel hoverable">
-          <span>
-            <div class="section">
-              <b>Experimental</b><br>
-              - Moving to AJAX approach <br>
-							- Browser caching ( Max 6 days cache ) <br>
-							- Brotli compression <br>
-            </div>
-          </span>
-        </div>
-      </div>
-    </div>
-
-  </div>
+  <div id="syntax" class="container"></div>
 </main>
 
 <footer class="page-footer grey darken-3">
@@ -152,9 +117,15 @@ function initialize() {
 function doSearch() {
 var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
 b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e}, success:function(g) {
-	d.style.display = "none"; f.style.display = "block"; c.style.display = "table"; a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
+	d.style.display = "none"; f.style.display = "block"; c.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
 	$("#resultArea").html(g);
 }}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; }
+
+function loadSyntax() {
+  document.getElementById("syntaxRow") || $("#syntax").load("syntax.html");
+	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
+	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
+}
 
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function changedefault() {
@@ -164,10 +135,6 @@ document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php 
 function changemytimetable() {
 document.getElementById("headercolor").className = "nav-extended brown darken-4";
 document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
-}
-function changesyntax() {
-document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
 }
 function warning() {
 document.getElementById("headercolor").className = "nav-extended red darken-3";

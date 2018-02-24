@@ -46,23 +46,23 @@ include('control/theme.php'); ?>
 	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
 	      <span>MONDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
 	      <span>TUESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
 	      <span>WEDNESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
 	      <span>THURSDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
 	      <span>FRIDAY</span>
 	    </label>
 	  </p>

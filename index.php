@@ -13,10 +13,13 @@ include('control/theme.php'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
+	<script type="text/javascript" src="js/jquery-3.3.1.min.js" defer></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
-		.marginleft4 { margin-left: 4%; }
+		::selection { background: #d81b60; color:#ffffff;}
+		::-moz-selection { background: #d81b60; color:#ffffff; }
+		.marginleft4 { margin-left: 4%;}
   </style>
 </head>
 
@@ -37,59 +40,60 @@ include('control/theme.php'); ?>
   </nav>
 
   <div id="schedule" class="container">
-    <form class="col s12" action="index.php" method="post">
 		<p>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
 	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
+	      <input class="with-gap dateDay" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
 	      <span>MONDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
+	      <input class="with-gap dateDay" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
 	      <span>TUESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
+	      <input class="with-gap dateDay" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
 	      <span>WEDNESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
+	      <input class="with-gap dateDay" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
 	      <span>THURSDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap" name="date" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
+	      <input class="with-gap dateDay" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
 	      <span>FRIDAY</span>
 	    </label>
 	  </p>
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
-          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text">
+          <input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" name="classroom" type="text" id="searchVal">
       </div>
 			<datalist id="classlist">
 	   		  <?php $list = fopen("data/classlist.txt", "r");
 	   			while(!feof($list)) { echo "<option value='" . trim(fgets($list)) . "'/>"; } fclose($list); ?>
 		  </datalist>
-		  <button type="submit" id="btn_all" name="search" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+		  <button onclick="doSearch()" id="btn_all" name="search" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
 				<i class="material-icons left">lightbulb_outline</i>Search
 			</button>
 		 </div>
-		</form>
 
-    <?php include("control/logic.php"); ?>
+ 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
+ 				You can also search for your intake timetable here<br>
+ 				Check the syntax tab for more<br>
+				Just restructure codes to AJAX(no refresh on search), things will break!!<br>
+ 				<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
+ 			</div>
+
+			<p id="searchInfo"></p>
+			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Toggle table header</a>
+			<table id="resultArea" class='responsive-table highlight bordered'></table>
   </div>
 
 	<div id="mytimetable" class="container">
-    <?php include('control/mytimetable.php');
-		function tutorial(){ ?>
-			<div class='marginleft4'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes <br>
-			You can also search for your intake timetable here<br>
-			Check the syntax tab for more<br>
-			<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
-		</div> <?php } ?>
+    <?php include('control/mytimetable.php'); ?>
   </div>
 
   <div id="syntax" class="container">
@@ -118,7 +122,7 @@ include('control/theme.php'); ?>
           <span>
             <div class="section">
               <b>Experimental</b><br>
-              - New search method <br>
+              - Moving to AJAX approach <br>
 							- Browser caching ( Max 6 days cache ) <br>
 							- Brotli compression <br>
             </div>
@@ -137,12 +141,21 @@ include('control/theme.php'); ?>
     </div>
   </div>
 </footer>
+
 <script type="text/javascript">
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
 	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
   M.Collapsible.init(document.querySelectorAll('.collapsible'),{});
 }
+
+function doSearch() {
+var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
+b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e}, success:function(g) {
+	d.style.display = "none"; f.style.display = "block"; c.style.display = "table"; a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
+	$("#resultArea").html(g);
+}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; }
+
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function changedefault() {
 document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";

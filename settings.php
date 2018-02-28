@@ -7,13 +7,16 @@ function intakeInput(){
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="preload" href="css/materialize.min.css" as="style" onload="this.rel='stylesheet'"/>
-	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'"/>
+  <link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
+	<noscript><link rel="stylesheet" href="css/materialize.min.css"></noscript>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></noscript>
 	<meta name="theme-color" content="#880e4f">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
+    a { color: #f4511e; }
 		.marginleft4 { margin-left: 4%; }
   </style>
 </head>
@@ -79,9 +82,7 @@ function intakeInput(){
 </div>
 </footer>
 <script> //Initialize UI
-function initialize() {M.Tabs.init(document.querySelectorAll('.tabs'), {});}
-	if (window.addEventListener) window.addEventListener("load", initialize, false);
-	else if (window.attachEvent) window.attachEvent("onload", initialize);
-	else window.onload = initialize;
+function initialize() { M.Tabs.init(document.querySelectorAll(".tabs"), {}); }
+window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 </script>
 </body>

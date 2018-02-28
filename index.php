@@ -1,4 +1,5 @@
 <!-- APU Schedule by jonathan law -->
+<html lang="en">
 <?php
 $date = $_POST['date'] ?? 'TODAY';
 function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
@@ -6,17 +7,21 @@ include('control/theme.php'); ?>
 <head>
 	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
-	<link rel="preload" href="css/materialize.min.css" as="style" onload="this.rel='stylesheet'"/>
-	<link rel="preload" href="https://fonts.googleapis.com/icon?family=Material+Icons" as="style" onload="this.rel='stylesheet'"/>
+	<link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
+	<noscript><link rel="stylesheet" href="css/materialize.min.css"></noscript>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
+	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></noscript>
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
+	<link rel="manifest" href="manifest.json">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
+		a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;}
 		::-moz-selection { background: #d81b60; color:#ffffff; }
 		.marginleft4 { margin-left: 4%;}
@@ -46,23 +51,23 @@ include('control/theme.php'); ?>
 	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Mon" <?php checkLastDate("Mon"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Mon" />
 	      <span>MONDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-2" value="Tue" <?php checkLastDate("Tue"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-2" value="Tue" />
 	      <span>TUESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-3" value="Wed" <?php checkLastDate("Wed"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-3" value="Wed" />
 	      <span>WEDNESDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-4" value="Thu" <?php checkLastDate("Thu"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-4" value="Thu" />
 	      <span>THURSDAY</span>
 	    </label>
 	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-5" value="Fri" <?php checkLastDate("Fri"); ?>/>
+	      <input class="with-gap dateDay" name="date" type="radio" id="option-5" value="Fri" />
 	      <span>FRIDAY</span>
 	    </label>
 	  </p>
@@ -83,12 +88,12 @@ include('control/theme.php'); ?>
  			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>
  				You can also search for your intake timetable here<br>
  				Check the syntax tab for more<br>
-				Just restructure codes to AJAX(no refresh on search), things will break!!<br>
+				Just restructured codes to AJAX (no refresh on search), things will break!!<br>
  				<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
  			</div>
 
 			<p id="searchInfo"></p>
-			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Toggle table header</a>
+			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
 			<table id="resultArea" class='responsive-table highlight bordered'></table>
   </div>
 
@@ -114,36 +119,41 @@ function initialize() {
   M.Collapsible.init(document.querySelectorAll('.collapsible'),{});
 }
 
+document.getElementById("searchVal").addEventListener("keyup", function(a) {
+  a.preventDefault();
+  13 === a.keyCode && doSearch();
+});
+
 function doSearch() {
-var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
+var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
 b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e}, success:function(g) {
-	d.style.display = "none"; f.style.display = "block"; c.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
+	d.style.display = "none"; f.style.display = "block"; c.removeAttribute("style"); h.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
 	$("#resultArea").html(g);
-}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; }
+}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; h.style.display = "none"; }
 
 function loadSyntax() {
   document.getElementById("syntaxRow") || $("#syntax").load("syntax.html");
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
-	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>");
-}
+	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>"); }
 
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function changedefault() {
 document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>");
-}
+document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>"); }
+
 function changemytimetable() {
 document.getElementById("headercolor").className = "nav-extended brown darken-4";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
-}
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723"); }
+
 function warning() {
 document.getElementById("headercolor").className = "nav-extended red darken-3";
 document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c");
-}
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c"); }
+
 function hidethead() {
 var a = document.getElementById("removethead");
 "none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
 }
 </script>
 </body>
+</html>

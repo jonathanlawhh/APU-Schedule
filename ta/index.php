@@ -2,7 +2,7 @@
 $searchUser = $_POST['user'];
 if(isset($searchUser)){
   setcookie('myName-APU', $searchUser, time() + 31536000, '/');
-  echo "<script>window.location.replace('index.php');</script>";
+  header("Refresh:0");
 }
 $timeNow = date('Hi');
 $today = date('l');
@@ -53,7 +53,7 @@ else { $currShift = "none"; } ?>
     exec($a, $returnval); ?>
 
     <h4>TA Duty Roster for <?php echo $searchUser; ?></h4>
-    <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){echo $weekOf;} ?></p>
+    <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){ echo $weekOf; } ?></p>
     <p>Current ongoing shift : <?php echo $currShift; ?></p>
     <div class="row">
     <div class="col s12">
@@ -83,7 +83,7 @@ else { $currShift = "none"; } ?>
 
     <a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up'>Toggle table header</a>
     <table class="highlight responsive-table">
-      <thead id='removethead'><tr><th>Day</th><th>Shift</th><th>Duty</th><th>Notes</th>
+      <thead id='removethead' <?php if(isset($_COOKIE['apuschedule-tablehead'])){ echo "style='display:none;'"; }?>><tr><th>Day</th><th>Shift</th><th>Duty</th><th>Notes</th>
       </tr></thead>
       <tbody>
     <?php $t1 = $t2 = '';
@@ -92,9 +92,7 @@ else { $currShift = "none"; } ?>
       if($t1 === $explodedArray[0] && $t2 === $explodedArray[1]){ continue; } else {
         $e0 = trim($explodedArray[0]); $e1 = trim($explodedArray[1]);
         echo "<tr><td>$e0</td><td>$e1</td><td>$explodedArray[2]</td>";
-        if($e0===$today && $e1===$currShift){
-          echo "<td><span class='new badge' data-badge-caption='You have duty now'></span></td>";
-        } elseif($e0===$today && $today==='Saturday'){
+        if(($e0===$today && $e1===$currShift) || ($e0===$today && $today==='Saturday')){
           echo "<td><span class='new badge' data-badge-caption='You have duty now'></span></td>";
         } else { echo "<td></td>"; }
         echo '</tr>'; }
@@ -111,7 +109,7 @@ else { $currShift = "none"; } ?>
 <script>
 function hidethead() {
 var a = document.getElementById("removethead");
-"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;");
+"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;", document.getElementById("hidemsg").innerHTML = "Hide table header") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
 }
 </script>
 </body>

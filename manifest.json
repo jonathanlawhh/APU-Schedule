@@ -1,6 +1,7 @@
 {
-  "short_name": "APU Schedule",
   "name": "APU/APIIT Schedule",
+  "short_name": "APU Schedule",
+  "theme_color": "#004d40",
   "background_color": "#004d40",
-  "theme_color": "#004d40"
+  "display": "browser"
 }

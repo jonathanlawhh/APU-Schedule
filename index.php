@@ -88,7 +88,6 @@ include('control/theme.php'); ?>
  			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>
  				You can also search for your intake timetable here<br>
  				Check the syntax tab for more<br>
-				Just restructured codes to AJAX (no refresh on search), things will break!!<br>
  				<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
  			</div>
 

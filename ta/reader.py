@@ -65,6 +65,6 @@ def main(argv):
                       else :
                           duty = "Unidentified"
 
-                      print day,",",shift,",",duty
+                      print(day,",",shift,",",duty)
 if __name__ == "__main__":
    main(sys.argv[1:])

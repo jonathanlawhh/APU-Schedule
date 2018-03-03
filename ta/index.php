@@ -46,10 +46,10 @@ else { $currShift = "none"; }
 
   $searchUser = $_COOKIE['myName-APU'];
   if(isset($searchUser)){
-    exec("python reader.py -u '$searchUser'", $returnval); ?>
+    exec("D:\home\python364x64\python.exe reader.py -u '$searchUser'", $returnval); ?>
 
     <h4>TA Duty Roster for <?php echo $searchUser; ?></h4>
-    <p>Roster for the week of <?php exec("python currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){echo $weekOf;} ?></p>
+    <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){echo $weekOf;} ?></p>
     <p>Current ongoing shift : <?php echo $currShift; ?></p>
     <div class="row">
     <div class="col s12">

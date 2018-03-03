@@ -10,14 +10,14 @@ def main(argv):
    try:
       opts, args = getopt.getopt(argv,"u:")
    except getopt.GetoptError:
-      print 'reader.py -u jonathan'
+      print('reader.py -u jonathan')
       sys.exit(2)
    for opt, arg in opts:
       if opt in ("-u") :
           user = arg
           for row in range(sheet.nrows):
               for col in range(sheet.ncols):
-                  if sheet.cell_value(row, col).lower() == user.lower():
+                  if sheet.cell_value(row, col) == user:
                       row = row + 1
                       col = col + 1
                       if row in (7, 18, 29, 40, 51):

@@ -8,8 +8,6 @@
   <link rel="stylesheet" href="../css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
 	<noscript><link rel="stylesheet" href="../css/materialize.min.css"></noscript>
 	<link rel="icon" href="../images/favicon.png">
-  <meta name="theme-color" content="#0d47a1">
-  <script type="text/javascript" src="../js/materialize.min.js" async></script>
   <style>
     .marginbottom30 { margin-bottom:30px; }
     ::selection { background: #43a047; color:#ffffff;}
@@ -29,7 +27,7 @@
     <p>Copy the table below and paste with match source option in Excel</p>
 
     <table>
-      <thead <?php if(isset($_COOKIE['apuschedule-tablehead'])){ echo "style='display:none;'"; }?>><tr><th>Date</th><th>Code</th><th>Activity (Leave blank)</th><th>Time in</th><th>Time out</th>
+      <thead <?php if(isset($_COOKIE['apuschedule-tablehead'])){ echo "style='display:none;'"; }?>><tr><th>Date</th><th>Code</th><th>Activity</th><th>Time in</th><th>Time out</th>
       </tr></thead>
       <tbody>
       <?php
@@ -46,23 +44,22 @@
         elseif($checkMe==='S6'){ $start='1830'; $shiftDur+='0300'; }
       }
       function addTable($a, $b, $c, $d, $e){
-        $c = substr_replace($c, ":", 2, 0);
-        if($c>'12:00'){
-          $c = substr_replace($c, ":00 PM", 5, 0);
-        } else {
-          $c = substr_replace($c, ":00 AM", 5, 0);
-        }
-        $d = substr_replace($d, ":", 2, 0);
-        if($d>'12:00'){
-          $d = strtotime("-12 hours", strtotime($d));
-          $d = date('H:i', $d);
-          $d = substr_replace($d, ":00 PM", 5, 0);
-        } else {
-          $d = substr_replace($d, ":00 AM", 5, 0);
-        }
-
+        $c = convertTime($c);
+        $d = convertTime($d);
         echo "<tr><td>$a</td><td>$b</td><td>$e</td><td>$c</td><td>$d</td></tr>";
       }
+      function convertTime($z){
+        $z = substr_replace($z, ":", 2, 0);
+        if($z>='12:00'){
+          $z = strtotime("-12 hours", strtotime($z));
+          $z = date('H:i', $z);
+          $z = substr_replace($z, ":00 PM", 5, 0);
+        } else {
+          $z = substr_replace($z, ":00 AM", 5, 0);
+        }
+        return $z;
+      }
+
       foreach($returnval AS $array){
         $result = explode( ',', $array);
         if($t0 === $result[0] && $t1 === $result[1]){ continue; } else {
@@ -77,14 +74,14 @@
             setShiftTime($e1);
             if($i==1){ $iniStart = $start; }
           } else {
-            //Display previous first
             if($i){
-            setShiftTime($t1);
-            $start = $iniStart ?? $start;
-            $timeOut = $start + $shiftDur;
-            addTable($t0, $duty, $start, $timeOut, "$msg");
-            $shiftDur = '0000';
-            unset($iniStart); unset($start); unset($timeOut); $i = 0; $round = 0; goto redo;}
+              setShiftTime($t1);
+              $start = $iniStart ?? $start;
+              $timeOut = $start + $shiftDur;
+              addTable($t0, $duty, $start, $timeOut, "$msg");
+              $shiftDur = '0000';
+              unset($iniStart); unset($start); unset($timeOut); $i = 0; $round = 0; goto redo;
+            }
 
             setShiftTime($e1);
             $start = $iniStart ?? $start;
@@ -105,14 +102,14 @@
           }
           $t0 = $result[0]; $t1 = $result[1];
           }
-        }
+        } //End foreach
         if($start){
           $start = $iniStart ?? $start;
           $timeOut = $start + $shiftDur;
           addTable($e0, $duty, $start, $timeOut, "$msg");
 
           unset($iniStart); unset($start); unset($timeOut); unset($shiftDur); $i = 0;
-        } //End foreach ?>
+        } ?>
       </tbody>
     </table><div class="marginbottom30"></div>
 <?php } else { include('userless.html'); } //Close isset($searchUser) ?>

@@ -106,7 +106,7 @@ include('control/theme.php'); ?>
 <footer class="page-footer grey darken-3">
   <div class="footer-copyright grey darken-4">
     <div class="container">
-    Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a>
+    Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a><br>
     </div>
   </div>
 </footer>

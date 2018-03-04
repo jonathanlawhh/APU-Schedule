@@ -1,5 +1,3 @@
-<!-- TA Final Roster displayer by jonathan law -->
-<html lang="en">
 <?php
 if ((isset($_POST['user'])) && (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['user']))){ header('Location: https://apu-schedule.azurewebsites.net/ta/index.php'); }
 $searchUser = $_POST['user'] ?? $_COOKIE['myName-APU'];
@@ -14,8 +12,9 @@ elseif ('1430'<=$timeNow && $timeNow<='1629'){ $currShift = 'S4'; }
 elseif ('1630'<=$timeNow && $timeNow<='1829'){ $currShift = 'S5'; }
 elseif ('1830'<=$timeNow && $timeNow<='2130'){ $currShift = 'S6'; }
 else { $currShift = 'none / overtime'; } ?>
+<!-- APU Schedule by jonathan law -->
+<html lang="en">
 <head>
-  <meta http-equiv="cache-control" content="max-age=518400" />
   <title>TA Final Roster</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -67,6 +66,7 @@ function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "
           <span class="card-title">Duty summary</span>
           <p id="dutyNowLbl"></p>
           <p id="totalDutyHours"></p>
+          <a href="claim.php" target="_blank">Claim form generator</a>
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 <p>
   <label>
     <input class="with-gap dateDay" name="date" type="radio" id="option-0" value="<?php echo date('l'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
-    <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('l'); ?>">TODAY</span>
+    <span>TODAY</span>
   </label>
   <label>
     <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Monday" />
@@ -26,6 +26,7 @@
     <span>FRIDAY</span>
   </label>
 </p>
+<div class="divider"></div>
 <p>
   <label>
     <input class="with-gap duty" name="duty" type="radio" id="duty-0" value="rounding" checked/>
@@ -44,12 +45,11 @@
     <span>APIIT Rounding/QC</span>
   </label>
 </p>
-<br>
-  <div class="row">
-    <button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s10 m4 l3" style="margin-left:10px;">
-      <i class="material-icons left">lightbulb_outline</i>Search
-    </button>
-   </div>
+<div class="row">
+<button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s10 m4 l3" style="margin-left:10px;">
+  <i class="material-icons left">lightbulb_outline</i>Search
+</button>
+</div>
 
 <p id="searchInfo"></p>
 <a id='hidemsg2' onclick='hidethead2()' class='hide-on-med-and-up'>Toggle table header</a>

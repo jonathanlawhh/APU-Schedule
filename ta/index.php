@@ -116,27 +116,11 @@ function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "
   </div>
 </footer>
 <script>
-function initialize() {
-	M.Tabs.init(document.querySelectorAll('.tabs'), {});
-}
+function initialize(){ M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
-function doSearch() {
-  var a = document.getElementById("searchInfo"), b = document.querySelector(".duty:checked").value, c = document.querySelector(".dateDay:checked").value, d = document.getElementById("resultArea");
-  a.style.display = "Please wait...";
-  b ? $.ajax({type:"post", url:"searchLogic.php", dataType:"text", data:{duty:b, date:c}, success:function(e) {
-    d.removeAttribute("style"); a.innerHTML = "Results for " + b + " on " + c; $("#resultArea").html(e);
-  }}) : a.style.display = "No results found";
-}
-
-function loadOnDuty() { document.getElementById("ondutyContent") || $("#onduty").load("duty.php"); }
-
+function loadOnDuty() { document.getElementById("ondutyContent") || $.getScript("fragment/doSearch.js"); $("#onduty").load("duty.php"); }
 function hidethead() {
 var a = document.getElementById("removethead"), b = document.getElementById("hidemsg");
-"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;", b.innerHTML = "Hide table header") : (a.style.display = "none", b.innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
-}
-
-function hidethead2() {
-var a = document.getElementById("removethead2"), b = document.getElementById("hidemsg2");
 "none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;", b.innerHTML = "Hide table header") : (a.style.display = "none", b.innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
 }
 function clearCookie() { document.cookie = "myName-APU=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; M.toast({html:"Cookies cleared!!"}); }

@@ -1,6 +1,4 @@
 <?php
-// This will process all query and logic
-// Goal is to clean main index.php\
 if(isset($_POST['date']) && isset($_POST['duty'])){
   $date = $_POST['date'];
   $duty = $_POST['duty'];
@@ -10,7 +8,4 @@ if(isset($_POST['date']) && isset($_POST['duty'])){
     $result = explode( ',', $array);
     echo "<tr><td>$result[1]</td><td>$result[0]</td></tr>";
   }
-} else {
-  header('Location: index.php');
-}
-?>
+} else { header('Location: index.php'); } ?>

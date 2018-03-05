@@ -124,11 +124,11 @@ document.getElementById("searchVal").addEventListener("keyup", function(a) {
 });
 
 function doSearch() {
-var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
+var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
 b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e}, success:function(g) {
-	d.style.display = "none"; f.style.display = "block"; c.removeAttribute("style"); h.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
+	d.style.display = "none"; c.removeAttribute("style"); f.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
 	$("#resultArea").html(g);
-}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; h.style.display = "none"; }
+}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; f.style.display = "none"; }
 
 function loadSyntax() {
   document.getElementById("syntaxRow") || $("#syntax").load("syntax.html");

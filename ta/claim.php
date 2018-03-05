@@ -62,47 +62,45 @@
 
       foreach($returnval AS $array){
         $result = explode( ',', $array);
-        if($t0 === $result[0] && $t1 === $result[1]){ continue; } else {
-          redo:
-          $round += 1;
-          $e0 = trim($result[0]); $e1 = trim($result[1]); $e2 = trim($result[2]); $link = substr($t1,2) + 1; $link2 = substr($e1,1);
+        redo:
+        $round += 1;
+        $e0 = trim($result[0]); $e1 = trim($result[1]); $e2 = trim($result[2]); $link = substr($t1,2) + 1; $link2 = substr($e1,1);
 
-          if($e2==='APIIT Helpdesk' || $e2==='APIIT Rounding/QC'){ $duty = '1'; $msg = 'APIIT NORMAL LAB DUTY'; } else { $duty = '2'; $msg = 'APU  NORMAL LAB DUTY'; }
+        if($e2==='APIIT Helpdesk' || $e2==='APIIT Rounding/QC'){ $duty = '1'; $msg = 'APIIT NORMAL LAB DUTY'; } else { $duty = '2'; $msg = 'APU  NORMAL LAB DUTY'; }
 
-          if(($link==$link2 && trim($t0)==$e0)|| $round == 1){
-            $i += 1;
-            setShiftTime($e1);
-            if($i==1){ $iniStart = $start; }
-          } else {
-            if($i){
-              setShiftTime($t1);
-              $start = $iniStart ?? $start;
-              $timeOut = $start + $shiftDur;
-              addTable($t0, $duty, $start, $timeOut, "$msg");
-              $shiftDur = '0000';
-              unset($iniStart); unset($start); unset($timeOut); $i = 0; $round = 0; goto redo;
-            }
-
-            setShiftTime($e1);
+        if(($link==$link2 && trim($t0)==$e0)|| $round == 1){
+          $i += 1;
+          setShiftTime($e1);
+          if($i==1){ $iniStart = $start; }
+        } else {
+          if($i){
+            setShiftTime($t1);
             $start = $iniStart ?? $start;
             $timeOut = $start + $shiftDur;
-            addTable($e0, $duty, $start, $timeOut, "$msg");
+            addTable($t0, $duty, $start, $timeOut, "$msg");
             $shiftDur = '0000';
-            unset($iniStart); unset($start); unset($timeOut); $i = 0;
-
-            $round = 0;
+            unset($iniStart); unset($start); unset($timeOut); $i = 0; $round = 0; goto redo;
           }
 
-          if($i === 3){
-            $start = $iniStart ?? $start;
-            $timeOut = $start + $shiftDur;
-            addTable($e0, $duty, $start, $timeOut, "$msg");
-            $shiftDur = '0000';
-            unset($iniStart); unset($start); unset($timeOut); $i = 0;
-          }
-          $t0 = $result[0]; $t1 = $result[1];
-          }
-        } //End foreach
+          setShiftTime($e1);
+          $start = $iniStart ?? $start;
+          $timeOut = $start + $shiftDur;
+          addTable($e0, $duty, $start, $timeOut, "$msg");
+          $shiftDur = '0000';
+          unset($iniStart); unset($start); unset($timeOut); $i = 0;
+
+          $round = 0;
+        }
+
+        if($i === 3){
+          $start = $iniStart ?? $start;
+          $timeOut = $start + $shiftDur;
+          addTable($e0, $duty, $start, $timeOut, "$msg");
+          $shiftDur = '0000';
+          unset($iniStart); unset($start); unset($timeOut); $i = 0;
+        }
+        $t0 = $result[0]; $t1 = $result[1];
+      } //End foreach
         if($start){
           $start = $iniStart ?? $start;
           $timeOut = $start + $shiftDur;

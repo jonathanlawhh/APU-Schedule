@@ -25,6 +25,7 @@ include('control/theme.php'); ?>
 		::selection { background: #d81b60; color:#ffffff;}
 		::-moz-selection { background: #d81b60; color:#ffffff; }
 		.marginleft4 { margin-left: 4%;}
+		.marginbottom20 { margin-bottom: 20px;}
   </style>
 </head>
 
@@ -87,27 +88,23 @@ include('control/theme.php'); ?>
 
  			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>
  				You can also search for your intake timetable here<br>
- 				Check the syntax tab for more<br>
- 				<p>Web page not loading correctly?<br>Select refresh <a href='settings.php'>here</a><br></p>
+ 				Check the syntax tab for more<br></p>
  			</div>
 
 			<p id="searchInfo"></p>
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
-			<table id="resultArea" class='responsive-table highlight bordered'></table>
+			<table id="resultArea" class='responsive-table highlight bordered marginbottom20'></table>
+			<p class="marginbottom20" ><?php $list = fopen("data/update.log", "r");
+			while(!feof($list)) { echo 'Schedule updated on ' . trim(fgets($list)); } fclose($list); ?></p>
   </div>
 
-	<div id="mytimetable" class="container">
-    <?php include('control/mytimetable.php'); ?>
-  </div>
-
+	<div id="mytimetable" class="container"></div>
   <div id="syntax" class="container"></div>
 </main>
 
 <footer class="page-footer grey darken-3">
   <div class="footer-copyright grey darken-4">
-    <div class="container">
-    Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a><br>
-    </div>
+    <div class="container">Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a><br></div>
   </div>
 </footer>
 
@@ -115,13 +112,10 @@ include('control/theme.php'); ?>
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
 	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-  M.Collapsible.init(document.querySelectorAll('.collapsible'),{});
 }
 
-document.getElementById("searchVal").addEventListener("keyup", function(a) {
-  a.preventDefault();
-  13 === a.keyCode && doSearch();
-});
+window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
 
 function doSearch() {
 var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
@@ -130,19 +124,19 @@ b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classro
 	$("#resultArea").html(g);
 }}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; f.style.display = "none"; }
 
+function changemytimetable() {
+  document.getElementById("timetableContent") || $("#mytimetable").load("control/mytimetable.php");
+	document.getElementById("headercolor").className = "nav-extended brown darken-4";
+	document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723"); }
+
 function loadSyntax() {
   document.getElementById("syntaxRow") || $("#syntax").load("syntax.html");
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax ?>"); }
 
-window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function changedefault() {
 document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color ?>";
 document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta ?>"); }
-
-function changemytimetable() {
-document.getElementById("headercolor").className = "nav-extended brown darken-4";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723"); }
 
 function warning() {
 document.getElementById("headercolor").className = "nav-extended red darken-3";

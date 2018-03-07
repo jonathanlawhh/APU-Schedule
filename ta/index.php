@@ -67,8 +67,8 @@ function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "
   <?php if(isset($searchUser)){ ?>
 
     <h4>TA Duty Roster for <?php echo $searchUser; ?></h4>
-    <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){ echo $weekOf; } ?></p>
-    <p>Current ongoing shift : <?php echo $currShift; ?></p>
+    <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){ echo $weekOf; } ?><br>
+    Current ongoing shift : <?php echo $currShift; ?></p>
     <div class="row">
     <div class="col s12">
       <div class="card hoverable">

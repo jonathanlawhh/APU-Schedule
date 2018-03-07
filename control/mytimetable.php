@@ -2,7 +2,7 @@
 // This will process mytimetable
 $classroom = null; $results = $columns = array(); $intake = $_COOKIE['myIntakeCode-APU'];
 if (!isset($intake)){ ?>
-  <div class='row'>
+  <div class='row' id="timetableContent">
     <div class='col s12 m12 l5'>
       <div class='card-panel hoverable'>
         <span>
@@ -20,12 +20,12 @@ if (!isset($intake)){ ?>
 
 $date = date('D'); $needles = array($date); $needles02 = array($intake); ?>
 
-<p>Timetable for intake <?php echo "$intake on $date<br>"; ?><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>
+<p id="timetableContent">Timetable for intake <?php echo "$intake on $date<br>"; ?><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>
 <ul class="collapsible popout">
 <li class="active"><div class="collapsible-header"><i class="material-icons">filter_drama</i><?php echo $date; ?></div><div class="collapsible-body">
 <table class='responsive-table highlight bordered'><tbody>
 <?php
-  if(($handle = fopen('data/data.csv', 'r')) !== false) {
+  if(($handle = fopen('../data/data.csv', 'r')) !== false) {
       while(($data = fgetcsv($handle, 4096, ',')) !== false) {
         $columns = $data;
         $intake = array_search($columns[1], $data);
@@ -50,5 +50,6 @@ $date = date('D'); $needles = array($date); $needles02 = array($intake); ?>
             }}
         }}
     } //Cleanup and close table
-    fclose($handle); } echo '</tbody></table></div></li></ul>';
+    fclose($handle); }
+    echo "</tbody></table></div></li></ul><script>M.Collapsible.init(document.querySelectorAll('.collapsible'),{});</script>";
 end: ?>

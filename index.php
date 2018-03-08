@@ -109,7 +109,8 @@ include('control/theme.php'); ?>
 </footer>
 
 <script type="text/javascript">
-M.Tabs.init(document.querySelectorAll('.tabs'), {});
+function initialize() { M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
+window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
 
 function doSearch() {

@@ -26,9 +26,7 @@
       <span class="nav-title hide-on-small-only">APU/APIIT God Mode</span>
       <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">God Mode</span></b>
       <div class="nav-content">
-        <ul class="tabs tabs-transparent">
-          <li class="tab"><a>Panel</a></li>
-        </ul>
+        <ul class="tabs tabs-transparent"><li class="tab"><a>Panel</a></li></ul>
       </div>
     </div>
   </nav>
@@ -66,6 +64,17 @@
       </div>
     </div>
 
+		<div class="row">
+      <div class="col s12 m6">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span class="card-title">Quick Links</span><br>
+            <a href="index.php"><button class="waves-effect waves-light btn indigo darken-3">APU Schedule</button></a>
+            <a href="ta/index.php"><button class="waves-effect waves-light btn indigo darken-3">TA Final Roster</button></a>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   </main>
@@ -77,18 +86,12 @@
 <script>
 function initialize() { M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
-
-function addLog(a) {
-  var b = document.createElement("p"); a = document.createTextNode(a); b.appendChild(a); document.getElementById("loggingID").appendChild(b);
-}
-
+function addLog(a) { var b = document.createElement("p"); a = document.createTextNode(a); b.appendChild(a); document.getElementById("loggingID").appendChild(b); }
 function updateS() {
   document.getElementById("loggingID").removeAttribute("style");
   $.ajax({type:"post", url:"control/updater.php", dataType:"text", data:{action:"updateS"}, success:function(a) {
-    document.getElementById("status").innerHTML = "Update log : "; document.getElementById("progressbar").style.display = "none"; eval(a);
-  }})
+  	document.getElementById("status").innerHTML = "Update log : "; document.getElementById("progressbar").style.display = "none"; eval(a); }})
 }
-
 function updateR() {
   var b = $("#roster").prop("files")[0], a = new FormData; a.append("roster", b), z=document.getElementById("rosterStatus");
 	z.removeAttribute("style");

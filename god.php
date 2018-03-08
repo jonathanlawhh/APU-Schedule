@@ -55,16 +55,12 @@
         <div class="card hoverable">
           <div class="card-content">
             <span class="card-title">Update TA Final Roster</span><br>
-						<p>This is not working yet</p><br>
-						<form action="#">
 					    <div class="file-field input-field">
-					      <div class="btn indigo darken-1"><span>File</span><input type="file" accept=".xlsx"></div>
-					      <div class="file-path-wrapper">
-					        <input class="file-path validate" type="text">
-					      </div>
+					      <div class="btn indigo darken-1"><span>File</span><input id="roster" type="file" accept=".xlsx"></div>
+					      <div class="file-path-wrapper"><input class="file-path validate" type="text"></div>
 					    </div>
-					  </form>
-            <button class="waves-effect waves-light btn indigo darken-3"><i class="material-icons left">dashboard</i>Upload</button>
+							<button onclick="updateR();" class="waves-effect waves-light btn indigo darken-3"><i class="material-icons left">dashboard</i>Upload</button><br><br>
+							<b><p id="rosterStatus" style="display:none;">Uploading and verifying...</p></b>
           </div>
         </div>
       </div>
@@ -87,11 +83,16 @@ function addLog(a) {
 }
 
 function updateS() {
-  var a = document.getElementById("uBtn");
   document.getElementById("loggingID").removeAttribute("style");
-  a ? $.ajax({type:"post", url:"control/updater.php", dataType:"text", data:{action:"updateS"}, success:function(a) {
+  $.ajax({type:"post", url:"control/updater.php", dataType:"text", data:{action:"updateS"}, success:function(a) {
     document.getElementById("status").innerHTML = "Update log : "; document.getElementById("progressbar").style.display = "none"; eval(a);
-  }}) : alert("Something went wrong!!");
+  }})
+}
+
+function updateR() {
+  var b = $("#roster").prop("files")[0], a = new FormData; a.append("roster", b), z=document.getElementById("rosterStatus");
+	z.removeAttribute("style");
+  $.ajax({url:"control/updater.php", dataType:"text", contentType:!1, processData:!1, data:a, type:"post", success:function(a) { z.innerHTML = a; }});
 }
 </script>
 </body>

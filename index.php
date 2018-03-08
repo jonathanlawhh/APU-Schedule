@@ -49,7 +49,7 @@ include('control/theme.php'); ?>
 		<p>
 	    <label>
 	      <input class="with-gap dateDay" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
-	      <span class="tooltipped" data-position="top" data-delay="50" data-tooltip="<?php echo date('D'); ?>">TODAY</span>
+	      <span>TODAY</span>
 	    </label>
 	    <label>
 	      <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Mon" />
@@ -109,12 +109,7 @@ include('control/theme.php'); ?>
 </footer>
 
 <script type="text/javascript">
-function initialize() {
-	M.Tabs.init(document.querySelectorAll('.tabs'), {});
-	M.Tooltip.init(document.querySelectorAll('.tooltipped'), {});
-}
-
-window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+M.Tabs.init(document.querySelectorAll('.tabs'), {});
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
 
 function doSearch() {

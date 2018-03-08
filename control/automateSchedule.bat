@@ -1,7 +1,7 @@
 @echo off
 echo Schedule update started
 echo Downloading schedule...
-powershell.exe curl -o timetableCSV.zip http://lms.apiit.edu.my/intake-timetable/download_timetable/timetableCSV.zip
+powershell.exe $progressPreference = 'silentlyContinue'; curl -o timetableCSV.zip http://lms.apiit.edu.my/intake-timetable/download_timetable/timetableCSV.zip
 if exist "timetableCSV.zip" (
   echo timetableCSV.zip downloaded
 ) else (

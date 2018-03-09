@@ -8,14 +8,14 @@ include('control/theme.php'); ?>
 	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
 	<link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="css/materialize.min.css"></noscript>
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></noscript>
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="APU,APIIT,schedule">
+  <meta name="author" content="jonathan law">
+	<meta name="description" content="APU/APIIT Schedule">
 
 	<meta name="theme-color" content="<?php echo $theme_meta ?>">
-	<link rel="manifest" href="manifest.json">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
 	<script type="text/javascript" src="js/jquery-3.3.1.min.js" async></script>
   <style>
@@ -102,12 +102,8 @@ window.addEventListener ? window.addEventListener("load", initialize, !1) : wind
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
 
 function doSearch() {
-var checkedValue = document.querySelector('.emptyClass'), lol = '';
-if(checkedValue.checked){
-	lol = 'on';
-} else {
-	lol = null;
-}
+var checkedValue = document.querySelector(".emptyClass"), lol = "";
+lol = checkedValue.checked ? "on" : null;
 var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
 b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e, emptyClass:lol}, success:function(g) {
 	d.style.display = "none"; c.removeAttribute("style"); f.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;

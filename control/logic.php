@@ -57,6 +57,7 @@ if(($handle = fopen('../data/data.csv', 'r')) !== false) {
           }}
       }}  //Cleanup and close table
   } fclose($handle); echo '</tbody>';
+  if(trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
 }
 
 end:

@@ -47,31 +47,13 @@ include('control/theme.php'); ?>
 
   <div id="schedule" class="container">
 		<p>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
-	      <span>TODAY</span>
-	    </label>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-1" value="Mon" />
-	      <span>MONDAY</span>
-	    </label>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-2" value="Tue" />
-	      <span>TUESDAY</span>
-	    </label>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-3" value="Wed" />
-	      <span>WEDNESDAY</span>
-	    </label>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-4" value="Thu" />
-	      <span>THURSDAY</span>
-	    </label>
-	    <label>
-	      <input class="with-gap dateDay" name="date" type="radio" id="option-5" value="Fri" />
-	      <span>FRIDAY</span>
-	    </label>
-	  </p>
+			<label>
+			  <input class="with-gap dateDay" name="date" type="radio" id="option-0" value="<?php echo date('D'); ?>" <?php if($date === 'TODAY' || $date === 'Sat' || $date === 'Sun'){?>checked<?php } ?>/>
+			  <span>TODAY</span>
+			</label>
+			<label id="day"></label>
+			<p><label><input type="checkbox" class="emptyClass"/><span>I just want to find when the classroom will be empty</span></label></p>
+		</p>
 	<br>
 		<div class="row">
       <div class="input-field col s12 m6 l3" style="margin-top:0; padding:0;">
@@ -81,17 +63,20 @@ include('control/theme.php'); ?>
 	   		  <?php $list = fopen("data/classlist.txt", "r");
 	   			while(!feof($list)) { echo "<option value='" . trim(fgets($list)) . "'/>"; } fclose($list); ?>
 		  </datalist>
-		  <button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s5 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
-				<i class="material-icons left">lightbulb_outline</i>Search
-			</button>
+			<button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s9 m3 l2 <?php echo $theme_secondary ?>" style="margin-left:20px;">
+			 <i class="material-icons left">lightbulb_outline</i>Search
+		 </button>
 		 </div>
+
 
  			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>
  				You can also search for your intake timetable here<br>
  				Check the syntax tab for more<br></p>
  			</div>
-
-			<p id="searchInfo"></p>
+			<p>
+				<span id="searchInfo"></span>
+				<span id="emptyInfo" style="display:none;">This class is empty now</span>
+			</p>
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
 			<table id="resultArea" class='responsive-table highlight bordered marginbottom20'></table>
 			<p class="marginbottom20" ><?php $list = fopen("data/update.log", "r");
@@ -109,13 +94,22 @@ include('control/theme.php'); ?>
 </footer>
 
 <script type="text/javascript">
-function initialize() { M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
+function initialize() {
+	M.Tabs.init(document.querySelectorAll('.tabs'), {});
+	$("#day").load("fragment/dayselection.html");
+}
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
 
 function doSearch() {
+var checkedValue = document.querySelector('.emptyClass'), lol = '';
+if(checkedValue.checked){
+	lol = 'on';
+} else {
+	lol = null;
+}
 var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
-b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e}, success:function(g) {
+b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e, emptyClass:lol}, success:function(g) {
 	d.style.display = "none"; c.removeAttribute("style"); f.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
 	$("#resultArea").html(g);
 }}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; f.style.display = "none"; }

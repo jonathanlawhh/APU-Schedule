@@ -16,7 +16,7 @@ else { $currShift = 'none / overtime'; } ?>
 <html lang="en">
 <head>
   <title>TA Final Roster</title>
-
+  <meta http-equiv="cache-control" content="max-age=518400" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
 	<noscript><link rel="stylesheet" href="../css/materialize.min.css"></noscript>
@@ -112,7 +112,7 @@ function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "
 </main>
 <footer class="page-footer grey darken-3">
   <div class="footer-copyright grey darken-4">
-    <div class="container">APU Schedule <a href="https://apu-schedule.azurewebsites.net">here</a></div>
+    <div class="container">APU Schedule <a href="../index.php">here</a></div>
   </div>
 </footer>
 <script>

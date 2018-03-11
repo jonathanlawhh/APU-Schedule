@@ -44,15 +44,7 @@ if(($handle = fopen('../data/data.csv', 'r')) !== false) {
             if($emptyClass=='checkMe' && $v1 == $dt && $queryFor == 'classroom' && $newcr==$ocr){ continue 2; }
             if(trim($checkDT[0])>$now && trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
             else { echo "<script>document.getElementById('emptyInfo').style.display = 'none';</script>"; }
-            echo '<tr>';
-            echo '<td ' . $hideItems . ' ' . $ect . '>' . $data[$intake] . '</td>';
-            echo '<td class=' . 'hide-on-small-only' . '>' . $data[$date] . '</td>';
-            echo '<td>' . $dt . '</td>';
-            echo '<td class=' . 'hide-on-small-only' . '>' . $data[$location] . '</td>';
-            echo '<td>' . $newcr . '</td>';
-            echo '<td ' . $ect . '>' . $data[$module] . '</td>';
-            echo '<td ' . $ect . '>' . $data[$lecterur] . '</td>';
-            echo '</tr>';
+            echo "<tr><td $hideItems $ect>$data[$intake]</td><td class='hide-on-small-only'>$data[$date]</td><td>$dt</td><td class='hide-on-small-only'>$data[$location]</td><td>$newcr</td><td $ect>$data[$module]</td><td $ect>$data[$lecterur]</td></tr>";
             $v1 = $dt; $oDT1 = $checkDT[1]; $ocr = $newcr;
           }}
       }}  //Cleanup and close table

@@ -46,6 +46,7 @@
       function addTable($a, $b, $c, $d, $e){
         $c = convertTime($c);
         $d = convertTime($d);
+        $a = cDate(trim($a));
         echo "<tr><td>$a</td><td>$b</td><td>$e</td><td>$c</td><td>$d</td></tr>";
       }
       function convertTime($z){
@@ -59,6 +60,16 @@
         }
         return $z;
       }
+      function cDate($n){
+        $c = Date('N');
+        if($n==='Monday'){ $c -= 1; }
+        elseif($n==='Tuesday'){ $c -= 2; }
+        elseif($n==='Wednesday'){ $c -= 3; }
+        elseif($n==='Thursday'){ $c -= 4; }
+        elseif($n==='Friday'){ $c -= 5; }
+        elseif($n==='Saturday'){ $c -= 6; }
+        return Date('d-m-Y', StrToTime("- {$c} Days"));
+      }
 
       foreach($returnval AS $array){
         $result = explode( ',', $array);
@@ -67,7 +78,6 @@
         $e0 = trim($result[0]); $e1 = trim($result[1]); $e2 = trim($result[2]); $link = substr($t1,2) + 1; $link2 = substr($e1,1);
 
         if($e2==='APIIT Helpdesk' || $e2==='APIIT Rounding/QC'){ $duty = '1'; $msg = 'APIIT NORMAL LAB DUTY'; } else { $duty = '2'; $msg = 'APU  NORMAL LAB DUTY'; }
-
         if(($link==$link2 && trim($t0)==$e0)|| $round == 1){
           $i += 1;
           setShiftTime($e1);

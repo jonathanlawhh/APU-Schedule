@@ -4,7 +4,6 @@ include('control/theme.php'); ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
-	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT Schedule</title>
 	<link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">

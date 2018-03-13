@@ -8,7 +8,7 @@ try :
 except :
 	print("File not found")
 
-target = open(output_file, 'w')
+target = open(output_file, 'w', newline='')
 
 sorts = []
 sorts.append((5, False))

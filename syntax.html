@@ -2,36 +2,44 @@
   <div class="col s12 m12 l5">
     <div class="card-panel hoverable">
       <span>
-        <div class="section">
-          <b>To search for labs</b><br>LAB 4-01, or just typing LAB 4 will search all labs on level 4. LAB 4-01 will search for that lab only.
-        </div>
+        <div class="section"><b>To search for labs</b><br>LAB 4-01, or just typing LAB 4 will search all labs on level 4. LAB 4-01 will search for that lab only.</div>
         <div class="divider"></div>
-        <div class="section">
-          <b>To search for classes</b><br>B-04-02, or just typing B-04 will search all classes on block B level 4. Offices are not included in the search
-        </div>
+        <div class="section"><b>To search for classes</b><br>B-04-02, or just typing B-04 will search all classes on block B level 4. Offices are not included in the search</div>
         <div class="divider"></div>
-        <div class="section">
-          <b>Auditoriums</b><br>Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.
-        </div>
+        <div class="section"><b>Auditoriums</b><br>Auditorium 3 will search for Auditorium 3. Auditoriums used for events are not shown here.</div>
         <div class="divider"></div>
-        <div class="section">
-          <b>APIIT classrooms</b><br>L2 classrooms will not show here.
-        </div>
+        <div class="section"><b>APIIT classrooms</b><br>L2 classrooms will not show here.</div>
       </span>
     </div>
     <div class="card-panel hoverable">
       <span>
         <div class="section">
+          <b>Feature</b><br>
+          - Loading component from cache<br> - This will save user bandwidth<br>
+          - Browser caching extended to 14 days <br> -- <a href="#aboutCache" class="modal-trigger">Read me</a><br>
+          - <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">Brotli compression</a><br>
+          - Page load after cache : 2.3kb only <br><br>
           <b>Experimental</b><br>
-          - Custom built jQuery. Originally it was 85kb, now it's 50kb ( ´ ▽ ` )ﾉ<br>
-          - myTimetable and Syntax tab does not load initially<br>
-          - Loading component from cache<br>
-          - This will save user bandwidth<br>
+          - <a href="https://github.com/jquery/jquery" target="_blank">Custom compiled</a> jQuery.<br>-- Originally it was 85kb, now it's 50kb ( ´ ▽ ` )ﾉ<br>
           - New schedule update system<br>
-          - Browser caching ( Max 7 days cache ) <br>
-          - Brotli compression <br>
         </div>
       </span>
     </div>
   </div>
+</div>
+<div id="aboutCache" class="modal">
+  <div class="modal-content">
+  <h4>About caches for this site</h4>
+  <p>A few component has been cached to speed up loading time for this site the next time. The caches will be stored in your device and automatically deleted after 14 days.
+     If you visit this site after 14 days, the cache will be renewed. All the size listed are after <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">
+     Brotli compression</a>, without the compression the size are multiplied by at least 3.<br>
+     Below are the files cached on this site.<br><br>
+  js/core.js [ 1.4kb ]<br>This file loads the function of this site like search and initializing components.<br><br>
+  js/jQuery-3.3.1.min.js [ 25.5kb ]<br><a href="https://github.com/jquery/jquery" target="_blank">Custom compiled</a> to exclude all unused component. Original size 85kb.<br><br>
+  css/materialize.min.css [ 19.3kb ] && js/materialize.min.js [ 69.5kb ]<br><a href="http://next.materializecss.com" target="_blank">MaterializeCSS UI</a> framework<br><br>
+  syntax.html [800b]<br>This syntax page. It is not loaded initially unless requested to reduce rendering time and bandwidth.<br><br>
+  fragment/classlist.html [ 862b ]<br>The list of suggestion for classroom. Moved from dynamic file reading on every load to static classlist.</p>
+  </div>
+  <div class="modal-footer"><a href="#!" class="modal-action modal-close waves-effect btn-flat">Ok</a></div>
+  <script>var instance = M.Modal.init(document.querySelector('.modal'), {});</script>
 </div>

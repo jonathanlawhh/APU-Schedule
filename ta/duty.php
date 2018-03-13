@@ -19,8 +19,10 @@
 </div>
 
 <p id="searchInfo"></p>
-<a id='hidemsg2' onclick='hidethead2()' class='hide-on-med-and-up'>Toggle table header</a>
-<table class="highlight responsive-table">
-  <thead id='removethead2' <?php if(isset($_COOKIE['apuschedule-tablehead'])){ echo "style='display:none;'"; }?>><tr><th>Shift</th><th>Human</th></tr></thead>
-  <tbody id="resultArea"></tbody>
-</table><div class="marginbottom30"></div>
+<div><h5>S1</h5><div class="divider"></div><div id="S1c"></div></div>
+<div><h5>S2</h5><div class="divider"></div><div id="S2c"></div></div>
+<div><h5>S3</h5><div class="divider"></div><div id="S3c"></div></div>
+<div><h5>S4</h5><div class="divider"></div><div id="S4c"></div></div>
+<div><h5>S5</h5><div class="divider"></div><div id="S5c"></div></div>
+<div><h5>S6</h5><div class="divider"></div><div id="S6c"></div></div>
+<div class="marginbottom20"></div>

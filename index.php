@@ -5,8 +5,8 @@ include('control/theme.php'); ?>
 <html lang="en">
 <head>
 	<title>APU/APIIT Schedule</title>
-	<link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="APU,APIIT,schedule">
@@ -15,7 +15,6 @@ include('control/theme.php'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" async></script>
 	<script type="text/javascript" src="js/core.js" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
@@ -59,10 +58,10 @@ include('control/theme.php'); ?>
 		 	</button>
 		 </div>
 
- 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>Check the syntax tab for more<br></p></div>
+ 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>
+				Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p></div>
 
 			<p><span id="searchInfo"></span><span id="emptyInfo" style="display:none;">This class is empty now</span></p>
-
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
 			<table id="resultArea" class='responsive-table highlight bordered marginbottom20'></table>
 			<p class="marginbottom20" ><?php $list = fopen("data/update.log", "r"); while(!feof($list)) { echo 'Schedule updated on ' . trim(fgets($list)); } fclose($list); ?></p>
@@ -78,7 +77,8 @@ include('control/theme.php'); ?>
 
 <script>
 function loadSyntax() {
-  document.getElementById("syntaxRow") || $("#syntax").load("syntax.html");
+	document.getElementById("syntaxRow") || fetch("syntax.html").then(function(a) { return a.text();})
+	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }
 

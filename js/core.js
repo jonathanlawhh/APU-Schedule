@@ -1,18 +1,19 @@
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
-	$("#classlist").load("fragment/classlist.html"); }
+	fetch("fragment/classlist.html").then(function(a) { return a.text(); })
+	.then(function(a) { document.querySelector("#classlist").innerHTML = a;}); }
 
 function doSearch() {
-var checkedValue = document.querySelector(".emptyClass"), lol = "";
-lol = checkedValue.checked ? "on" : null;
-var a = document.getElementById("searchInfo"), c = document.getElementById("resultArea"), d = document.getElementById("tutorial"), e = document.querySelector(".dateDay:checked").value, f = document.getElementById("hidemsg"), b = document.getElementById("searchVal").value;
-b ? $.ajax({type:"post", url:"control/logic.php", dataType:"text", data:{classroom:b, date:e, emptyClass:lol}, success:function(g) {
-	d.style.display = "none"; c.removeAttribute("style"); f.removeAttribute("style"); a.style.display = "block"; a.innerHTML = "Results for " + b + " on " + e;
-	$("#resultArea").html(g);
-}}) : d.style.display = "block"; f.style.display = "none"; c.style.display = "none"; a.style.display = "none"; f.style.display = "none"; }
+  var b = ""; b = document.querySelector(".emptyClass").checked ? "on" : "";
+  var c = document.getElementById("searchInfo"), f = document.getElementById("resultArea"), g = document.getElementById("tutorial"), d = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), e = document.getElementById("searchVal").value, a = new XMLHttpRequest;
+  a.open("POST", "control/logic.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("classroom=" + e + "&date=" + d + "&emptyClass=" + b);
+  a.onreadystatechange = function() {
+    a.readyState == XMLHttpRequest.DONE && 200 == a.status && (g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"), c.style.display = "block", c.innerHTML = "Results for " + e + " on " + d, document.getElementById("resultArea").innerHTML = a.responseText);
+}; }
 
 function changemytimetable() {
-  document.getElementById("timetableContent") || $("#mytimetable").load("control/mytimetable.php");
+	document.getElementById("timetableContent") || fetch("control/mytimetable.php").then(function(a) { return a.text(); })
+	.then(function(a) { document.querySelector("#mytimetable").innerHTML = a; });
 	document.getElementById("headercolor").className = "nav-extended brown darken-4";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723"); }
 

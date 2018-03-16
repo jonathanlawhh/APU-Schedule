@@ -5,6 +5,10 @@ $date = $_POST['date'];
 $now = date('H:i');
 $results = $columns = array();
 $headMsg = 'Hide table header';
+function tutorial(){
+  echo "<div class='marginleft4' id='tutorial'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>
+  Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p></div>";
+}
 if(isset($_COOKIE['apuschedule-tablehead'])){ $tablehead = "style='display:none'"; $headMsg = 'Show table header'; }
 
 //XSS Detection

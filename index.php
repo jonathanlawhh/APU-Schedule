@@ -1,6 +1,7 @@
 <?php
 function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
-include('control/theme.php'); ?>
+include('control/theme.php'); 
+?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>

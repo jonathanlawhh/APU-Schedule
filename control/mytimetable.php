@@ -1,7 +1,7 @@
 <?php
 // This will process mytimetable
-$classroom = null; $results = $columns = array(); $intake = $_COOKIE['myIntakeCode-APU'];
-if (!isset($intake)){ ?>
+$classroom = null; $results = $columns = array(); $intake = $_POST['intake'];
+if ($intake==""){ ?>
   <div class='row' id="timetableContent">
     <div class='col s12 m12 l5'>
       <div class='card-panel hoverable'>
@@ -18,10 +18,13 @@ if (!isset($intake)){ ?>
   </div>
 <?php goto end; }
 
-$date = date('D'); $needles = array($date); $needles02 = array($intake); ?>
+$date = date('D'); $needles = array($date); $needles02 = array($intake); $daysOfWeek = array("Monday","Tuesday","Wednesday","Thursday","Friday"); ?>
 
 <p id="timetableContent">Timetable for intake <?php echo "$intake on $date<br>"; ?><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>
 <ul class="collapsible popout">
+<?php for($i=0; $i<5; $i++){ ?>
+  <li><div class="collapsible-header"><i class="material-icons">filter_drama</i><?php echo $daysOfWeek[$i]; ?></div><div class="collapsible-body" id=<?php echo "tt$daysOfWeek[$i]"; ?>></div></li>
+<?php } ?>
 <li class="active"><div class="collapsible-header"><i class="material-icons">filter_drama</i><?php echo $date; ?></div><div class="collapsible-body">
 <table class='responsive-table highlight bordered'><tbody>
 <?php

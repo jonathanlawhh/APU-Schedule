@@ -1,12 +1,9 @@
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
-	<meta http-equiv="cache-control" content="max-age=518400" />
 	<title>APU/APIIT God Mode</title>
-	<link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="css/materialize.min.css"></noscript>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></noscript>
+	<link rel="stylesheet" href="css/materialize.min.css">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="icon" href="images/favicon.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -79,9 +76,7 @@
 
   </main>
 	<footer class="page-footer grey darken-3">
-	  <div class="footer-copyright grey darken-4">
-	    <div class="container">APU Schedule <a href="index.php">here</a></div>
-	  </div>
+	  <div class="footer-copyright grey darken-4"><div class="container">APU Schedule <a href="index.php">here</a></div></div>
 	</footer>
 <script>
 function initialize() { M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
@@ -89,8 +84,11 @@ window.addEventListener ? window.addEventListener("load", initialize, !1) : wind
 function addLog(a) { var b = document.createElement("p"); a = document.createTextNode(a); b.appendChild(a); document.getElementById("loggingID").appendChild(b); }
 function updateS() {
   document.getElementById("loggingID").removeAttribute("style");
-  $.ajax({type:"post", url:"control/updater.php", dataType:"text", data:{action:"updateS"}, success:function(a) {
-  	document.getElementById("status").innerHTML = "Update log : "; document.getElementById("progressbar").style.display = "none"; eval(a); }})
+	a = new XMLHttpRequest;
+	a.open("POST", "control/updater.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("action=updateS");
+	a.onreadystatechange = function() {
+		a.readyState == XMLHttpRequest.DONE && 200 == a.status && (document.getElementById("status").innerHTML = "Update log : ", document.getElementById("progressbar").style.display = "none", eval(a.responseText));
+	};
 }
 function updateR() {
   var b = $("#roster").prop("files")[0], a = new FormData; a.append("roster", b), z=document.getElementById("rosterStatus");

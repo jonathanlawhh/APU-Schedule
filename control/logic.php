@@ -1,7 +1,7 @@
 <?php
 // This will process all query and logic
 // Goal is to clean main index.php\
-$date = $_POST['date'];
+$idate = $_POST['date'];
 $now = date('H:i');
 $results = $columns = array();
 $headMsg = 'Hide table header';
@@ -25,7 +25,7 @@ echo "<thead id='removethead' $tablehead><tr>
           <th $hideItems $ect>Intake</th><th class='hide-on-small-only'>Date</th><th>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th $ect>Module</th><th $ect>Lecterur</th>
       </tr></thead><tbody>";
 
-$needles = array($date); $needles02 = array($queryValue);
+$needles02 = array($queryValue);
 if(($handle = fopen('../data/data.csv', 'r')) !== false) {
     while(($data = fgetcsv($handle, 4096, ',')) !== false) {
       $columns = $data;
@@ -39,19 +39,17 @@ if(($handle = fopen('../data/data.csv', 'r')) !== false) {
 
       if($queryFor === 'intake'){ $searchThis = $intake; } else { $searchThis = $classroom; }
 
-      foreach($needles as $needle) { if(stripos($data[$date], $needle) !== false) {
-        foreach($needles02 as $needle02) { if(stripos($data[$searchThis], $needle02) !== false) {
-            $results[] = $data;
-            $dt = $data[$time];
-            $newcr = $data[$classroom];
-            $checkDT = explode( '-', $dt);
-            if($emptyClass=='checkMe' && $v1 == $dt && $queryFor == 'classroom' && $newcr==$ocr){ continue 2; }
-            if(trim($checkDT[0])>$now && trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
-            else { echo "<script>document.getElementById('emptyInfo').style.display = 'none';</script>"; }
-            echo "<tr><td $hideItems $ect>$data[$intake]</td><td class='hide-on-small-only'>$data[$date]</td><td>$dt</td><td class='hide-on-small-only'>$data[$location]</td><td>$newcr</td><td $ect>$data[$module]</td><td $ect>$data[$lecterur]</td></tr>";
-            $v1 = $dt; $oDT1 = $checkDT[1]; $ocr = $newcr;
-          }}
-      }}  //Cleanup and close table
+      if((stripos($data[$date], $idate) !== false) && (stripos($data[$searchThis], $queryValue) !== false)) {
+        $results[] = $data;
+        $dt = $data[$time];
+        $newcr = $data[$classroom];
+        $checkDT = explode( '-', $dt);
+        if($emptyClass=='checkMe' && $v1 == $dt && $queryFor == 'classroom' && $newcr==$ocr){ continue 1; }
+        if(trim($checkDT[0])>$now && trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
+        else { echo "<script>document.getElementById('emptyInfo').style.display = 'none';</script>"; }
+        echo "<tr><td $hideItems $ect>$data[$intake]</td><td class='hide-on-small-only'>$data[$date]</td><td>$dt</td><td class='hide-on-small-only'>$data[$location]</td><td>$newcr</td><td $ect>$data[$module]</td><td $ect>$data[$lecterur]</td></tr>";
+        $v1 = $dt; $oDT1 = $checkDT[1]; $ocr = $newcr;
+      }  //Cleanup and close table
   } fclose($handle); echo '</tbody>';
   if(trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
 }

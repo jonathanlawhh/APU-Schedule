@@ -5,19 +5,12 @@ function intakeInput(){
 <head>
 	<title>APU/APIIT Schedule</title>
 	<link rel="icon" href="images/favicon.png">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="stylesheet" href="css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="css/materialize.min.css"></noscript>
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
-	<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"></noscript>
 	<meta name="theme-color" content="#880e4f">
-	<script type="text/javascript" src="js/materialize.min.js" async></script>
+  <?php include('fragment/frameworkImports.html'); ?>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; }
 	  main {  flex: 1 0 auto; }
-    a { color: #f4511e; }
-		.marginleft4 { margin-left: 4%; }
+    a { color: #f4511e; } .marginleft4 { margin-left: 4%; }
   </style>
 </head>
 

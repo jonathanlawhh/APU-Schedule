@@ -1,22 +1,17 @@
 <?php
 function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
-include('control/theme.php'); 
-?>
+include('control/theme.php'); ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
 	<title>APU/APIIT Schedule</title>
-	<link rel="stylesheet" href="css/materialize.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="icon" href="images/favicon.png">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="keywords" content="APU,APIIT,schedule">
   <meta name="author" content="jonathan law">
 	<meta name="description" content="APU/APIIT Schedule">
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
-	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<script type="text/javascript" src="js/core.js" async></script>
+	<?php include('fragment/frameworkImports.html'); ?>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
@@ -78,7 +73,7 @@ include('control/theme.php');
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }

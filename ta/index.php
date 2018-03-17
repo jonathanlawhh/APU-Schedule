@@ -16,13 +16,9 @@ else { $currShift = 'none / overtime'; } ?>
 <html lang="en">
 <head>
   <title>TA Final Roster</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/materialize.min.css" media="none" onload="if(media!='all')media='all'">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="none" onload="if(media!='all')media='all'">
 	<link rel="icon" href="../images/favicon.png">
   <meta name="theme-color" content="#0d47a1">
-  <script type="text/javascript" src="../js/materialize.min.js" async></script>
-  <script type="text/javascript" src="../js/jquery-3.3.1.min.js" async></script>
+  <?php include('../fragment/frameworkImportsTA.html'); ?>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; }
     ::selection { background: #43a047; color:#ffffff;} ::-moz-selection { background: #43a047; color:#ffffff; }
@@ -106,7 +102,13 @@ function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = docum
 <script>
 function initialize(){ M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
-function loadOnDuty() { document.getElementById("ondutyContent") || ($.getScript("fragment/doSearch.js"), $("#onduty").load("duty.php")); }
+function loadOnDuty() { if(!document.getElementById("ondutyContent")){
+  var a = new XMLHttpRequest; a.open("POST", "fragment/duty.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send();
+  a.onreadystatechange = function() {
+    var script = document.createElement("script"); script.type = "text/javascript"; script.src = "fragment/doSearch.js?ver=1"; document.getElementsByTagName("head")[0].appendChild(script);
+    document.getElementById("onduty").innerHTML = a.responseText; }
+}}
+
 function clearCookie() { document.cookie = "myName-APU=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; M.toast({html:"Cookies cleared!!"}); }
 </script>
 </body>

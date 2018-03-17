@@ -1,6 +1,6 @@
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
-	fetch("fragment/classlist.html").then(function(a) { return a.text(); })
+	fetch("fragment/classlist.html?ver=1").then(function(a) { return a.text(); })
 	.then(function(a) { document.querySelector("#classlist").innerHTML = a;}); }
 
 function doSearch() {

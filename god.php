@@ -2,17 +2,11 @@
 <html lang="en">
 <head>
 	<title>APU/APIIT God Mode</title>
-	<link rel="stylesheet" href="css/materialize.min.css">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="icon" href="images/favicon.png">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<meta name="theme-color" content="#1a237e">
-	<script type="text/javascript" src="js/materialize.min.js" async></script>
-	<script type="text/javascript" src="js/jquery-3.3.1.min.js" async></script>
+	<?php include('fragment/frameworkImports.html'); ?>
   <style>
-	  body { display: flex; min-height: 100vh; flex-direction: column; }
-	  main {  flex: 1 0 auto; }
+	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; }
   </style>
 </head>
 
@@ -22,9 +16,6 @@
     <div class="container">
       <span class="nav-title hide-on-small-only">APU/APIIT God Mode</span>
       <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">God Mode</span></b>
-      <div class="nav-content">
-        <ul class="tabs tabs-transparent"><li class="tab"><a>Panel</a></li></ul>
-      </div>
     </div>
   </nav>
 
@@ -79,22 +70,19 @@
 	  <div class="footer-copyright grey darken-4"><div class="container">APU Schedule <a href="index.php">here</a></div></div>
 	</footer>
 <script>
-function initialize() { M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
-window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function addLog(a) { var b = document.createElement("p"); a = document.createTextNode(a); b.appendChild(a); document.getElementById("loggingID").appendChild(b); }
 function updateS() {
   document.getElementById("loggingID").removeAttribute("style");
 	a = new XMLHttpRequest;
 	a.open("POST", "control/updater.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("action=updateS");
-	a.onreadystatechange = function() {
-		a.readyState == XMLHttpRequest.DONE && 200 == a.status && (document.getElementById("status").innerHTML = "Update log : ", document.getElementById("progressbar").style.display = "none", eval(a.responseText));
+	a.onload = function() { 200 == this.status && (document.getElementById("status").innerHTML = "Update log : ", document.getElementById("progressbar").style.display = "none", eval(a.responseText));
 	};
 }
 function updateR() {
-  var b = $("#roster").prop("files")[0], a = new FormData; a.append("roster", b), z=document.getElementById("rosterStatus");
-	z.removeAttribute("style");
-  $.ajax({url:"control/updater.php", dataType:"text", contentType:!1, processData:!1, data:a, type:"post", success:function(a) { z.innerHTML = a; }});
-}
+  var b = document.querySelector("#roster"), c = document.getElementById("rosterStatus"), a = b.files[0]; c.removeAttribute("style");
+  b = new FormData; b.append("roster", a);
+  a = new XMLHttpRequest; a.open("POST", "control/updater.php", !0);
+  a.onload = function() { 200 == this.status && (c.innerHTML = this.responseText); }; a.send(b); }
 </script>
 </body>
 </html>

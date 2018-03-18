@@ -7,9 +7,7 @@ function doSearch() {
   var b = ""; b = document.querySelector(".emptyClass").checked ? "on" : "";
   var c = document.getElementById("searchInfo"), f = document.getElementById("resultArea"), g = document.getElementById("tutorial"), d = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), e = document.getElementById("searchVal").value, a = new XMLHttpRequest;
   a.open("POST", "control/logic.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("classroom=" + e + "&date=" + d + "&emptyClass=" + b);
-  a.onreadystatechange = function() {
-    a.readyState == XMLHttpRequest.DONE && 200 == a.status && (g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"), c.style.display = "block", c.innerHTML = "Results for " + e + " on " + d, document.getElementById("resultArea").innerHTML = a.responseText);
-}; }
+  a.onload = function() { 200 == this.status && (g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"), c.style.display = "block", c.innerHTML = "Results for " + e + " on " + d, document.getElementById("resultArea").innerHTML = a.responseText); }; }
 
 function changemytimetable() {
 	if (!document.getElementById("timetableContent")) {

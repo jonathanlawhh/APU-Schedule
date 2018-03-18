@@ -12,7 +12,7 @@ include('control/theme.php'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.01" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
@@ -68,13 +68,13 @@ include('control/theme.php'); ?>
   <div id="syntax" class="container"></div>
 	</main>
 
-<footer class="page-footer grey darken-3">
+<footer class="page-footer grey darken-3" id="meme">
   <div class="footer-copyright grey darken-4"><div class="container">Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a><br></div></div>
 </footer>
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.01").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }

@@ -96,11 +96,11 @@ function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = docum
 <div id="onduty" class="container"></div>
 
 </main>
-<footer class="page-footer grey darken-3">
+<footer class="page-footer grey darken-3" id="meme">
   <div class="footer-copyright grey darken-4"><div class="container">APU Schedule <a href="../index.php">here</a></div></div>
 </footer>
 <script>
-function initialize(){ M.Tabs.init(document.querySelectorAll('.tabs'), {}); }
+function initialize(){ M.Tabs.init(document.querySelectorAll('.tabs'), {});}
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 function loadOnDuty() { if(!document.getElementById("ondutyContent")){
   var a = new XMLHttpRequest; a.open("POST", "fragment/duty.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send();

@@ -67,11 +67,9 @@ function intakeInput(){
 </div>
 </main>
 
-<footer class="page-footer grey darken-3">
+<footer class="page-footer grey darken-3" id="meme">
 <div class="footer-copyright grey darken-4">
-  <div class="container">
-  Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a>
-  </div>
+  <div class="container">Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a></div>
 </div>
 </footer>
 <script> //Initialize UI

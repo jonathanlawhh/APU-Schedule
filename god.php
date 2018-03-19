@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<title>APU/APIIT God Mode</title>
-	<link rel="icon" href="images/favicon.png">
 	<meta name="theme-color" content="#1a237e">
 	<?php include('fragment/frameworkImports.html'); ?>
   <style>

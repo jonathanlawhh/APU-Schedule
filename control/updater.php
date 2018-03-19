@@ -18,6 +18,7 @@ if(isset($_FILES['roster'])){
     if(substr($a, 0, 6) != 'Monday'){ echo 'You did not upload TA Final Roster...'; $s = 0; }
     if($s==1){
       exec('del "../data/roster.xlsx" && ren "../data/roster.temp.xlsx" roster.xlsx');
+      exec('D:\home\python364x64\python.exe ../ta/extractor.py');
       echo 'TA Final Roster for the week of ' . $a .' has been uploaded'; }
   } else { echo 'Sorry, there was an error uploading your file.'; }
 

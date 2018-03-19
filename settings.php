@@ -1,10 +1,6 @@
-<?php
-function intakeInput(){
-  if(isset($_COOKIE['myIntakeCode-APU'])){ echo $_COOKIE['myIntakeCode-APU']; }
-} ?>
+<?php function intakeInput(){ if(isset($_COOKIE['myIntakeCode-APU'])){ echo $_COOKIE['myIntakeCode-APU']; } } ?>
 <head>
 	<title>APU/APIIT Schedule</title>
-	<link rel="icon" href="images/favicon.png">
 	<meta name="theme-color" content="#880e4f">
   <?php include('fragment/frameworkImports.html'); ?>
   <style>

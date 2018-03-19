@@ -5,7 +5,6 @@ include('control/theme.php'); ?>
 <html lang="en">
 <head>
 	<title>APU/APIIT Schedule</title>
-	<link rel="icon" href="images/favicon.png">
 	<meta name="keywords" content="APU,APIIT,schedule">
   <meta name="author" content="jonathan law">
 	<meta name="description" content="APU/APIIT Schedule">

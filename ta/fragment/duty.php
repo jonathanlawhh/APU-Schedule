@@ -9,10 +9,11 @@
 </p>
 <div class="divider"></div>
 <p>
-  <label><input class="with-gap duty" name="duty" type="radio" value="rounding" checked/><span>Rounding</span></label>
-  <label><input class="with-gap duty" name="duty" type="radio" value="qc" /><span>QC</span></label>
-  <label><input class="with-gap duty" name="duty" type="radio" value="apiithelpdesk" /><span>APIIT Helpdesk</span></label>
-  <label><input class="with-gap duty" name="duty" type="radio" value="apiitqc" /><span>APIIT Rounding/QC</span></label>
+  <label><input class="with-gap duty" name="duty" type="radio" value="APU-Helpdesk" checked/><span>Helpdesk</span></label>
+  <label><input class="with-gap duty" name="duty" type="radio" value="APU-Rounding" checked/><span>Rounding</span></label>
+  <label><input class="with-gap duty" name="duty" type="radio" value="APU-QC" /><span>QC</span></label>
+  <label><input class="with-gap duty" name="duty" type="radio" value="APIIT-Helpdesk" /><span>APIIT Helpdesk</span></label>
+  <label><input class="with-gap duty" name="duty" type="radio" value="APIIT-Rounding/QC" /><span>APIIT Rounding/QC</span></label>
 </p>
 <div class="row">
   <button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s10 m4 l3" style="margin-left:10px;"><i class="material-icons left">lightbulb_outline</i>Search</button>

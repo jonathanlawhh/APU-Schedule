@@ -16,7 +16,6 @@ else { $currShift = 'none / overtime'; } ?>
 <html lang="en">
 <head>
   <title>TA Final Roster</title>
-	<link rel="icon" href="../images/favicon.png">
   <meta name="theme-color" content="#0d47a1">
   <?php include('../fragment/frameworkImportsTA.html'); ?>
   <style>
@@ -77,16 +76,21 @@ function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = docum
     <div id="SaturdaySec" style="display:none;"><h5>Saturday</h5><div class="divider"></div><div id="Saturdayc"></div></div><br>
 
       <?php $totalHours = 0;
-      $a = 'D:\home\python364x64\python.exe reader.py -u ' . '"' . $searchUser . '"';
-      exec($a, $returnval);
-      foreach($returnval AS $array){
-        $result = explode( ',', $array);
-        $e0 = trim($result[0]); $e1 = trim($result[1]);
-        echo "<script>showSec('$e0');</script>";
-        if($e1==='S6'){ $totalHours += 3; } elseif ($e1==='S1'){ $totalHours += 2.25; } elseif ($e1==='Saturday'){ $totalHours += 9; } else { $totalHours += 2; } //Calculate total hours
-        echo "<script>addSec('$e0','$e1 - $result[2]');</script>";
-        if(($e0===$today && $e1===$currShift) || ($e0===$today && $today==='Saturday')){ echo "<script>dutyNow('$result[2]','$e1')</script>"; }
-      } //End foreach and update total hours for user
+      if(($handle = fopen('../data/gen-roster.csv', 'r')) !== false) {
+          while(($data = fgetcsv($handle, 4096, ',')) !== false) {
+            $columns = $data;
+            $dDate = array_search($columns[0], $data); $dShift = array_search($columns[1], $data);
+            $dJob = array_search($columns[2], $data); $dPerson = array_search($columns[3], $data);
+
+            if(stripos($data[$dPerson], $searchUser) !== false) {
+              $results[] = $data; $e2 = trim($data[$dJob]); $e1 = trim($data[$dShift]); $e0 = trim($data[$dDate]);
+              echo "<script>showSec('$e0');</script>";
+              if($e1==='S6'){ $totalHours += 3; } elseif ($e1==='S1'){ $totalHours += 2.25; } elseif ($e1==='Saturday'){ $totalHours += 9; } else { $totalHours += 2; } //Calculate total hours
+              echo "<script>addSec('$e0','$e1 - $e2');</script>";
+              if(($e0===$today && $e1===$currShift) || ($e0===$today && $today==='Saturday')){ echo "<script>dutyNow('$e2','$e1')</script>"; }
+            }  //Cleanup and close table
+        } fclose($handle);
+      }
       echo "<script>totalHours($totalHours);</script>"; ?><div class="marginbottom20"></div>
     <p class="deep-orange-text text-darken-1" onclick="clearCookie();"><i class="material-icons iconfix">clear_all</i>Click me to clear this website cookie</p>
     <div class="marginbottom20"></div>

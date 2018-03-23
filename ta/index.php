@@ -1,7 +1,5 @@
 <?php
-if ((isset($_POST['user'])) && (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['user']))){ header('Location: https://apu-schedule.azurewebsites.net/ta/index.php'); }
-$searchUser = $_POST['user'] ?? $_COOKIE['myName-APU'];
-if(isset($_POST['user'])){ setcookie('myName-APU', $searchUser, time() + 31536000, '/'); }
+$searchUser = $_COOKIE['myName-APU'];
 $timeNow = date('Hi'); $today = date('l');
 if ($today === 'Saturday'){ $currShift = 'Saturday'; }
 elseif ($today === 'Sunday'){ $currShift = 'It is Sunday...'; }
@@ -24,12 +22,6 @@ else { $currShift = 'none / overtime'; } ?>
     .tabs .indicator { background-color: #0288d1; } .iconfix { vertical-align: bottom; } .marginbottom20 { margin-bottom:20px; }
   </style>
 </head>
-<script>
-function dutyNow(a, b) { document.getElementById("dutyNowLbl").innerHTML = "Duty now as " + a + " for " + b; }
-function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "Total duty hours this week : " + a; }
-function showSec(a) { document.getElementById(a + "Sec").removeAttribute("style"); }
-function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = document.createTextNode(b); c.appendChild(b); document.getElementById(a).appendChild(c); }
-</script>
 
 <body>
 <main>
@@ -54,6 +46,12 @@ function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = docum
 
 <div id="main" class="container">
   <?php if(isset($searchUser)){ ?>
+    <script>
+    function dutyNow(a, b) { document.getElementById("dutyNowLbl").innerHTML = "Duty now as " + a + " for " + b; }
+    function totalHours(a) { document.getElementById("totalDutyHours").innerHTML = "Total duty hours this week : " + a; }
+    function showSec(a) { document.getElementById(a + "Sec").removeAttribute("style"); }
+    function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = document.createTextNode(b); c.appendChild(b); document.getElementById(a).appendChild(c); }
+    </script>
     <h4>TA Duty Roster for <?php echo $searchUser; ?></h4>
     <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){ echo $weekOf; } ?><br>
     Current ongoing shift : <?php echo $currShift; ?></p>
@@ -78,20 +76,18 @@ function addSec(a, b) { a += "c"; var c = document.createElement("p"); b = docum
       <?php $totalHours = 0;
       if(($handle = fopen('../data/gen-roster.csv', 'r')) !== false) {
           while(($data = fgetcsv($handle, 4096, ',')) !== false) {
-            $columns = $data;
-            $dDate = array_search($columns[0], $data); $dShift = array_search($columns[1], $data);
-            $dJob = array_search($columns[2], $data); $dPerson = array_search($columns[3], $data);
+            $dDate = array_search($data[0], $data); $dShift = array_search($data[1], $data);
+            $dJob = array_search($data[2], $data); $dPerson = array_search($data[3], $data);
 
             if(stripos($data[$dPerson], $searchUser) !== false) {
-              $results[] = $data; $e2 = trim($data[$dJob]); $e1 = trim($data[$dShift]); $e0 = trim($data[$dDate]);
+              $e2 = trim($data[$dJob]); $e1 = trim($data[$dShift]); $e0 = trim($data[$dDate]);
               echo "<script>showSec('$e0');</script>";
               if($e1==='S6'){ $totalHours += 3; } elseif ($e1==='S1'){ $totalHours += 2.25; } elseif ($e1==='Saturday'){ $totalHours += 9; } else { $totalHours += 2; } //Calculate total hours
               echo "<script>addSec('$e0','$e1 - $e2');</script>";
               if(($e0===$today && $e1===$currShift) || ($e0===$today && $today==='Saturday')){ echo "<script>dutyNow('$e2','$e1')</script>"; }
             }  //Cleanup and close table
         } fclose($handle);
-      }
-      echo "<script>totalHours($totalHours);</script>"; ?><div class="marginbottom20"></div>
+      } else { echo "<p>Roster not found/generated...</p>"; } echo "<script>totalHours($totalHours);</script>"; ?><div class="marginbottom20"></div>
     <p class="deep-orange-text text-darken-1" onclick="clearCookie();"><i class="material-icons iconfix">clear_all</i>Click me to clear this website cookie</p>
     <div class="marginbottom20"></div>
 <?php } else { include('userless.html'); } //Close isset($searchUser) ?>
@@ -112,7 +108,6 @@ function loadOnDuty() { if(!document.getElementById("ondutyContent")){
     var script = document.createElement("script"); script.type = "text/javascript"; script.src = "fragment/doSearch.js?ver=1"; document.getElementsByTagName("head")[0].appendChild(script);
     document.getElementById("onduty").innerHTML = a.responseText; }
 }}
-
 function clearCookie() { document.cookie = "myName-APU=;expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"; M.toast({html:"Cookies cleared!!"}); }
 </script>
 </body>

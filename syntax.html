@@ -15,16 +15,14 @@
       <span>
         <div class="section">
           <b>Feature</b><br>
+          - Removed jQuery completely<br>
           - Loading component from cache<br> - This will save user bandwidth<br>
           - Browser caching extended to 14 days <br> -- <a href="#aboutCache" class="modal-trigger">Read me</a><br>
           - <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">Brotli compression</a><br>
-          - Page load after cache : 2.3kb only <br><br>
+          - Page load after cache : 2.7kb only <br><br>
           <b>Experimental</b><br>
-          - <del><a href="https://github.com/jquery/jquery" target="_blank">Custom compiled</a> jQuery.</del><br>-- <del>Originally it was 85kb, now it's 50kb ( ´ ▽ ` )ﾉ</del><br>
-          - Restructuring codes to remove jQuery<br>
-          - async CSS for better performance<br>
           - Introduce version based caching<br>
-          - New schedule update system<br>
+          - myTimetable updates<br>
         </div>
       </span>
     </div>
@@ -37,8 +35,7 @@
      If you visit this site after 14 days, the cache will be renewed. All the size listed are after <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">
      Brotli compression</a>, without the compression the size are multiplied by at least 3.<br>
      Below are the files cached on this site.<br><br>
-  js/core.js [ 1.4kb ]<br>This file loads the function of this site like search and initializing components.<br><br>
-  js/jQuery-3.3.1.min.js [ 25.5kb ]<br>jQuery will be removed in stages from this app. One less script to download and render.<br><a href="https://github.com/jquery/jquery" target="_blank">Custom compiled</a> to exclude all unused component. Original size 85kb.<br><br>
+  js/core.js [ 1.4kb ]<br>This file loads the function of this site like search, myTimetable and initializing components.<br><br>
   css/materialize.min.css [ 19.3kb ] && js/materialize.min.js [ 69.5kb ]<br><a href="http://next.materializecss.com" target="_blank">MaterializeCSS UI</a> framework<br><br>
   syntax.html [800b]<br>This syntax page. It is not loaded initially unless requested to reduce rendering time and bandwidth.<br><br>
   fragment/classlist.html [ 862b ]<br>The list of suggestion for classroom. Moved from dynamic file reading on every load to static classlist.</p>

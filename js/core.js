@@ -28,5 +28,10 @@ var a = document.getElementById("removethead");
 "none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;", document.getElementById("hidemsg").innerHTML = "Hide table header;") : (a.style.display = "none", document.getElementById("hidemsg").innerHTML = "Show table header", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
 }
 
+function getCurTimetable(b) {
+  if (!document.getElementById(b + "Data")) { document.getElementById(b).innerHTML = "<div class='progress brown lighten-5'><div class='indeterminate brown darken-2'></div></div>";
+  var a = new XMLHttpRequest; a.open("POST", "control/getTimetable.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("getMe=" + b);
+  a.onload = function() { 200 == this.status && (document.getElementById(b).innerHTML = a.responseText); }; } }
+
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });

@@ -1,6 +1,4 @@
-<?php
-function checkLastDate($dateInput){ if($_POST['date'] === $dateInput){ echo 'checked'; }}
-include('control/theme.php'); ?>
+<?php include('control/theme.php'); ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@ include('control/theme.php'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.01" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.02" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
@@ -54,8 +52,7 @@ include('control/theme.php'); ?>
 		 	</button>
 		 </div>
 
- 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>
-				Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p></div>
+ 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>Check the syntax tab for more<br></p></div>
 
 			<p><span id="searchInfo"></span><span id="emptyInfo" style="display:none;">This class is empty now</span></p>
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
@@ -73,7 +70,7 @@ include('control/theme.php'); ?>
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.01").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.02").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }

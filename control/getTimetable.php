@@ -12,7 +12,7 @@ function getTimetable($when){
         $lecterur = array_search($data[6], $data);
 
         if((stripos($data[$date], $idate) !== false) && stripos($data[$intake], $intakedat) !== false) {
-          echo "<tr id='$ID'><td>$data[$time]</td><td class='hide-on-small-only'>$data[$location]</td>
+          echo "<tr id='$ID'><td class='hide-on-small-only'>$data[$date]</td><td>$data[$time]</td><td class='hide-on-small-only'>$data[$location]</td>
           <td>$data[$classroom]</td><td>$data[$module]</td><td>$data[$lecterur]</td></tr>"; }
     } fclose($handle); } }
 

@@ -28,7 +28,7 @@ for sort_step in sorts:
 # Now write all of this out to the new file
 writer = csv.writer(target)
 for sorted_row in data:
-	writer.writerow(sorted_row)
+	writer.writerow((sorted_row[1],sorted_row[2],sorted_row[3],sorted_row[4],sorted_row[5],sorted_row[6],sorted_row[7]))
 
 source.closed
 target.closed

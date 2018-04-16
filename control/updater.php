@@ -3,7 +3,7 @@ if(isset($_POST['action'])){
   exec('automateSchedule.bat', $a);
   foreach($a as $b){ echo 'addLog("' . $b . '");'; }
   $log = fopen("../data/update.log", "w");
-  fwrite($log, date('Ymd'));
+  fwrite($log, date('Ymd'). ',' . date('W'));
   fclose($log);
   echo 'addLog("Schedule updated on ' . date('Ymd') . '")';
 }

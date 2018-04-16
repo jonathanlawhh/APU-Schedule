@@ -1,4 +1,7 @@
-<?php include('control/theme.php'); ?>
+<?php include('control/theme.php');
+$list = fopen("data/update.log", "r"); while(!feof($list)) { $updateDate = fgets($list); } fclose($list);
+$updateDate = explode(',',$updateDate);
+if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); } ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
@@ -57,7 +60,7 @@
 			<p><span id="searchInfo"></span><span id="emptyInfo" style="display:none;">This class is empty now</span></p>
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
 			<table id="resultArea" class='responsive-table highlight bordered marginbottom20'></table>
-			<p class="marginbottom20" ><?php $list = fopen("data/update.log", "r"); while(!feof($list)) { echo 'Schedule updated on ' . trim(fgets($list)); } fclose($list); ?></p>
+			<p class="marginbottom20" ><?php echo 'Schedule updated on ' . $updateDate[0]; ?></p>
   </div>
 
 	<div id="mytimetable" class="container"></div>

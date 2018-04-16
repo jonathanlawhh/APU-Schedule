@@ -13,7 +13,6 @@ B-03-Design-LAB
 B-03-Robotic LAB
 B-03-PLC LAB
 B-03-Power LAB
-B-04-01
 B-04-02
 B-04-03
 B-04-04

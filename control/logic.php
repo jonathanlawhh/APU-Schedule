@@ -1,10 +1,8 @@
 <?php
 // This will process all query and logic
 // Goal is to clean main index.php\
-$idate = $_POST['date'];
-$now = date('H:i');
-$headMsg = 'Hide table header';
-
+$idate = $_POST['date']; $now = date('H:i'); $headMsg = 'Hide table header';
+$tablehead = ''; $ect = ''; $emptyClass = '';
 if(isset($_COOKIE['apuschedule-tablehead'])){ $tablehead = "style='display:none'"; $headMsg = 'Show table header'; }
 
 //XSS Detection
@@ -16,13 +14,18 @@ $queryFor = 'intake'; $queryValue = $_POST['classroom']; $hideItems = "class='hi
 if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) { $queryFor = 'classroom'; $hideItems = ''; }
 elseif (empty($queryValue)){
     echo "<div class='marginleft4' id='tutorial'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>
-    Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p></div>"; goto end; }
+    Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p>
+    <br /><div class='divider'></div><h5>Analyticky</h5><p>A nice word chart of the searches made<br />View it at <a href='analyticky.php' target='_blank'>analyticky</a></p></div>"; goto end; }
 if(isset($_POST['emptyClass']) && $_POST['emptyClass']!=NULL && $queryFor == 'classroom'){ $emptyClass='checkMe'; $ect = "style='display:none;'"; }
+
+//Hello analytica
+$ana = fopen("../data/analytica.txt", "a"); fwrite($ana, ','.$queryValue); fclose($ana);
 
 echo "<thead id='removethead' $tablehead><tr>
           <th $hideItems $ect>Intake</th><th class='hide-on-small-only'>Date</th><th>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th $ect>Module</th><th $ect>Lecterur</th>
       </tr></thead><tbody>";
 
+$v1=''; $oDT1=''; $ocr='';
 if(($handle = fopen('../data/data.csv', 'r')) !== false) {
     while(($data = fgetcsv($handle, 4096, ',')) !== false) {
       $intake = array_search($data[0], $data);

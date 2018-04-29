@@ -55,7 +55,9 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		 	</button>
 		 </div>
 
- 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>Check the syntax tab for more<br></p></div>
+ 			<div class='marginleft4' id="tutorial"><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>Check the syntax tab for more<br></p>
+			<br /><div class="divider"></div><h5>Analyticky</h5><p>A nice word chart of the searches made<br />View it at <a href="analyticky.php" target="_blank">analyticky</a></p>
+			</div>
 
 			<p><span id="searchInfo"></span><span id="emptyInfo" style="display:none;">This class is empty now</span></p>
 			<a id='hidemsg' onclick='hidethead()' class='hide-on-med-and-up' style="display:none;">Toggle table header</a>
@@ -73,7 +75,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.02").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.03").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
 	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }

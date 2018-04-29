@@ -5,7 +5,7 @@
 	<meta name="theme-color" content="#1a237e">
 	<?php include('fragment/frameworkImports.html'); ?>
   <style>
-	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; }
+	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } .margintop10{ margin-top: 10px; }
   </style>
 </head>
 
@@ -51,13 +51,30 @@
       </div>
     </div>
 
+    <div class="row">
+      <div class="col s12 m6">
+        <div class="card hoverable">
+          <div class="card-content">
+            <span class="card-title">Analytick</span><br>
+							<div class="input-field">
+								<textarea id="analytickData" class="materialize-textarea" disabled><?php $list = fopen("data/analytica.txt", "r"); while(!feof($list)) { echo trim(fgets($list)); } fclose($list); ?></textarea>
+          			<label for="analytickData">Analytick Data</label>
+							</div>
+							<button onclick="unlockAnalytick();" class="waves-effect waves-light btn red darken-3 margintop10"><i class="material-icons left">details</i>Unlock</button>
+							<button onclick="updateAnalytick();" class="waves-effect waves-light btn indigo darken-3 margintop10" id="btnAna" disabled><i class="material-icons left">change_history</i>Update</button><br><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
 		<div class="row">
       <div class="col s12 m6">
         <div class="card hoverable">
           <div class="card-content">
             <span class="card-title">Quick Links</span><br>
-            <a href="index.php"><button class="waves-effect waves-light btn indigo darken-3">APU Schedule</button></a>
-            <a href="ta/index.php"><button class="waves-effect waves-light btn indigo darken-3">TA Final Roster</button></a>
+            <a href="index.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">APU Schedule</button></a>
+            <a href="analytick.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">Analytick</button></a>
+            <a href="ta/index.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">TA Final Roster</button></a>
           </div>
         </div>
       </div>
@@ -75,6 +92,13 @@ function updateS() {
 	a = new XMLHttpRequest;
 	a.open("POST", "control/updater.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("action=updateS");
 	a.onload = function() { 200 == this.status && (document.getElementById("status").innerHTML = "Update log : ", document.getElementById("progressbar").style.display = "none", eval(a.responseText));
+	};
+}
+function unlockAnalytick(){ document.getElementById("btnAna").disabled=false; document.getElementById("analytickData").disabled=false; }
+function updateAnalytick() {
+	a = new XMLHttpRequest; b = document.getElementById("analytickData").value;
+	a.open("POST", "control/updater.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("updateAna="+b);
+	a.onload = function() { 200 == this.status && ( M.toast({html: 'Analytick data updated!!'}), document.getElementById("btnAna").disabled=true, document.getElementById("analytickData").disabled=true );
 	};
 }
 function updateR() {

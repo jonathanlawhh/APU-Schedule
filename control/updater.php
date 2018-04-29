@@ -8,6 +8,12 @@ if(isset($_POST['action'])){
   echo 'addLog("Schedule updated on ' . date('Ymd') . '")';
 }
 
+if(isset($_POST['updateAna'])){
+  $ana = fopen("../data/analytica.txt", "w");
+  fwrite($ana, $_POST['updateAna']);
+  fclose($ana);
+}
+
 if(isset($_FILES['roster'])){
   $a = strtolower(pathinfo($_FILES['roster']['name'],PATHINFO_EXTENSION)); $s = 1;
 

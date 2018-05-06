@@ -30,7 +30,7 @@
       <div class="card-panel hoverable">
         <span>
           <div class="section">
-            <a role="button" onclick="history.go(-1);"><i class="material-icons left">arrow_back</i> Go back to schedule</a>
+            <a href='index.php'><i class="material-icons left">arrow_back</i> Go back to schedule</a>
           </div>
         </span>
       </div>

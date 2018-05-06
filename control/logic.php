@@ -1,31 +1,25 @@
 <?php
 // This will process all query and logic
 // Goal is to clean main index.php\
-$idate = $_POST['date']; $now = date('H:i'); $headMsg = 'Hide table header';
-$tablehead = ''; $ect = ''; $emptyClass = '';
-if(isset($_COOKIE['apuschedule-tablehead'])){ $tablehead = "style='display:none'"; $headMsg = 'Show table header'; }
+$idate = $_POST['date']; $now = date('H:i');
+$ect = '';
+$returnMe = array();
 
 //XSS Detection
-if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){ echo "<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>"; exit; }
-
+if (preg_match('/[\'"^$%*}{?><>,|;]/', $_POST['classroom'])){ array_push($returnMe,array('method' => 'invalid')); echo json_encode($returnMe); goto end; }
 //Start Query
-$queryFor = 'intake'; $queryValue = $_POST['classroom']; $hideItems = "class='hide-on-small-only'";
-
-if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) { $queryFor = 'classroom'; $hideItems = ''; }
-elseif (empty($queryValue)){
-    echo "<div class='marginleft4' id='tutorial'><h4>ಠ_ಠ</h4><p>The keyword [ Lab / B- / Studio ] is used to search for classes<br>You can also search for your intake timetable here<br>
-    Restructuring codes to remove jQuery, things will break<br>Check the syntax tab for more<br></p>
-    <br /><div class='divider'></div><h5>Analyticky</h5><p>A nice word chart of the searches made<br />View it at <a href='analyticky.php' target='_blank'>analyticky</a></p></div>"; goto end; }
-if(isset($_POST['emptyClass']) && $_POST['emptyClass']!=NULL && $queryFor == 'classroom'){ $emptyClass='checkMe'; $ect = "style='display:none;'"; }
+$queryFor = 'intake'; $queryValue = $_POST['classroom'];
+if($queryValue=='takeIntakeCode'){ $queryValue = $_COOKIE['myIntakeCode-APU']; }
+if(preg_match("/\b(LAB|Auditorium|B-|D-|E-|STUDIO)\b/i", $queryValue)) { $queryFor = 'classroom'; }
+elseif (empty($queryValue)){ array_push($returnMe,array('method' => 'noinput')); echo json_encode($returnMe); goto end; }
+if(isset($_POST['emptyClass']) && $_POST['emptyClass']!=NULL && $queryFor == 'classroom'){ $queryFor='emptyclassroom'; }
 
 //Hello analytica
-$ana = fopen("../data/analytica.txt", "a"); fwrite($ana, ','.$queryValue); fclose($ana);
+$ana = fopen("../data/analytica.txt", "a");
+if(!isset($_COOKIE['analytick-APU']) || $_COOKIE['analytick-APU']!==$queryValue){ setcookie('analytick-APU', $queryValue); fwrite($ana, ','.$queryValue);}
+fclose($ana);
 
-echo "<thead id='removethead' $tablehead><tr>
-          <th $hideItems $ect>Intake</th><th class='hide-on-small-only'>Date</th><th>Time</th><th class='hide-on-small-only'>Location</th><th>Classroom</th><th $ect>Module</th><th $ect>Lecterur</th>
-      </tr></thead><tbody>";
-
-$v1=''; $oDT1=''; $ocr='';
+$v1=''; $oDT1=''; $ocr=''; $stat='emptyNow';
 if(($handle = fopen('../data/data.csv', 'r')) !== false) {
     while(($data = fgetcsv($handle, 4096, ',')) !== false) {
       $intake = array_search($data[0], $data);
@@ -40,15 +34,19 @@ if(($handle = fopen('../data/data.csv', 'r')) !== false) {
       if((stripos($data[$date], $idate) !== false) && (stripos($data[$searchThis], $queryValue) !== false)) {
         $dt = $data[$time]; $newcr = $data[$classroom];
         $checkDT = explode( '-', $dt);
-        if($emptyClass=='checkMe' && $v1 == $dt && $queryFor == 'classroom' && $newcr==$ocr){ continue 1; }
-        if(trim($checkDT[0])>$now && trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
-        else { echo "<script>document.getElementById('emptyInfo').style.display = 'none';</script>"; }
-        echo "<tr><td $hideItems $ect>$data[$intake]</td><td class='hide-on-small-only'>$data[$date]</td><td>$dt</td><td class='hide-on-small-only'>$data[$location]</td><td>$newcr</td><td $ect>$data[$module]</td><td $ect>$data[$lecterur]</td></tr>";
+        if($v1 == $dt && $queryFor == 'emptyclassroom' && $newcr==$ocr){ continue 1; }
+        if($queryFor == 'emptyclassroom' && trim($checkDT[0])<$now && trim($checkDT[1])>$now){ $stat = 'ongoingclass'; }
+        if($queryFor == 'emptyclassroom'){
+          array_push($returnMe,array('method' => $queryFor, 'status' => $stat,'intake' =>$data[$intake], 'date' =>$data[$date], 'time' => $data[$time], 'classroom' => $data[$classroom], 'module' =>$data[$module], 'lecturer' =>$data[$lecterur]));
+        } else {
+          array_push($returnMe,array('method' => $queryFor, 'intake' =>$data[$intake], 'date' =>$data[$date], 'time' => $data[$time], 'classroom' => $data[$classroom], 'module' =>$data[$module], 'lecturer' =>$data[$lecterur]));
+        }
         $v1 = $dt; $oDT1 = $checkDT[1]; $ocr = $newcr;
       }  //Cleanup and close table
-  } fclose($handle); echo '</tbody>';
-  if(trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
+  } fclose($handle);
+  //if(trim($oDT1)<$now && $emptyClass=='checkMe'){ echo "<script>document.getElementById('emptyInfo').style.display = 'block';</script>"; }
+  if($v1==''){ array_push($returnMe,array('method' => 'empty')); }
+  echo json_encode($returnMe);
 }
-
 end:
 ?>

@@ -6,9 +6,12 @@
 	<?php include('fragment/frameworkImports.html'); ?>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } .margintop10{ margin-top: 10px; }
+		.loadingText{ animation: move 4s infinite forwards; } .loaded{ -webkit-transition: opacity 1s ease-in-out; opacity: 0; }
+		@keyframes move{ 0% { transform: translateY(0px);} 75% { transform: translateY(-50px);} 100% { transform: translateY(0px);}}
   </style>
 </head>
 
+<div id="loadingPage" style="position: fixed; background: #ffffff; z-index: 10; height: 100%; width :100%;"><h5 class="teal-text center loadingText" style="margin-top:20%;">Loading apu-schedule...</h5></div>
 <body>
   <main>
   <nav class="nav-extended indigo darken-3" style="margin-bottom:10px;">
@@ -106,6 +109,8 @@ function updateR() {
   b = new FormData; b.append("roster", a);
   a = new XMLHttpRequest; a.open("POST", "control/updater.php", !0);
   a.onload = function() { 200 == this.status && (c.innerHTML = this.responseText); }; a.send(b); }
+
+document.getElementById("loadingPage").classList.add('loaded');
 </script>
 </body>
 </html>

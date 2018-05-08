@@ -64,7 +64,7 @@ var a = document.getElementById("tableHead");
 function getCurTimetable(b) {
 	var intakeTable = document.getElementById(b);
   if (!document.getElementById(b + "Data")) { intakeTable.innerHTML = "<div class='progress brown lighten-5'><div class='indeterminate brown darken-2'></div></div>";
-	postMe('control/logic.php',"classroom=takeIntakeCode&date=" + b + "&emptyClass=''")
+	postMe('control/logic.php',"classroom=takeIntakeCode&date=" + b + "&method=intakeTimetable")
 	.then(function(a){
 		intakeTable.innerHTML = '';
 		a.forEach(function(element) {

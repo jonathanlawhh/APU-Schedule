@@ -15,9 +15,11 @@ elseif (empty($queryValue)){ array_push($returnMe,array('method' => 'noinput'));
 if(isset($_POST['emptyClass']) && $_POST['emptyClass']!=NULL && $queryFor == 'classroom'){ $queryFor='emptyclassroom'; }
 
 //Hello analytica
-$ana = fopen("../data/analytica.txt", "a");
-if(!isset($_COOKIE['analytick-APU']) || $_COOKIE['analytick-APU']!==$queryValue){ setcookie('analytick-APU', $queryValue); fwrite($ana, ','.$queryValue);}
-fclose($ana);
+if((!isset($_COOKIE['analytick-APU']) || $_COOKIE['analytick-APU']!==$queryValue) && !isset($_POST['method'])){
+  $ana = fopen("../data/analytica.txt", "a");
+  setcookie('analytick-APU', $queryValue); fwrite($ana, ','.$queryValue);
+  fclose($ana);
+}
 
 $v1=''; $oDT1=''; $ocr=''; $stat='emptyNow';
 if(($handle = fopen('../data/data.csv', 'r')) !== false) {
@@ -37,9 +39,9 @@ if(($handle = fopen('../data/data.csv', 'r')) !== false) {
         if($v1 == $dt && $queryFor == 'emptyclassroom' && $newcr==$ocr){ continue 1; }
         if($queryFor == 'emptyclassroom' && trim($checkDT[0])<$now && trim($checkDT[1])>$now){ $stat = 'ongoingclass'; }
         if($queryFor == 'emptyclassroom'){
-          array_push($returnMe,array('method' => $queryFor, 'status' => $stat,'intake' =>$data[$intake], 'date' =>$data[$date], 'time' => $data[$time], 'classroom' => $data[$classroom], 'module' =>$data[$module], 'lecturer' =>$data[$lecterur]));
+          array_push($returnMe,array('method'=>$queryFor, 'status'=>$stat,'intake'=>$data[$intake], 'date'=>$data[$date], 'time'=>$data[$time], 'classroom'=>$data[$classroom], 'module'=>$data[$module], 'lecturer'=>$data[$lecterur]));
         } else {
-          array_push($returnMe,array('method' => $queryFor, 'intake' =>$data[$intake], 'date' =>$data[$date], 'time' => $data[$time], 'classroom' => $data[$classroom], 'module' =>$data[$module], 'lecturer' =>$data[$lecterur]));
+          array_push($returnMe,array('method'=>$queryFor, 'intake'=>$data[$intake], 'date'=>$data[$date], 'time'=>$data[$time], 'classroom'=>$data[$classroom], 'module'=>$data[$module], 'lecturer'=>$data[$lecterur]));
         }
         $v1 = $dt; $oDT1 = $checkDT[1]; $ocr = $newcr;
       }  //Cleanup and close table

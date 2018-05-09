@@ -2,6 +2,7 @@
 $list = fopen("data/update.log", "r"); while(!feof($list)) { $updateDate = fgets($list); } fclose($list);
 $updateDate = explode(',',$updateDate);
 if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); } ?>
+<link rel="manifest" href="manifest.json" />
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
@@ -12,7 +13,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.2" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.3" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
@@ -20,6 +21,11 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		.tableInAnim { animation: move 1s; } @keyframes move{ 0% { transform: translateY(10px);} 100% { transform: translateY( 0px);} }
 		.mouth{ animation: move2 2s infinite forwards; } @keyframes move2{ 0% { transform: translateX(0px); } 80% { transform: translateX(20px); } }
   </style>
+	<script>
+"serviceWorker" in navigator && window.addEventListener("load", function() {
+navigator.serviceWorker.register("app.js?ver=1").then(function(a) {console.log("ServiceWorker registration successful with scope: ", a.scope);},
+function(a) {console.log("ServiceWorker registration failed: ", a);}); });
+	</script>
 </head>
 
 <body>

@@ -16,7 +16,7 @@
   <body>
     <main>
       <div id="loadingPage" style="position: fixed; background: #ffffff; z-index: 10; height: 100%; width :100%;">
-        <h5 class="teal-text center loadingText">Please wait...<br />The schedule is being updated now</h5>
+        <div class="container"><h5 class="teal-text center loadingText">Please wait...<br />The schedule is being updated now</h5></div>
       </div>
     </main>
   	<footer class="page-footer grey darken-3" id="meme"><div class="footer-copyright grey darken-4"></div></footer>

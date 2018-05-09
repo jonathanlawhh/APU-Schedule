@@ -15,13 +15,14 @@ function doSearch() {
   var c = document.getElementById("searchInfo"),
 	f = document.getElementById("resultArea"), g = document.getElementById("tutorial"),
 	d = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), e = document.getElementById("searchVal").value;
+	if(navigator.onLine){
 	postMe('control/logic.php',"classroom=" + e + "&date=" + d + "&emptyClass=" + b)
 	.then(function(a) {
 		if(a[0]['method']=='empty' || a[0]['method']=='invalid' || a[0]['method']=='noinput'){
 			g.style.display = "none";
 			f.style.display = "none";
 			h.style.display = "none";
-			c.innerHTML = e + ' seems ' + a[0]['method'];
+			c.innerHTML = e + ' seems ' + a[0]['method'] + ' on ' + d;
 		} else {
 			g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"),
 			c.style.display = "block", c.innerHTML = "Results for " + e + " on " + d,
@@ -40,6 +41,9 @@ function doSearch() {
 			f.classList.add('tableInAnim');
 		}
 	})
+} else {
+	g.style.display = "none"; c.innerHTML='<i class="material-icons left">portable_wifi_off</i><h5>No internet connection</h5>';
+}
 }
 
 function changemytimetable() {

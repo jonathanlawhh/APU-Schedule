@@ -47,13 +47,18 @@ function doSearch() {
 }
 
 function changemytimetable() {
+if(navigator.onLine){
 	if (!document.getElementById("timetableContent")) {
-  var a = new XMLHttpRequest, intakeC = ""; c = document.cookie.split(";");
-	for(i=0;i<c.length;i++){ if( c[i].indexOf('myIntakeCode') != -1){ c=c[i].split("="); intakeC = c[1]; break; } }
-  a.open("POST", "control/mytimetable.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("intake=" + unescape(intakeC));
+  var a = new XMLHttpRequest;
+  a.open("POST", "control/mytimetable.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("intake=load");
   a.onreadystatechange = function() { document.getElementById("mytimetable").innerHTML = a.responseText; M.Collapsible.init(document.querySelector(".collapsible"), {}); }; }
-	document.getElementById("headercolor").className = "nav-extended brown darken-4";
-	document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723"); }
+} else {
+  fetch("control/mytimetable.php").then(function(a) { return a.text(); })
+	.then(function(a) { document.querySelector("#mytimetable").innerHTML = a;});
+}
+document.getElementById("headercolor").className = "nav-extended brown darken-4";
+document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+}
 
 function warning() {
 document.getElementById("headercolor").className = "nav-extended red darken-3";

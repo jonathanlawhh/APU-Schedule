@@ -1,11 +1,11 @@
-<?php $intakedat = $_POST['intake'];
-if ($intakedat==""){ ?>
+<?php $intakedat = $_COOKIE['myIntakeCode-APU'] ?? '';
+if (!isset($_COOKIE['myIntakeCode-APU'])){ ?>
   <div class='row' id="timetableContent">
     <div class='col s12 m12 l5'>
       <div class='card-panel hoverable'>
         <span>
           <div class='section'>
-            <b>No intake code found</b><br><br>
+            <b>No intake code found</b><br>Or there is not internet detected<br><br>
             <a href='settings.php'><i class='material-icons left'>settings</i> Go to settings</a> <br><br>
             Please add an intake at the settings <a href='settings.php'>here</a> <br>
             Please note that cookies will be used to store your intake code.
@@ -22,4 +22,3 @@ if ($intakedat==""){ ?>
     <div class="collapsible-body"><table class='responsive-table highlight bordered'><tbody id="<?php echo $idate; ?>"><?php if($today===$idate){ include('getTimetable.php'); getTimetable($today); }?></tbody></table></div></li>
 <?php } ?></ul>
 <?php end: ?>
-<script>M.Collapsible.init(document.querySelectorAll('.collapsible'),{});</script>

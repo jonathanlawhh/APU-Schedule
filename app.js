@@ -2,6 +2,7 @@ var CACHE_NAME = 'cache-apu-s';
 var urlsToCache = [
   '/',
   '/index.php',
+  '/control/mytimetable.php',
   'https://fonts.googleapis.com/icon?family=Material+Icons',
   'https://fonts.gstatic.com/s/materialicons/v37/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2',
   '/app.js?ver=1',

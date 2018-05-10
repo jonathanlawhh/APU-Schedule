@@ -4,8 +4,7 @@
 	<meta name="theme-color" content="#880e4f">
   <?php include('fragment/frameworkImports.html'); ?>
   <style>
-	  body { display: flex; min-height: 100vh; flex-direction: column; }
-	  main {  flex: 1 0 auto; }
+	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; }
     a { color: #f4511e; } .marginleft4 { margin-left: 4%; }
   </style>
 </head>
@@ -39,14 +38,12 @@
           <div class="section">
 						<div class="row">
             <b>Intake :</b><br>
-	            <form action="control/setconfig.php" method="POST">
-	                <div class="input-field col s12 m6 l9" style="margin-top:0; padding:0;">
-	                    <input placeholder="eg. UCDF1604ICT(SE)" name="myIntake" id="myIntake" type="text" class="validate" value="<?php intakeInput(); ?>">
-	                </div>
-	          		  <button type="submit" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 l4" style="margin-right:10px">
-	            		  <i class="material-icons left">cloud_upload</i>Update
-	          		  </button>
-	             </form>
+                <div class="input-field col s12 m6 l9" style="margin-top:0; padding:0;">
+                    <input placeholder="eg. UCDF1604ICT(SE)" name="myIntake" id="myIntake" type="text" class="validate" value="<?php intakeInput(); ?>">
+                </div>
+          		  <button onclick="updateIntake()" id="btn_class" name="myIntakebtn" value="myIntakebtn" class="pink darken-4 waves-effect waves-light btn col s6 l4" style="margin-right:10px">
+            		  <i class="material-icons left">cloud_upload</i>Update
+          		  </button>
 					 	 </div>
 						 <div class="row">
 							 <p><b>Refresh browser cache</b><br>Use this option if webpage is not loading correctly</p>
@@ -71,5 +68,11 @@
 <script> //Initialize UI
 function initialize() { M.Tabs.init(document.querySelectorAll(".tabs"), {}); }
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+function updateIntake(){
+	var e = document.getElementById("myIntake").value;
+	var a = new XMLHttpRequest;
+	a.open("POST", "control/setconfig.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("myIntake=" + e);
+	a.onreadystatechange = function() { M.toast({html: 'Added intake'}); };
+}
 </script>
 </body>

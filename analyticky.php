@@ -2,20 +2,13 @@
 <html lang="en">
 <head>
 	<title>APU/APIIT Schedule</title>
-	<?php include('fragment/frameworkImports.html'); ?>
 	<meta name="theme-color" content="#39393b">
   <script src="https://code.highcharts.com/highcharts.src.js"></script>
   <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
-  <style>
-	body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; background-color:#39393b;}
-	#wordchart{ width:85%; }
-  </style>
+  <style> body { background-color:#39393b;} #wordchart{ width:85%; }</style>
 </head>
 
-<body>
-  <main><div id="wordchart" style="margin-top:50px;"></div></main>
-	<footer class="page-footer grey darken-3" id="meme"><div class="footer-copyright grey darken-4"><div class="container">APU-Schedule <a href="https://apu-schedule.azurewebsites.net">here</a><br></div></div></footer>
-</body>
+<body><main><div id="wordchart" style="margin-top:50px;"></div></main></body>
 
 <script>
 Highcharts.createElement('link', { href: 'https://fonts.googleapis.com/css?family=Unica+One', rel: 'stylesheet', type: 'text/css' }, null, document.getElementsByTagName('head')[0]);

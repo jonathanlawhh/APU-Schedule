@@ -1,5 +1,6 @@
 function initialize() {
 	M.Tabs.init(document.querySelectorAll('.tabs'), {});
+  M.Collapsible.init(document.querySelector(".collapsible"), {});
 	fetch("fragment/classlist.html?ver=1").then(function(a) { return a.text(); })
 	.then(function(a) { document.querySelector("#classlist").innerHTML = a;}); }
 
@@ -42,20 +43,13 @@ function doSearch() {
 		}
 	})
 } else {
+  M.toast({html: 'You are offline!', displayLength:'5000'});
 	g.style.display = "none"; c.innerHTML='<i class="material-icons left">portable_wifi_off</i><h5>No internet connection</h5>';
 }
 }
 
 function changemytimetable() {
-if(navigator.onLine){
-	if (!document.getElementById("timetableContent")) {
-  var a = new XMLHttpRequest;
-  a.open("POST", "control/mytimetable.php", !0); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.send("intake=load");
-  a.onreadystatechange = function() { document.getElementById("mytimetable").innerHTML = a.responseText; M.Collapsible.init(document.querySelector(".collapsible"), {}); }; }
-} else {
-  fetch("control/mytimetable.php").then(function(a) { return a.text(); })
-	.then(function(a) { document.querySelector("#mytimetable").innerHTML = a;});
-}
+if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
 document.getElementById("headercolor").className = "nav-extended brown darken-4";
 document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
 }
@@ -69,18 +63,6 @@ function hidethead() {
 var a = document.getElementById("tableHead");
 "none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;") : (a.style.display = "none", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
 }
-
-function getCurTimetable(b) {
-	var intakeTable = document.getElementById(b);
-  if (!document.getElementById(b + "Data")) { intakeTable.innerHTML = "<div class='progress brown lighten-5'><div class='indeterminate brown darken-2'></div></div>";
-	postMe('control/logic.php',"classroom=takeIntakeCode&date=" + b + "&method=intakeTimetable")
-	.then(function(a){
-		intakeTable.innerHTML = '';
-		a.forEach(function(element) {
-			intakeTable.innerHTML += '<tr id="' + b + 'Data"><td>' + element.time + '</td><td>' + element.classroom + '</td><td>' + element.module + '</td><td>' + element.lecturer + '</td></tr>';
-		});
-	});
-}}
 
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });

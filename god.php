@@ -4,9 +4,7 @@
 	<title>APU/APIIT God Mode</title>
 	<meta name="theme-color" content="#1a237e">
 	<?php include('fragment/frameworkImports.html'); ?>
-  <style>
-	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } .margintop10{ margin-top: 10px; }
-  </style>
+  <style>body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } .margintop10{ margin-top: 10px; }</style>
 </head>
 
 <body>
@@ -74,7 +72,7 @@
           <div class="card-content">
             <span class="card-title">Quick Links</span><br>
             <a href="index.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">APU Schedule</button></a>
-            <a href="analytick.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">Analytick</button></a>
+            <a href="analyticky.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">Analytick</button></a>
             <a href="ta/index.php"><button class="waves-effect waves-light btn indigo darken-3 margintop10">TA Final Roster</button></a>
           </div>
         </div>

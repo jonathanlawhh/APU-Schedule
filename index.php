@@ -13,7 +13,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.3" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.4" async></script>
   <style>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
@@ -21,11 +21,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		.tableInAnim { animation: move 1s; } @keyframes move{ 0% { transform: translateY(10px);} 100% { transform: translateY( 0px);} }
 		.mouth{ animation: move2 2s infinite forwards; } @keyframes move2{ 0% { transform: translateX(0px); } 80% { transform: translateX(20px); } }
   </style>
-	<script>
-"serviceWorker" in navigator && window.addEventListener("load", function() {
-navigator.serviceWorker.register("app.js?ver=1").then(function(a) {console.log("ServiceWorker registration successful with scope: ", a.scope);},
-function(a) {console.log("ServiceWorker registration failed: ", a);}); });
-	</script>
+	<script>"serviceWorker" in navigator && window.addEventListener("load", function() {navigator.serviceWorker.register("/app.js");});</script>
 </head>
 
 <body>
@@ -34,7 +30,7 @@ function(a) {console.log("ServiceWorker registration failed: ", a);}); });
     <div class="container">
       <span class="nav-title hide-on-small-only">APU/APIIT Schedule</span>
       <b><span class="show-on-small hide-on-med-and-up" style="margin-bottom:0; font-size:22px;">APU/APIIT Schedule</span></b>
-      <div class="nav-content">
+      <div class="nav-content header" >
         <ul class="tabs tabs-transparent">
           <li class="tab" onclick="changedefault()"><a href="#schedule">Schedule</a></li>
           <li class="tab" onclick="changemytimetable()"><a href="#mytimetable">My Timetable</a></li>
@@ -44,7 +40,7 @@ function(a) {console.log("ServiceWorker registration failed: ", a);}); });
     </div>
   </nav>
 
-  <div id="schedule" class="container">
+  <div id="schedule" class="container content">
 		<p>
 			<label><input class="with-gap dateDay" name="date" type="radio" value="<?php echo date('D'); ?>" checked /><span>TODAY</span></label>
 			<label><input class="with-gap dateDay" name="date" type="radio" value="Mon" /><span>MONDAY</span></label>
@@ -79,7 +75,30 @@ function(a) {console.log("ServiceWorker registration failed: ", a);}); });
 			<p class="marginbottom20" >View searches at <a href="analyticky.php" target="_blank">analyticky</a><br /><?php echo 'Schedule updated on ' . $updateDate[0]; ?></p>
   </div>
 
-	<div id="mytimetable" class="container"></div>
+	<div id="mytimetable" class="container">
+		<?php $intakedat = $_COOKIE['myIntakeCode-APU'] ?? '';
+		if (!isset($_COOKIE['myIntakeCode-APU'])){ ?>
+		  <div class='row' id="timetableContent">
+		    <div class='col s12 m12 l5'>
+		      <div class='card-panel hoverable'>
+		        <span>
+		          <div class='section'>
+		            <b>No intake code found</b><br>Or there is not internet detected<br><br><a href='settings.php'><i class='material-icons left'>settings</i> Go to settings</a> <br><br>
+		            Please add an intake at the settings <a href='settings.php'>here</a><br>Please note that cookies will be used to store your intake code.
+		          </div>
+		        </span>
+		      </div>
+		    </div>
+		  </div>
+		<?php } else { $daysOfWeek = array("Monday","Tuesday","Wednesday","Thursday","Friday"); ?>
+		<p id="timetableContent">Timetable for intake <?php echo "$intakedat<br>"; ?><a href='settings.php'><i class='material-icons left'>settings</i>Settings</a></p>
+		<ul class="collapsible popout">
+		<?php include('control/getTimetable.php'); for($i=0; $i<5; $i++){ $idate = substr($daysOfWeek[$i],0,3); ?>
+		  <li <?php $today = date('D'); if($today===$idate){ echo "class='active'"; } ?> ><div class="collapsible-header"><i class="material-icons">arrow_drop_down</i><?php echo $daysOfWeek[$i]; ?></div>
+		    <div class="collapsible-body"><table class='responsive-table highlight bordered'><tbody><?php getTimetable($idate);?></tbody></table></div></li>
+		<?php }} ?></ul>
+	</div>
+
   <div id="syntax" class="container"></div>
 	</main>
 

@@ -23,7 +23,7 @@
 
     <h4>TA Claim Form Generator for <?php echo $searchUser; ?></h4>
     <p>Roster for the week of <?php exec("D:\home\python364x64\python.exe currRoster.py", $rosterWeek); foreach($rosterWeek AS $weekOf){ echo $weekOf; } ?><br>
-    Adjust 30min break yourself</p>
+    30 minutes break is adjusted. Double check if you have S6</p>
     <p>Copy the table below and paste with match source option in Excel</p>
 
     <table>
@@ -104,6 +104,7 @@
 
         if($i === 3){
           $start = $iniStart ?? $start;
+          $shiftDur -= '0030';
           $timeOut = $start + $shiftDur;
           addTable($e0, $duty, $start, $timeOut, "$msg");
           $shiftDur = '0000';

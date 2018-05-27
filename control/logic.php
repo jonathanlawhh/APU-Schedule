@@ -17,7 +17,7 @@ if(isset($_POST['emptyClass']) && $_POST['emptyClass']!=NULL && $queryFor == 'cl
 //Hello analytica
 if((!isset($_COOKIE['analytick-APU']) || $_COOKIE['analytick-APU']!==$queryValue) && !isset($_POST['method'])){
   $ana = fopen("../data/analytica.txt", "a");
-  setcookie('analytick-APU', $queryValue); fwrite($ana, ','.$queryValue);
+  $queryValue = strtoupper($queryValue); setcookie('analytick-APU', $queryValue); fwrite($ana, ','.$queryValue);
   fclose($ana);
 }
 

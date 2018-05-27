@@ -27,7 +27,7 @@ else { $currShift = 'none / overtime'; } ?>
 <main>
 <nav>
   <div class="nav-wrapper blue darken-3">
-    <form action="index.php" method="POST">
+    <form action="fragment/setTA.php" method="POST">
       <div class="input-field">
         <input id="search" type="search" name="user" placeholder="Enter your name here" required>
         <label class="label-icon" for="search"><i class="material-icons">search</i></label><i class="material-icons">close</i>
@@ -61,6 +61,7 @@ else { $currShift = 'none / overtime'; } ?>
         <div class="card-content">
           <span class="card-title">Duty summary</span>
           <p id="dutyNowLbl"></p><p id="totalDutyHours"></p><a href="claim.php" target="_blank">Claim form generator</a>
+          <p id="dutyNowLbl"></p><p id="totalDutyHours"></p><a href="claimform.php" target="_blank">New claim form generator [Broken]</a>
         </div>
       </div>
     </div>

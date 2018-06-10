@@ -1,5 +1,5 @@
 <div class="row" id="syntaxRow">
-  <div class="col s12 l6">
+  <div class="col s12 l8">
     <div class="card-panel hoverable">
       <span>
         <div class="section">
@@ -37,39 +37,18 @@
         <div class="section">
           <b>Experimental [Things will break]</b><br>
           - Rebased code to support API call [In progress]<br>
-          - AJAX support promise call<br>
-          - Component based function<br>
-          - Minimized core, 2kb lighter...<br>
           - Optimized analyticky data collection<br>
-          - More animations<br>
-          - Updated schedule updater with loading screen<br>
-          - Search empty classroom will return status<br>
-          - Reduced search result size greatly
         </div>
         <div class="section">
           <b>Feature</b><br>
           - Added <a href="analyticky.php" target="_blank">Analyticky</a><br>
+          - Updated from HTTP/1.1 to <a href='https://developers.google.com/web/fundamentals/performance/http2/' target="_blank">HTTP/2</a><br>
+          - <a href="https://developers.google.com/web/progressive-web-apps/" target="_blank">Progressive Web App</a><br>
           - Removed jQuery completely<br>
-          - Loading component from cache<br> - This will save user bandwidth<br>
-          - Browser caching extended to 14 days <br> -- <a href="#aboutCache" class="modal-trigger">Read me</a><br>
-          - <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">Brotli compression</a><br>
-          - Page load after cache : 2.7kb only <br><br>
+          - Loading component from cache to save bandwidth<br>
+          - <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">Brotli compression</a><br><br>
         </div>
       </span>
     </div>
   </div>
-</div>
-<div id="aboutCache" class="modal">
-  <div class="modal-content">
-  <h4>About caches for this site</h4>
-  <p>A few component has been cached to speed up loading time for this site the next time. The caches will be stored in your device and automatically deleted after 14 days.
-     If you visit this site after 14 days, the cache will be renewed. All the size listed are after <a href="https://developers.googleblog.com/2017/06/brotli-compression-in-google-display-ads.html" target="_blank">
-     Brotli compression</a>, without the compression the size are multiplied by at least 3.<br>
-     Below are the files cached on this site.<br><br>
-  js/core.js [ 1.4kb ]<br>This file loads the function of this site like search, myTimetable and initializing components.<br><br>
-  css/materialize.min.css [ 19.3kb ] && js/materialize.min.js [ 69.5kb ]<br><a href="http://next.materializecss.com" target="_blank">MaterializeCSS UI</a> framework<br><br>
-  syntax.html [800b]<br>This syntax page. It is not loaded initially unless requested to reduce rendering time and bandwidth.<br><br>
-  fragment/classlist.html [ 862b ]<br>The list of suggestion for classroom. Moved from dynamic file reading on every load to static classlist.</p>
-  </div>
-  <div class="modal-footer"><a class="modal-action modal-close waves-effect btn-flat">Ok</a></div>
 </div>

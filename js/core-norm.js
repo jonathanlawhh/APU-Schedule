@@ -5,6 +5,7 @@ function initialize() {
 	.then(function(a) { document.querySelector("#classlist").innerHTML = a;}); }
 
 function doSearch() {
+  document.getElementById('searchTxt').innerHTML = '<i class="material-icons left searchIcon">details</i>Searching';
 	var tableBody = document.getElementById('tableBody');
 	var head1 = document.getElementById('headIntake');
 	var head2 = document.getElementById('headModule');
@@ -41,6 +42,7 @@ function doSearch() {
 			});
 			f.classList.add('tableInAnim');
 		}
+    document.getElementById('searchTxt').innerHTML = '<i class="material-icons left">lightbulb_outline</i>Search';
 	})
 } else {
   M.toast({html: 'You are offline!', displayLength:'5000'});
@@ -50,14 +52,8 @@ function doSearch() {
 
 function changemytimetable() {
 if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
-document.getElementById("headercolor").className = "nav-extended brown darken-4";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#3e2723");
+changeTab('brown darken-4','#3e2723');
 }
-
-function warning() {
-document.getElementById("headercolor").className = "nav-extended red darken-3";
-document.getElementById("btn_all").className = "waves-effect waves-light btn col s4 m2 l2 red darken-1";
-document.querySelector("meta[name=theme-color]").setAttribute("content", "#b71c1c"); }
 
 function hidethead() {
 var a = document.getElementById("tableHead");
@@ -74,6 +70,11 @@ function postMe(c, b) {
     a.onload = function() { d(JSON.parse(this.responseText)); };
     a.onerror = e; a.open("POST", c); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.setRequestHeader('Accept', 'application/json'); a.send(b);
   });
+}
+
+function changeTab(color,hex){
+  document.getElementById("headercolor").className = "nav-extended " + color;
+  document.querySelector("meta[name=theme-color]").setAttribute("content", hex);
 }
 
 //<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>

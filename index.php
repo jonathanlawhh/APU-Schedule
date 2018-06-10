@@ -2,9 +2,9 @@
 $list = fopen("data/update.log", "r"); while(!feof($list)) { $updateDate = fgets($list); } fclose($list);
 $updateDate = explode(',',$updateDate);
 if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); } ?>
-<link rel="manifest" href="manifest.json" />
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
+<link rel="manifest" href="manifest.json" />
 <head>
 	<title>APU/APIIT Schedule</title>
 	<meta name="keywords" content="APU,APIIT,schedule">
@@ -13,13 +13,19 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.4" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.41" async></script>
   <style>
+	 <?php if($theme_name == 'night') { ?>
+		 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after{ border: 2px solid #212121; }
+		 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:after{ background-color: #212121; }
+		 [type="checkbox"]:checked+span:not(.lever):before{ border-right: 2px solid #212121; border-bottom: 2px solid #212121; }
+		<?php } ?>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
-		.marginleft4 { margin-left: 4%;} .marginbottom20 { margin-bottom: 20px;}
+		.marginleft4 { margin-left: 4%;} .marginbottom20 { margin-bottom: 20px;} .marginbottom10 { margin-bottom: 10px;}
 		.tableInAnim { animation: move 1s; } @keyframes move{ 0% { transform: translateY(10px);} 100% { transform: translateY( 0px);} }
 		.mouth{ animation: move2 2s infinite forwards; } @keyframes move2{ 0% { transform: translateX(0px); } 80% { transform: translateX(20px); } }
+		.searchIcon { -webkit-animation:spin 2s linear infinite; } @keyframes spin {  10% { transform:rotate(0deg); } 40% { transform:rotate(180deg); }  80% { transform:rotate(300deg); } 100% { transform:rotate(360deg); }}
   </style>
 	<script>"serviceWorker" in navigator && window.addEventListener("load", function() {navigator.serviceWorker.register("/app.js");});</script>
 </head>
@@ -55,7 +61,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
       <div class="input-field col s12 m6 l4" style="margin-top:0; padding:0;"><input list="classlist" placeholder="eg. LAB 4-01 or UCDF1604ICT(SE)" type="text" id="searchVal"></div>
 			<datalist id="classlist"></datalist>
 			<div class="col hide-on-small-only"></div>
-			<button onclick="doSearch()" id="btn_all" class="waves-effect waves-light btn col s9 m3 l2 <?php echo $theme_secondary; ?>">
+			<button onclick="doSearch()" id="searchTxt" class="waves-effect waves-light btn col s9 m3 l2 <?php echo $theme_secondary; ?>">
 				<i class="material-icons left">lightbulb_outline</i>Search
 		 	</button>
 		</div>
@@ -72,14 +78,14 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		      </tr></thead><tbody id="tableBody"></tbody>
 				</table>
 			</div>
-			<p class="marginbottom20" >View searches at <a href="analyticky.php" target="_blank">analyticky</a><br /><?php echo 'Schedule updated on ' . $updateDate[0]; ?></p>
+			<p class="marginbottom20">View searches at <a href="analyticky.php" target="_blank">analyticky</a><br /><?php echo 'Schedule updated on ' . $updateDate[0]; ?></p>
   </div>
 
 	<div id="mytimetable" class="container">
 		<?php $intakedat = $_COOKIE['myIntakeCode-APU'] ?? '';
 		if (!isset($_COOKIE['myIntakeCode-APU'])){ ?>
 		  <div class='row' id="timetableContent">
-		    <div class='col s12 m12 l5'>
+		    <div class='col s12 m12 l7'>
 		      <div class='card-panel hoverable'>
 		        <span>
 		          <div class='section'>
@@ -108,14 +114,11 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.04").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.05").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
-	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_syntax; ?>";
-	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_metasyntax; ?>"); }
+	changeTab('<?php echo $theme_syntax; ?>','<?php echo $theme_metasyntax; ?>'); }
 
-function changedefault() {
-	document.getElementById("headercolor").className = "nav-extended <?php echo $theme_color; ?>";
-	document.querySelector("meta[name=theme-color]").setAttribute("content", "<?php echo $theme_meta; ?>"); }
+function changedefault() { changeTab('<?php echo $theme_color; ?>','<?php echo $theme_metasyntax; ?>'); }
 </script>
 </body>
 </html>

@@ -118,7 +118,7 @@ function loadSyntax() {
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	changeTab('<?php echo $theme_syntax; ?>','<?php echo $theme_metasyntax; ?>'); }
 
-function changedefault() { changeTab('<?php echo $theme_color; ?>','<?php echo $theme_metasyntax; ?>'); }
+function changedefault() { changeTab('<?php echo $theme_color; ?>','<?php echo $theme_syntax; ?>'); }
 </script>
 </body>
 </html>

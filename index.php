@@ -15,7 +15,7 @@ ob_start('removeWhitespace'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.41" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.5" async></script>
   <style>
 	 <?php if($theme_name == 'night') { ?>
 		 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after{ border: 2px solid #212121; }

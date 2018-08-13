@@ -1,7 +1,9 @@
 <?php include('control/theme.php');
 $list = fopen("data/update.log", "r"); while(!feof($list)) { $updateDate = fgets($list); } fclose($list);
 $updateDate = explode(',',$updateDate);
-if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); } ?>
+if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); }
+function removeWhitespace($buffer){return preg_replace('/\s+/', ' ', $buffer);}
+ob_start('removeWhitespace'); ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <link rel="manifest" href="manifest.json" />
@@ -22,7 +24,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		<?php } ?>
 	  body { display: flex; min-height: 100vh; flex-direction: column; } main {  flex: 1 0 auto; } a { color: #f4511e; }
 		::selection { background: #d81b60; color:#ffffff;} ::-moz-selection { background: #d81b60; color:#ffffff; }
-		.marginleft4 { margin-left: 4%;} .marginbottom20 { margin-bottom: 20px;} .marginbottom10 { margin-bottom: 10px;}
+		.marginleft4 { margin-left: 4%;} .marginbottom20 { margin-bottom: 20px;} .marginbottom10 { margin-bottom: 10px;} .btnmargin { margin:5px; }
 		.tableInAnim { animation: move 1s; } @keyframes move{ 0% { transform: translateY(10px);} 100% { transform: translateY( 0px);} }
 		.mouth{ animation: move2 2s infinite forwards; } @keyframes move2{ 0% { transform: translateX(0px); } 80% { transform: translateX(20px); } }
 		.searchIcon { -webkit-animation:spin 2s linear infinite; } @keyframes spin {  10% { transform:rotate(0deg); } 40% { transform:rotate(180deg); }  80% { transform:rotate(300deg); } 100% { transform:rotate(360deg); }}
@@ -40,6 +42,7 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
         <ul class="tabs tabs-transparent">
           <li class="tab" onclick="changedefault()"><a href="#schedule">Schedule</a></li>
           <li class="tab" onclick="changemytimetable()"><a href="#mytimetable">My Timetable</a></li>
+          <li class="tab" onclick="changeavailable()"><a href="#available">Available</a></li>
           <li class="tab" onclick="loadSyntax()"><a href="#syntax">About</a></li>
         </ul>
       </div>
@@ -105,11 +108,20 @@ if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdate
 		<?php }} ?></ul>
 	</div>
 
+	<div id="available" class="container">
+		<div class="row"><p>Filter : <span id="filtertype">None</span></p>
+			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('all');">All</a>
+			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('lab');">Labs</a>
+			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blockb');">Block B</a>
+			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blockd');">Block D</a>
+			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blocke');">Block E</a>
+	</div><div class="row" id="availableClasses"></div></div>
+
   <div id="syntax" class="container"></div>
 	</main>
 
 <footer class="page-footer grey darken-3" id="meme">
-  <div class="footer-copyright grey darken-4"><div class="container">Deprecated website <a href="http://apu-schedule.azurewebsites.net/redirect.html">here</a><br></div></div>
+  <div class="footer-copyright grey darken-4"><div class="container">apu-schedule.azurewebsites.net @ 2018<br></div></div>
 </footer>
 
 <script>
@@ -122,3 +134,4 @@ function changedefault() { changeTab('<?php echo $theme_color; ?>','<?php echo $
 </script>
 </body>
 </html>
+<?php ob_get_flush(); ?>

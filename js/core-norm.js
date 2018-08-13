@@ -21,9 +21,7 @@ function doSearch() {
 	postMe('control/logic.php',"classroom=" + e + "&date=" + d + "&emptyClass=" + b)
 	.then(function(a) {
 		if(a[0]['method']=='empty' || a[0]['method']=='invalid' || a[0]['method']=='noinput'){
-			g.style.display = "none";
-			f.style.display = "none";
-			h.style.display = "none";
+			g.style.display = f.style.display = h.style.display = "none";
 			c.innerHTML = e + ' seems ' + a[0]['method'] + ' on ' + d;
 		} else {
 			g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"),
@@ -51,8 +49,60 @@ function doSearch() {
 }
 
 function changemytimetable() {
-if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
-changeTab('brown darken-4','#3e2723');
+  if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
+  changeTab('brown darken-4','#3e2723');
+}
+
+emptyclasses = [];
+function changeavailable() {
+  if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
+  else {
+    postMe('control/available.php',"classroom=available")
+    .then(function(a) {
+        emptyclasses = a;
+        queryavailableclass('all');
+    });
+  }
+  changeTab('blue darken-3','#0d47a1');
+}
+
+
+function queryavailableclass(stat){
+  var list = document.getElementById('availableClasses'), filter = document.getElementById('filtertype'), emptyclass = '';
+  list.innerHTML = '';
+  emptyclasses.forEach(function(element) {
+      if(stat == 'lab'){
+          filter.innerHTML = 'Labs';
+          if(element.classroom.toLowerCase().includes("lab")){
+            emptyclass = createclassblock(element.classroom,element.nextclass);
+          } else { return; }
+      } else if(stat == 'blockb'){
+          filter.innerHTML = "Block B";
+          if(element.classroom.includes("B-")){
+            emptyclass = createclassblock(element.classroom,element.nextclass);
+          } else { return; }
+      } else if(stat == 'blockd'){
+          filter.innerHTML = "Block D";
+          if(element.classroom.includes("D-")){
+            emptyclass = createclassblock(element.classroom,element.nextclass);
+          } else { return; }
+      } else if(stat == 'blocke'){
+          filter.innerHTML = "Block E";
+          if(element.classroom.includes("E-")){
+            emptyclass = createclassblock(element.classroom,element.nextclass);
+          } else { return; }
+      } else if(stat == 'all') {
+        filter.innerHTML = "No filter";
+        emptyclass = createclassblock(element.classroom,element.nextclass);
+      } else {
+        emptyclass = "<h5>No data found</h5>";
+      }
+      list.innerHTML += emptyclass;
+  });
+}
+
+function createclassblock(a,b){
+  return "<div class='col s6 m3'><div class='card-panel'><span class='card-title'>" + a + "</span><p>Next class : " + b + "</p></div></div>";
 }
 
 function hidethead() {

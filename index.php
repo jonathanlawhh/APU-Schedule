@@ -15,7 +15,7 @@ ob_start('removeWhitespace'); ?>
 
 	<meta name="theme-color" content="<?php echo $theme_meta; ?>">
 	<?php include('fragment/frameworkImports.html'); ?>
-	<script type="text/javascript" src="js/core.js?ver=1.5" async></script>
+	<script type="text/javascript" src="js/core.js?ver=1.51" async></script>
   <style>
 	 <?php if($theme_name == 'night') { ?>
 		 [type="radio"]:checked+span:after, [type="radio"].with-gap:checked+span:before, [type="radio"].with-gap:checked+span:after{ border: 2px solid #212121; }
@@ -27,8 +27,9 @@ ob_start('removeWhitespace'); ?>
 		.marginleft4 { margin-left: 4%;} .marginbottom20 { margin-bottom: 20px;} .marginbottom10 { margin-bottom: 10px;} .btnmargin { margin:5px; }
 		.tableInAnim { animation: move 1s; } @keyframes move{ 0% { transform: translateY(10px);} 100% { transform: translateY( 0px);} }
 		.mouth{ animation: move2 2s infinite forwards; } @keyframes move2{ 0% { transform: translateX(0px); } 80% { transform: translateX(20px); } }
-		.searchIcon { -webkit-animation:spin 2s linear infinite; } @keyframes spin {  10% { transform:rotate(0deg); } 40% { transform:rotate(180deg); }  80% { transform:rotate(300deg); } 100% { transform:rotate(360deg); }}
-  </style>
+		[role="button"]{ cursor : pointer; }
+		.fadein{opacity:0; animation-fill-mode: forwards; animation: fadeIn 0.2s ease-in forwards; } @keyframes fadeIn {0%{opacity: 0;} 100% {opacity: 1;}}
+	</style>
 	<script>"serviceWorker" in navigator && window.addEventListener("load", function() {navigator.serviceWorker.register("/app.js");});</script>
 </head>
 
@@ -110,11 +111,12 @@ ob_start('removeWhitespace'); ?>
 
 	<div id="available" class="container">
 		<div class="row"><p>Filter : <span id="filtertype">None</span></p>
-			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('all');">All</a>
-			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('lab');">Labs</a>
-			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blockb');">Block B</a>
-			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blockd');">Block D</a>
-			<a class="waves-effect waves-light btn btnmargin" onclick="queryavailableclass('blocke');">Block E</a>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('All');">All classrooms</div>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('APU Labs');">APU Labs</div>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('APIIT Labs');">APIIT Labs</div>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('Block-B');">Block B</div>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('Block-D');">Block D</div>
+			<div class="chip btnmargin" role="button" onclick="queryavailableclass('Block-E');">Block E</div>
 	</div><div class="row" id="availableClasses"></div></div>
 
   <div id="syntax" class="container"></div>
@@ -126,7 +128,7 @@ ob_start('removeWhitespace'); ?>
 
 <script>
 function loadSyntax() {
-	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.05").then(function(a) { return a.text();})
+	document.getElementById("syntaxRow") || fetch("syntax.html?ver=1.06").then(function(a) { return a.text();})
 	.then(function(a) { document.querySelector("#syntax").innerHTML = a; M.Modal.init(document.querySelectorAll('.modal'), {});});
 	changeTab('<?php echo $theme_syntax; ?>','<?php echo $theme_metasyntax; ?>'); }
 

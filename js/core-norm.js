@@ -60,7 +60,7 @@ function changeavailable() {
     postMe('control/available.php',"classroom=available")
     .then(function(a) {
         emptyclasses = a;
-        queryavailableclass('all');
+        queryavailableclass('All');
     });
   }
   changeTab('blue darken-3','#0d47a1');
@@ -69,40 +69,44 @@ function changeavailable() {
 
 function queryavailableclass(stat){
   var list = document.getElementById('availableClasses'), filter = document.getElementById('filtertype'), emptyclass = '';
+  var i = 0;
   list.innerHTML = '';
   emptyclasses.forEach(function(element) {
-      if(stat == 'lab'){
-          filter.innerHTML = 'Labs';
-          if(element.classroom.toLowerCase().includes("lab")){
-            emptyclass = createclassblock(element.classroom,element.nextclass);
-          } else { return; }
-      } else if(stat == 'blockb'){
-          filter.innerHTML = "Block B";
-          if(element.classroom.includes("B-")){
-            emptyclass = createclassblock(element.classroom,element.nextclass);
-          } else { return; }
-      } else if(stat == 'blockd'){
-          filter.innerHTML = "Block D";
-          if(element.classroom.includes("D-")){
-            emptyclass = createclassblock(element.classroom,element.nextclass);
-          } else { return; }
-      } else if(stat == 'blocke'){
-          filter.innerHTML = "Block E";
-          if(element.classroom.includes("E-")){
-            emptyclass = createclassblock(element.classroom,element.nextclass);
-          } else { return; }
-      } else if(stat == 'all') {
-        filter.innerHTML = "No filter";
-        emptyclass = createclassblock(element.classroom,element.nextclass);
-      } else {
-        emptyclass = "<h5>No data found</h5>";
-      }
+			switch(stat){
+        case 'APIIT Labs' :
+            if(element.classroom.toLowerCase().includes("lab l3")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+				case 'APU Labs' :
+            if(element.classroom.toLowerCase().includes("lab") && !(element.classroom.toLowerCase().includes("lab l3"))){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-B' :
+            if(element.classroom.includes("B-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-D' :
+            if(element.classroom.includes("D-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-E' :
+            if(element.classroom.includes("E-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'All' :
+            emptyclass = createclassblock(element.classroom,element.nextclass); break;
+        default :
+            emptyclass = "<h5>No data found</h5>"; break;
+			}
+      filter.innerHTML = stat;
       list.innerHTML += emptyclass;
+      i++;
   });
 }
 
-function createclassblock(a,b){
-  return "<div class='col s6 m3'><div class='card-panel'><span class='card-title'>" + a + "</span><p>Next class : " + b + "</p></div></div>";
+function createclassblock(a,b,c=0){
+  textcolor = "none" == b.trim() ? "cyan-text text-darken-3" : "";
+  return "<div class='col s6 m3'><div class='card-panel fadein' style='animation-delay: " + c/15 + "s;><span class='card-title'>" + a + "</span><p class='" + textcolor + "'>Next class : " + b + "<span></p></div></div>";
 }
 
 function hidethead() {
@@ -112,7 +116,6 @@ var a = document.getElementById("tableHead");
 
 window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
 document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
-
 
 function postMe(c, b) {
   return new Promise(function(d, e) {

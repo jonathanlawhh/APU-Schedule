@@ -1,3 +1,5 @@
+<?php function removeWhitespace($buffer){return preg_replace('/\s+/', ' ', $buffer);}
+ob_start('removeWhitespace'); ?>
 <!-- APU Schedule by jonathan law -->
 <html lang="en">
 <head>
@@ -108,3 +110,4 @@ function updateR() {
 </script>
 </body>
 </html>
+<?php ob_get_flush(); ?>

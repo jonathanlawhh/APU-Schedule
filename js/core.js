@@ -1,1 +1,133 @@
-function initialize(){M.Tabs.init(document.querySelectorAll(".tabs"),{}),M.Collapsible.init(document.querySelector(".collapsible"),{}),fetch("fragment/classlist.html?ver=1").then(function(e){return e.text()}).then(function(e){document.querySelector("#classlist").innerHTML=e})}function doSearch(){document.getElementById("searchTxt").innerHTML='<i class="material-icons left searchIcon">details</i>Searching';var e=document.getElementById("tableBody"),t=document.getElementById("headIntake"),n=document.getElementById("headModule");t.removeAttribute("style"),n.removeAttribute("style"),e.innerHTML="";var l=document.getElementById("emptyInfo");l.style.display="none";var a=document.querySelector(".emptyClass").checked?"on":"",o=document.getElementById("searchInfo"),s=document.getElementById("resultArea"),i=document.getElementById("tutorial"),c=document.querySelector(".dateDay:checked").value,d=document.getElementById("hidemsg"),r=document.getElementById("searchVal").value;navigator.onLine?postMe("control/logic.php","classroom="+r+"&date="+c+"&emptyClass="+a).then(function(a){"empty"==a[0].method||"invalid"==a[0].method||"noinput"==a[0].method?(i.style.display=s.style.display=d.style.display="none",o.innerHTML=r+" seems "+a[0].method+" on "+c):(i.style.display="none",s.removeAttribute("style"),d.removeAttribute("style"),o.style.display="block",o.innerHTML="Results for "+r+" on "+c,s.removeAttribute("style"),a.forEach(function(a){"emptyclassroom"==a.method?(t.style.display="none",n.style.display="none",e.innerHTML+='<tr><td class="hide-on-small-only">'+a.date+"</td><td>"+a.time+"</td><td>"+a.classroom+"</td><td>"+a.lecturer+"</td></tr>","emptyNow"==a.status?l.style.display="block":l.style.display="none"):e.innerHTML+="<tr><td>"+a.intake+'</td><td class="hide-on-small-only">'+a.date+"</td><td>"+a.time+"</td><td>"+a.classroom+"</td><td>"+a.module+"</td><td>"+a.lecturer+"</td></tr>"}),s.classList.add("tableInAnim")),document.getElementById("searchTxt").innerHTML='<i class="material-icons left">lightbulb_outline</i>Search'}):(M.toast({html:"You are offline!",displayLength:"5000"}),i.style.display="none",o.innerHTML='<i class="material-icons left">portable_wifi_off</i><h5>No internet connection</h5>')}function changemytimetable(){navigator.onLine||M.toast({html:"You are offline!",displayLength:"5000"}),changeTab("brown darken-4","#3e2723")}function changeavailable(){navigator.onLine?postMe("control/available.php","classroom=available").then(function(e){emptyclasses=e,queryavailableclass("all")}):M.toast({html:"You are offline!",displayLength:"5000"}),changeTab("blue darken-3","#0d47a1")}function queryavailableclass(e){var t=document.getElementById("availableClasses"),n=document.getElementById("filtertype"),l="";t.innerHTML="",emptyclasses.forEach(function(a){if("lab"==e){if(n.innerHTML="Labs",!a.classroom.toLowerCase().includes("lab"))return;l=createclassblock(a.classroom,a.nextclass)}else if("blockb"==e){if(n.innerHTML="Block B",!a.classroom.includes("B-"))return;l=createclassblock(a.classroom,a.nextclass)}else if("blockd"==e){if(n.innerHTML="Block D",!a.classroom.includes("D-"))return;l=createclassblock(a.classroom,a.nextclass)}else if("blocke"==e){if(n.innerHTML="Block E",!a.classroom.includes("E-"))return;l=createclassblock(a.classroom,a.nextclass)}else"all"==e?(n.innerHTML="No filter",l=createclassblock(a.classroom,a.nextclass)):l="<h5>No data found</h5>";t.innerHTML+=l})}function createclassblock(e,t){return"<div class='col s6 m3'><div class='card-panel'><span class='card-title'>"+e+"</span><p>Next class : "+t+"</p></div></div>"}function hidethead(){var e=document.getElementById("tableHead");"none"===e.style.display?(e.style.display="block",document.cookie="apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;"):(e.style.display="none",document.cookie="apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;")}function postMe(e,t){return new Promise(function(n,l){var a=new XMLHttpRequest;a.onload=function(){n(JSON.parse(this.responseText))},a.onerror=l,a.open("POST",e),a.setRequestHeader("Content-type","application/x-www-form-urlencoded"),a.setRequestHeader("Accept","application/json"),a.send(t)})}function changeTab(e,t){document.getElementById("headercolor").className="nav-extended "+e,document.querySelector("meta[name=theme-color]").setAttribute("content",t)}emptyclasses=[],window.addEventListener?window.addEventListener("load",initialize,!1):window.attachEvent?window.attachEvent("onload",initialize):window.onload=initialize,document.getElementById("searchVal").addEventListener("keyup",function(e){e.preventDefault(),13===e.keyCode&&doSearch()});
+function initialize() {
+	M.Tabs.init(document.querySelectorAll('.tabs'), {});
+  M.Collapsible.init(document.querySelector(".collapsible"), {});
+	fetch("fragment/classlist.html?ver=1").then(function(a) { return a.text(); })
+	.then(function(a) { document.querySelector("#classlist").innerHTML = a;}); }
+
+function doSearch() {
+  document.getElementById('searchTxt').innerHTML = '<i class="material-icons left searchIcon">details</i>Searching';
+	var tableBody = document.getElementById('tableBody');
+	var head1 = document.getElementById('headIntake');
+	var head2 = document.getElementById('headModule');
+	head1.removeAttribute("style");
+	head2.removeAttribute("style");
+	tableBody.innerHTML = '';
+	var emptyInfo = document.getElementById('emptyInfo'); emptyInfo.style.display = "none";
+  var b = document.querySelector(".emptyClass").checked ? "on" : "";
+  var c = document.getElementById("searchInfo"),
+	f = document.getElementById("resultArea"), g = document.getElementById("tutorial"),
+	d = document.querySelector(".dateDay:checked").value, h = document.getElementById("hidemsg"), e = document.getElementById("searchVal").value;
+	if(navigator.onLine){
+	postMe('control/logic.php',"classroom=" + e + "&date=" + d + "&emptyClass=" + b)
+	.then(function(a) {
+		if(a[0]['method']=='empty' || a[0]['method']=='invalid' || a[0]['method']=='noinput'){
+			g.style.display = f.style.display = h.style.display = "none";
+			c.innerHTML = e + ' seems ' + a[0]['method'] + ' on ' + d;
+		} else {
+			g.style.display = "none", f.removeAttribute("style"), h.removeAttribute("style"),
+			c.style.display = "block", c.innerHTML = "Results for " + e + " on " + d,
+			f.removeAttribute("style"),
+			a.forEach(function(element) {
+				if(element.method=='emptyclassroom'){
+					head1.style.display='none'; head2.style.display='none';
+					tableBody.innerHTML += '<tr><td class="hide-on-small-only">' + element.date + '</td><td>' + element.time + '</td><td>' +
+					element.classroom + '</td><td>' + element.lecturer + '</td></tr>';
+					if(element.status=='emptyNow'){ emptyInfo.style.display = 'block';  } else { emptyInfo.style.display = 'none'; }
+				} else {
+					tableBody.innerHTML += '<tr><td>' + element.intake + '</td><td class="hide-on-small-only">' + element.date + '</td><td>' + element.time + '</td><td>' +
+					element.classroom + '</td><td>' + element.module + '</td><td>' + element.lecturer + '</td></tr>';
+				}
+			});
+			f.classList.add('tableInAnim');
+		}
+    document.getElementById('searchTxt').innerHTML = '<i class="material-icons left">lightbulb_outline</i>Search';
+	})
+} else {
+  M.toast({html: 'You are offline!', displayLength:'5000'});
+	g.style.display = "none"; c.innerHTML='<i class="material-icons left">portable_wifi_off</i><h5>No internet connection</h5>';
+}
+}
+
+function changemytimetable() {
+  if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
+  changeTab('brown darken-4','#3e2723');
+}
+
+emptyclasses = [];
+function changeavailable() {
+  if(!navigator.onLine){M.toast({html: 'You are offline!', displayLength:'5000'});}
+  else {
+    postMe('control/available.php',"classroom=available")
+    .then(function(a) {
+        emptyclasses = a;
+        queryavailableclass('All');
+    });
+  }
+  changeTab('blue darken-3','#0d47a1');
+}
+
+
+function queryavailableclass(stat){
+  var list = document.getElementById('availableClasses'), filter = document.getElementById('filtertype'), emptyclass = '';
+  var i = 0;
+  list.innerHTML = '';
+  emptyclasses.forEach(function(element) {
+			switch(stat){
+        case 'APIIT Labs' :
+            if(element.classroom.toLowerCase().includes("lab l3")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+				case 'APU Labs' :
+            if(element.classroom.toLowerCase().includes("lab") && !(element.classroom.toLowerCase().includes("lab l3"))){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-B' :
+            if(element.classroom.includes("B-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-D' :
+            if(element.classroom.includes("D-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'Block-E' :
+            if(element.classroom.includes("E-")){
+              emptyclass = createclassblock(element.classroom,element.nextclass,i);
+            } else { return; } break;
+        case 'All' :
+            emptyclass = createclassblock(element.classroom,element.nextclass); break;
+        default :
+            emptyclass = "<h5>No data found</h5>"; break;
+			}
+      filter.innerHTML = stat;
+      list.innerHTML += emptyclass;
+      i++;
+  });
+}
+
+function createclassblock(a,b,c=0){
+  textcolor = "none" == b.trim() ? "cyan-text text-darken-3" : "";
+  return "<div class='col s6 m3'><div class='card-panel fadein' style='animation-delay: " + c/15 + "s;><span class='card-title'>" + a + "</span><p class='" + textcolor + "'>Next class : " + b + "<span></p></div></div>";
+}
+
+function hidethead() {
+var a = document.getElementById("tableHead");
+"none" === a.style.display ? (a.style.display = "block", document.cookie = "apuschedule-tablehead=;expires=Thu, 01 Jan 1970 00:00:00 UTC;") : (a.style.display = "none", document.cookie = "apuschedule-tablehead=hidden;expires=Mon, 31 Dec 2018 20:00:00 UTC; path=/;");
+}
+
+window.addEventListener ? window.addEventListener("load", initialize, !1) : window.attachEvent ? window.attachEvent("onload", initialize) : window.onload = initialize;
+document.getElementById("searchVal").addEventListener("keyup", function(a) { a.preventDefault(); 13 === a.keyCode && doSearch(); });
+
+function postMe(c, b) {
+  return new Promise(function(d, e) {
+    var a = new XMLHttpRequest;
+    a.onload = function() { d(JSON.parse(this.responseText)); };
+    a.onerror = e; a.open("POST", c); a.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); a.setRequestHeader('Accept', 'application/json'); a.send(b);
+  });
+}
+
+function changeTab(color,hex){
+  document.getElementById("headercolor").className = "nav-extended " + color;
+  document.querySelector("meta[name=theme-color]").setAttribute("content", hex);
+}
+
+//<script>warning();</script><div class='marginleft4'><h4>(ง'̀-'́)ง</h4><p><b>I smell weird attempts...</b><br>But why though :(</p></div>

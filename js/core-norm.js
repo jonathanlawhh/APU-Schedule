@@ -104,7 +104,8 @@ function queryavailableclass(stat){
   });
 }
 
-function createclassblock(a,b,c=0){
+function createclassblock(a,b,c){
+	c = c || 0;
   textcolor = "none" == b.trim() ? "cyan-text text-darken-3" : "";
   return "<div class='col s6 m3'><div class='card-panel fadein' style='animation-delay: " + c/15 + "s;><span class='card-title'>" + a + "</span><p class='" + textcolor + "'>Next class : " + b + "<span></p></div></div>";
 }

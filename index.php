@@ -1,7 +1,7 @@
-<?php include('control/theme.php');
-$list = fopen("data/update.log", "r"); while(!feof($list)) { $updateDate = fgets($list); } fclose($list);
-$updateDate = explode(',',$updateDate);
-if(date('W') != trim($updateDate[1])){ header('Location: control/automatedUpdater.php?redirect=../index.php'); }
+<?php
+include('control/theme.php');
+include('control/getScheduleInfo.php');
+if(date('W') != getScheduleInfo()){ header('Location: control/automatedUpdater.php?redirect=../index.php'); }
 function removeWhitespace($buffer){return preg_replace('/\s+/', ' ', $buffer);}
 ob_start('removeWhitespace'); ?>
 <!-- APU Schedule by jonathan law -->

@@ -31,4 +31,9 @@ function getTimetable($when){
       }} fclose($handle);
     }
     return json_encode($temp);
-  } ?>
+  }
+
+  if(isset($_POST['getTimetable'])){
+      echo getTimetableAPI($_POST['getTimetable']);
+      exit;
+  }?>

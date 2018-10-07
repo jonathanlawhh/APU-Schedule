@@ -1,7 +1,7 @@
 <?php
 include('control/theme.php');
 include('control/getScheduleInfo.php');
-if(date('W') != getScheduleInfo()){ header('Location: control/automatedUpdater.php?redirect=../index.php'); }
+if(date('W') != getScheduleInfo()[1]){ header('Location: control/automatedUpdater.php?redirect=../index.php'); }
 function removeWhitespace($buffer){return preg_replace('/\s+/', ' ', $buffer);}
 ob_start('removeWhitespace'); ?>
 <!-- APU Schedule by jonathan law -->
@@ -82,7 +82,7 @@ ob_start('removeWhitespace'); ?>
 		      </tr></thead><tbody id="tableBody"></tbody>
 				</table>
 			</div>
-			<p class="marginbottom20">View searches at <a href="analyticky.php" target="_blank">analyticky</a><br /><?php echo 'Schedule updated on ' . $updateDate[0]; ?></p>
+			<p class="marginbottom20">View searches at <a href="analyticky.php" target="_blank">analyticky</a><br /><?php echo 'Schedule updated on ' . getScheduleInfo()[0]; ?></p>
   </div>
 
 	<div id="mytimetable" class="container">
